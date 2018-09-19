@@ -1,0 +1,22 @@
+# system info video on 2018.09.18.22:08:11
+system_info:
+name,value
+DEVICE,5CSEMA5F31C6
+DEVICE_FAMILY,Cyclone V
+GENERATION_ID,1537330076
+#
+#
+# Files generated for video on 2018.09.18.22:08:11
+files:
+filepath,kind,attributes,module,is_top
+simulation/video.v,VERILOG,,video,true
+simulation/submodules/video_video_pll_0.v,VERILOG,,video_video_pll_0,false
+simulation/submodules/video_video_pll_0_video_pll.vo,VERILOG,,video_video_pll_0_video_pll,false
+simulation/submodules/altera_up_avalon_reset_from_locked_signal.v,VERILOG,,altera_up_avalon_reset_from_locked_signal,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+video.video_pll_0,video_video_pll_0
+video.video_pll_0.video_pll,video_video_pll_0_video_pll
+video.video_pll_0.reset_from_locked,altera_up_avalon_reset_from_locked_signal
