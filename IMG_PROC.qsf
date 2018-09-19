@@ -4,7 +4,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY mux4x1
+set_global_assignment -name TOP_LEVEL_ENTITY insMem
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "15.1.0"
 set_global_assignment -name LAST_QUARTUS_VERSION "17.1.0 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:20:00 SEPTEMBER 12,2018"
@@ -158,6 +158,7 @@ set_global_assignment -name VERILOG_SHOW_LMF_MAPPING_MESSAGES OFF
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)"
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
+set_global_assignment -name SYSTEMVERILOG_FILE insMem.sv
 set_global_assignment -name SYSTEMVERILOG_FILE mux2x1.sv
 set_global_assignment -name SDC_FILE IMG_PROC.SDC
 set_global_assignment -name SYSTEMVERILOG_FILE registerFile.sv
