@@ -2,7 +2,7 @@ module thinning_small(
 		input  [2:0] top,
 		input  [2:0] center,
 		input  [2:0] bottom,
-		output logic [0] result
+		output logic  result
 		);
 
 logic [3:0] A;
@@ -20,13 +20,14 @@ logic step2;
 assign vecinos = {top[1:0], center[0], bottom[0], bottom[1], bottom[2], center[2],top[2]};
 assign vecinos_cadena = {top[1:0], center[0], bottom[0], bottom[1], bottom[2], center[2],top[2:1]}; // se repite top[1]
 
-assign P2P4P6white = {top[1], center[2], bottom[1]} != 3'b111;
-assign P4P6P8white = {center[2], bottom[1], center[0]} != 3'b111;
-assign P2P4P8white = {top[1], center[2], center[0]} != 3'b111;
-assign P2P6P8white = {top[1], bottom[1], center[0]} != 3'b111;
+assign P2P4P6white = {top[1], center[2], bottom[1]} 		!= 3'b111;
+assign P4P6P8white = {center[2], bottom[1], center[0]} 	!= 3'b111;
+assign P2P4P8white = {top[1], center[2], center[0]} 		!= 3'b111;
+assign P2P6P8white = {top[1], bottom[1], center[0]} 		!= 3'b111;
 
 assign step1 = P2P4P6white && P4P6P8white;
 assign step2 = P2P4P8white && P2P6P8white;
+
 
 always_comb begin
 	B = 0;  //initialize count variable.
@@ -37,9 +38,17 @@ end
 always_comb begin
 	A = 0; 
    for(int i=0;i<8;i=i+1)
-		  if(~vecinos_cadena[i])
-				A = A + vecinos_cadena[i+1];
+		  if(~vecinos_cadena[i+1])
+				A = A + vecinos_cadena[i];
 end
+
+//counter_A countA(
+//		.in(vecinos_cadena),
+//		.out(A));
+//
+//counter countB(
+//		.in(vecinos),
+//		.out(B));
 
 always_comb begin
 	if(center[1])begin
