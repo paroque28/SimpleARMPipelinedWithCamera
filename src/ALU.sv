@@ -12,7 +12,7 @@ logic [31:0] Mult;
 logic [31:0] DIV;
 logic [31:0] SL;
 logic [31:0] SR;
-logic [31:0] SPSUM;
+logic [31:0] AVERAGE;
 
 assign buffer = inputA;
 assign SUM = inputA + inputB;
@@ -21,7 +21,7 @@ assign Mult = inputA*inputB;
 assign DIV = inputA/inputB;
 assign SL = inputA<<inputB;
 assign SR = inputA>>inputB;
-assign SPSUM = inputA[7:0] + inputA[15:8] + inputA[23:16];
+assign AVERAGE = (inputA[7:0] + inputA[15:8] + inputA[23:16])/3;
 
 always_comb
 begin
@@ -41,8 +41,8 @@ begin
 			outputC = SL;
 		4'b0110://Case shift Right
 			outputC = SR;
-		4'b0111://Case special sum
-			outputC = SPSUM;
+		4'b0111://Case average
+			outputC = AVERAGE;
 			
 		default: outputC = buffer;
 		endcase
