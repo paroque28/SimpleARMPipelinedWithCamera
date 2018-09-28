@@ -209,7 +209,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9]
->>>>>>> 4528cb0122ac70fdd3d6efc0c2d2cfcbc4875092
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK2_50
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK3_50
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK4_50
