@@ -1,77 +1,82 @@
 module ALU(input logic [31:0] inputA,
 				input logic [31:0] inputB,
+				input logic [31:0] inputC,
 				input logic [3:0] ALU_control,
 				output logic [3:0] ALU_flags,
 				output logic [31:0] outputC
 );
 
-logic [31:0] buffer;
-logic [31:0] SUM;
-logic [31:0] SUB;
-logic [31:0] Mult;
-logic [31:0] DIV;
-logic [31:0] SL;
-logic [31:0] SR;
-logic [31:0] AVERAGE;
+logic [32:0] sum;
+logic [32:0] sub;
+logic [32:0] mult;
+logic [32:0] div;
+logic [32:0] sl;
+logic [32:0] sr;
+logic [32:0] average;
+logic [32:0] thin;
+logic [32:0] result;
+logic neg, zero, carry, overflow, ge;
 
-assign buffer = inputA;
-assign SUM = inputA + inputB;
-assign SUB = inputA-inputB;
-assign Mult = inputA*inputB;
-assign DIV = inputA/inputB;
-assign SL = inputA<<inputB;
-assign SR = inputA>>inputB;
-assign AVERAGE = (inputA[7:0] + inputA[15:8] + inputA[23:16])/3;
+
+parameter BUFFER = 4'b0000;
+parameter ADD	 = 4'b0001;
+parameter SUB   = 4'b0010;
+parameter MULT   = 4'b0011;
+parameter DIV	 = 4'b0100;
+parameter SL     = 4'b0101;
+parameter SR     = 4'b0110;
+parameter AV     = 4'b0111;
+parameter THI    = 4'b1000
+
+assign outputC = result [31:0];
+assign {neg, zero, carry, overflow} = ALUFlags;
+assign sum = inputA + inputB;
+assign sub = inputA-inputB;
+assign mult = inputA*inputB;
+assign div = inputA/inputB;
+assign sl = inputA<<inputB;
+assign sr = inputA>>inputB;
+assign average = (inputA[7:0] + inputA[15:8] + inputA[23:16])/3;
+thinning thi (
+	.top(inputA),
+	.center(inputB),
+	.bottom(inputC),
+	.result(thin)
+);
 
 always_comb
 begin
 		case(ALU_control)
 		
-		4'b0000://Case buffer
-			outputC = buffer;
-		4'b0001://Case sum
-			outputC = SUM;
-		4'b0010://Case substraction
-			outputC = SUB;
-		4'b0011://Case multiply
-			outputC = Mult;
-		4'b0100://Case divide
-			outputC = DIV;
-		4'b0101://Case Shift Left
-			outputC = SL;
-		4'b0110://Case shift Right
-			outputC = SR;
-		4'b0111://Case average
-			outputC = AVERAGE;
+		BUFFER://Case buffer
+			result = inputA;
+		ADD://Case sum
+			result = sum;
+		SUB://Case substraction
+			result = sub;
+		MULT://Case multiply
+			result = mult;
+		DIV://Case divide
+			result = div;
+		SL://Case Shift Left
+			result = sl;
+		SR://Case shift Right
+			result = sr;
+		AV://Case average
+			result = average;
+		THI://Case thinning
+			result = thin;
 			
-		default: outputC = buffer;
+		default: result = buffer;
 		endcase
 		
 end
-always_comb //Falta agregar overflow
-begin
-	if (outputC == 0)
-		begin
-		ALU_flags = 4'b0100;
-		end
-	else
-		begin
-			if (outputC[31] == 1'b1)
-				begin
-					if (ALU_control == 4'b0010)
-						begin
-						ALU_flags = 4'b1000;
-						end
-					else
-						begin
-						ALU_flags = 4'b0010;
-						end
-				end
-			else
-				begin
-				ALU_flags = 4'b0000;
-				end
-		end
-end
+
+//ALUFlags
+assign zero = (result == 0);
+assign overflow = (result[32] == 1'b1);
+assign neg = (ALU_control == ADD || ALU_control == SUB) ? (result[31] == 1'b1) : 1'b0; //FIX
+assign overflow = 1'b0;// FIX
+assign ge = 1'b0;// FIX
 endmodule
 			
