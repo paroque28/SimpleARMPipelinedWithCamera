@@ -18,6 +18,7 @@ incremental_db
 simulation
 testbench
 timing
+.qsys*
 
 # ignore Quartus II generated files
 *_generation_script*
