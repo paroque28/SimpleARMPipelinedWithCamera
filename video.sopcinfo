@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="video" kind="video" version="1.0" fabric="QSYS">
  <!-- Format version 18.0 614 (Future versions may contain additional information.) -->
- <!-- 2018.09.27.20:55:30 -->
+ <!-- 2018.09.27.21:57:08 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1538103330</value>
+  <value>1538107028</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
