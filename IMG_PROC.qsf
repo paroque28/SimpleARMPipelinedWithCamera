@@ -174,9 +174,6 @@ set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH thinning_small_
 set_global_assignment -name EDA_TEST_BENCH_NAME ALU_TB -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id ALU_TB
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ALU_TB -section_id ALU_TB
-<<<<<<< HEAD
-set_global_assignment -name EDA_TEST_BENCH_FILE ALU_TB.sv -section_id ALU_TB
-=======
 set_global_assignment -name EDA_TEST_BENCH_NAME thinning_small_tb -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id thinning_small_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME thinning_small_tb -section_id thinning_small_tb
