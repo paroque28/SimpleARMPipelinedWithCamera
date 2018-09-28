@@ -4,8 +4,8 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY IMG_PROC
-set_global_assignment -name ORIGINAL_QUARTUS_VERSION "15.1.0"
+set_global_assignment -name TOP_LEVEL_ENTITY pipeReg
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.1.0
 set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:20:00 SEPTEMBER 12,2018"
 set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
@@ -273,9 +273,12 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_I2C_
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_I2C_SDA
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_INT_n
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SDC_FILE IMG_PROC.sdc
+set_global_assignment -name SYSTEMVERILOG_FILE ALU_TB.sv
 set_global_assignment -name QSYS_FILE video.qsys
 set_global_assignment -name VERILOG_FILE IMG_PROC.v
 set_global_assignment -name SYSTEMVERILOG_FILE ALU.sv
 set_global_assignment -name SYSTEMVERILOG_FILE VGA_CTL.sv
 set_global_assignment -name VERILOG_FILE framebuffer.v
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE pipeReg.sv
