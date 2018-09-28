@@ -314,11 +314,16 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
-set_global_assignment -name EDA_TEST_BENCH_FILE ALU_TB.sv -section_id ALU_TB
-set_global_assignment -name EDA_TEST_BENCH_FILE thinning/thinning_smal_tb.v -section_id thinning_small_tb
-set_global_assignment -name EDA_TEST_BENCH_NAME thinning_tb -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id thinning_tb
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME thinning_tb -section_id thinning_tb
-set_global_assignment -name EDA_TEST_BENCH_FILE thinning/thinning_tb.v -section_id thinning_tb
+set_global_assignment -name SYSTEMVERILOG_FILE pipeMem.sv
+set_global_assignment -name SDC_FILE IMG_PROC.sdc
+set_global_assignment -name SYSTEMVERILOG_FILE ALU_TB.sv
+set_global_assignment -name QSYS_FILE video.qsys
+set_global_assignment -name VERILOG_FILE IMG_PROC.v
+set_global_assignment -name SYSTEMVERILOG_FILE ALU.sv
+set_global_assignment -name SYSTEMVERILOG_FILE VGA_CTL.sv
+set_global_assignment -name VERILOG_FILE framebuffer.v
+set_global_assignment -name SYSTEMVERILOG_FILE pipeReg.sv
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-
