@@ -4,7 +4,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY pipeReg
+set_global_assignment -name TOP_LEVEL_ENTITY thinning_tb
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.1.0
 set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:20:00 SEPTEMBER 12,2018"
@@ -85,6 +85,22 @@ set_location_assignment PIN_W20 -to LEDR[7]
 set_location_assignment PIN_W21 -to LEDR[8]
 set_location_assignment PIN_Y21 -to LEDR[9]
 
+
+#============================================================
+# SW
+#============================================================
+set_location_assignment PIN_AB12 -to SW[0]
+set_location_assignment PIN_AC12 -to SW[1]
+set_location_assignment PIN_AF9 -to SW[2]
+set_location_assignment PIN_AF10 -to SW[3]
+set_location_assignment PIN_AD11 -to SW[4]
+set_location_assignment PIN_AD12 -to SW[5]
+set_location_assignment PIN_AE11 -to SW[6]
+set_location_assignment PIN_AC9 -to SW[7]
+set_location_assignment PIN_AD10 -to SW[8]
+set_location_assignment PIN_AE12 -to SW[9]
+
+
 #============================================================
 # GPIO_0, GPIO_0 connect to D5M - 5M Pixel Camera
 #============================================================
@@ -139,9 +155,6 @@ set_location_assignment PIN_AF25 -to screenMTL_R[4]
 set_location_assignment PIN_AF26 -to screenMTL_R[5]
 set_location_assignment PIN_AG25 -to screenMTL_R[6]
 set_location_assignment PIN_AG26 -to screenMTL_R[7]
-set_location_assignment PIN_AE22 -to screenMTL_TOUCH_I2C_SCL
-set_location_assignment PIN_AD21 -to screenMTL_TOUCH_I2C_SDA
-set_location_assignment PIN_AA20 -to screenMTL_TOUCH_INT_n
 set_location_assignment PIN_AF23 -to screenMTL_VSD
 
 #============================================================
@@ -157,11 +170,45 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH ALU_TB -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH thinning_small_tb -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME ALU_TB -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id ALU_TB
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ALU_TB -section_id ALU_TB
-set_global_assignment -name EDA_TEST_BENCH_FILE ALU_TB.sv -section_id ALU_TB
+set_global_assignment -name EDA_TEST_BENCH_NAME thinning_small_tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id thinning_small_tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME thinning_small_tb -section_id thinning_small_tb
+set_global_assignment -name SYSTEMVERILOG_FILE thinning/thinning_small.sv
+set_global_assignment -name VERILOG_FILE thinning/thinning_smal_tb.v
+set_global_assignment -name SYSTEMVERILOG_FILE thinning/thinning.sv
+set_global_assignment -name SYSTEMVERILOG_FILE thinning/counter_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE thinning/counter.sv
+set_global_assignment -name VERILOG_FILE i2c/I2C_Controller.v
+set_global_assignment -name VERILOG_FILE i2c/I2C_CCD_Config.v
+set_global_assignment -name VERILOG_FILE camera/Line_Buffer.v
+set_global_assignment -name VERILOG_FILE camera/Reset_Delay.v
+set_global_assignment -name VERILOG_FILE camera/RAW2RGB.v
+set_global_assignment -name VERILOG_FILE camera/CCD_Capture.v
+set_global_assignment -name SOURCE_FILE vga/VGA_Param.h
+set_global_assignment -name SYSTEMVERILOG_FILE vga/VGA_Controller.sv
+set_global_assignment -name VERILOG_FILE vga/framebuffer.v
+set_global_assignment -name QSYS_FILE video.qsys
+set_global_assignment -name SYSTEMVERILOG_FILE RAM.sv
+set_global_assignment -name SYSTEMVERILOG_FILE IMG_PROC.sv
+set_global_assignment -name QIP_FILE memory/ram_2port.qip
+set_global_assignment -name VERILOG_FILE thinning/thinning_tb.v
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK2_50
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK3_50
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK4_50
@@ -266,9 +313,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[4]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_I2C_SCL
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_I2C_SDA
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_INT_n
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
 set_global_assignment -name SYSTEMVERILOG_FILE pipeMem.sv
 set_global_assignment -name SDC_FILE IMG_PROC.sdc
