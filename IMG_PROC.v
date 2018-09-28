@@ -48,9 +48,6 @@ module IMG_PROC(
 	output		     [7:0]		screenMTL_G,
 	output		          		screenMTL_HSD,
 	output		     [7:0]		screenMTL_R,
-	output		          		screenMTL_TOUCH_I2C_SCL,
-	inout 		          		screenMTL_TOUCH_I2C_SDA,
-	input 		          		screenMTL_TOUCH_INT_n,
 	output		          		screenMTL_VSD
 );
 
@@ -59,14 +56,46 @@ module IMG_PROC(
 //=======================================================
 //  REG/WIRE declarations
 //=======================================================
-
-
+	wire vga_clock, reset;
+	assign reset = 1'b1;
+	video u0 (
+		.ref_clk_clk        (CLOCK_50),
+		.lcd_clk_clk        (vga_clock) 
+	);
+	wire [7:0] fr, fg, fb;
+	wire fh, fv;
+	VGA_CTL vga_ctl (
+		.vga_clk					(vga_clock),
+		.reset_n					(reset),
+		.red 						(fr),
+		.green 					(fg),
+		.blue						(fb),
+		.vga_red					(screenMTL_R),
+	   .vga_green				(screenMTL_G),
+	   .vga_blue				(screenMTL_B),
+		.vga_hsync				(screenMTL_HSD),
+	   .vga_vsync				(screenMTL_VSD),
+	   .fb_hblank				(fh),
+	   .fb_vblank				(fv)
+	);
+	framebuffer frame (
+		.reset_n					(reset),
+	   .vga_clk					(vga_clock),
+	 
+		.fb_hblank				(fh),
+		.fb_vblank				(fv),
+	 
+		.red						(fr),
+		.green					(fg),
+		.blue						(fb)
+	);
+	
 
 
 //=======================================================
 //  Structural coding
 //=======================================================
-
+assign screenMTL_DCLK = vga_clock;
 
 
 endmodule
