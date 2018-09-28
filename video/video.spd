@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="simulation/submodules/altera_up_avalon_reset_from_locked_signal.v"
+   type="VERILOG"
+   library="reset_from_locked" />
+ <file
+   path="simulation/submodules/video_video_pll_0_video_pll.vo"
+   type="VERILOG"
+   library="video_pll" />
+ <file
+   path="simulation/submodules/video_video_pll_0.v"
+   type="VERILOG"
+   library="video_pll_0" />
+ <file path="simulation/video.v" type="VERILOG" />
+ <topLevel name="video" />
+ <deviceFamily name="cyclonev" />
+</simPackage>
