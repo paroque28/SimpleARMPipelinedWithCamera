@@ -1,5 +1,6 @@
 module ALU(input logic [31:0] inputA,
 				input logic [31:0] inputB,
+				input logic [31:0] inputC,
 				input logic [3:0] ALU_control,
 				output logic [3:0] ALU_flags,
 				output logic [31:0] outputC
@@ -13,6 +14,7 @@ logic [31:0] DIV;
 logic [31:0] SL;
 logic [31:0] SR;
 logic [31:0] AVERAGE;
+logic [31:0] THIN;
 
 assign buffer = inputA;
 assign SUM = inputA + inputB;
@@ -22,6 +24,12 @@ assign DIV = inputA/inputB;
 assign SL = inputA<<inputB;
 assign SR = inputA>>inputB;
 assign AVERAGE = (inputA[7:0] + inputA[15:8] + inputA[23:16])/3;
+thinning thi (
+	.top(inputA),
+	.center(inputB),
+	.bottom(inputC),
+	.result(THIN)
+);
 
 always_comb
 begin
@@ -43,6 +51,8 @@ begin
 			outputC = SR;
 		4'b0111://Case average
 			outputC = AVERAGE;
+		4'b1000://Case thinning
+			outputC = THIN;
 			
 		default: outputC = buffer;
 		endcase
