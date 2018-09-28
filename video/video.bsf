@@ -69,7 +69,7 @@ refer to the applicable agreement for further details.
 		(text "reset" (rect 135 107 300 224)(font "Arial" (color 0 0 0)))
 		(text "video_in_clk" (rect 161 123 394 259)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "clk" (rect 145 147 308 304)(font "Arial" (color 0 0 0)))
-		(text " video " (rect 246 168 534 346)(font "Arial" ))
+		(text " system " (rect 237 168 522 346)(font "Arial" ))
 		(line (pt 96 32)(pt 160 32)(line_width 1))
 		(line (pt 160 32)(pt 160 168)(line_width 1))
 		(line (pt 96 168)(pt 160 168)(line_width 1))
