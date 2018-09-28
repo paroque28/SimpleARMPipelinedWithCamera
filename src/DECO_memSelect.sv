@@ -8,7 +8,7 @@ logic [31:0] limitC = 5'h0000;
 logic [31:0] limitD = 5'h0000;
 
 logic [3:0] temp_select;
-always_comb
+always_latch
 begin
 if (adress >= limitA && adress < limitB)
 	begin
