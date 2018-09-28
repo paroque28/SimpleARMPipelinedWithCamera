@@ -4,11 +4,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-<<<<<<< HEAD
 set_global_assignment -name TOP_LEVEL_ENTITY insMem
-=======
-set_global_assignment -name TOP_LEVEL_ENTITY IMG_PROC
->>>>>>> eec2bc25a9e31bf13b37f7b75d04ca1365248458
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "15.1.0"
 set_global_assignment -name LAST_QUARTUS_VERSION "17.1.0 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:20:00 SEPTEMBER 12,2018"
@@ -153,30 +149,12 @@ set_location_assignment PIN_AF23 -to screenMTL_VSD
 #============================================================
 
 
-<<<<<<< HEAD
-=======
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
->>>>>>> eec2bc25a9e31bf13b37f7b75d04ca1365248458
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-<<<<<<< HEAD
-set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
-set_global_assignment -name VERILOG_SHOW_LMF_MAPPING_MESSAGES OFF
-set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)"
-set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
-set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
-set_global_assignment -name SYSTEMVERILOG_FILE insMem.sv
-set_global_assignment -name SYSTEMVERILOG_FILE mux2x1.sv
-set_global_assignment -name SDC_FILE IMG_PROC.SDC
-set_global_assignment -name SYSTEMVERILOG_FILE registerFile.sv
-set_global_assignment -name SYSTEMVERILOG_FILE adder.sv
-set_global_assignment -name SYSTEMVERILOG_FILE extend.sv
-set_global_assignment -name SYSTEMVERILOG_FILE mux3x1.sv
-set_global_assignment -name SYSTEMVERILOG_FILE mux4x1.sv
-=======
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH ALU_TB -section_id eda_simulation
@@ -184,7 +162,6 @@ set_global_assignment -name EDA_TEST_BENCH_NAME ALU_TB -section_id eda_simulatio
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id ALU_TB
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ALU_TB -section_id ALU_TB
 set_global_assignment -name EDA_TEST_BENCH_FILE ALU_TB.sv -section_id ALU_TB
->>>>>>> eec2bc25a9e31bf13b37f7b75d04ca1365248458
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -296,12 +273,9 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_I2C_
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_I2C_SDA
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_TOUCH_INT_n
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
-<<<<<<< HEAD
-=======
 set_global_assignment -name QSYS_FILE video.qsys
 set_global_assignment -name VERILOG_FILE IMG_PROC.v
 set_global_assignment -name SYSTEMVERILOG_FILE ALU.sv
 set_global_assignment -name SYSTEMVERILOG_FILE VGA_CTL.sv
 set_global_assignment -name VERILOG_FILE framebuffer.v
->>>>>>> eec2bc25a9e31bf13b37f7b75d04ca1365248458
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
