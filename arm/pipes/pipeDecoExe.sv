@@ -8,8 +8,11 @@ module pipeDecoExe(
 	input logic [0:31] dataRegBIn,
 	output logic [0:31] dataRegBOut,
 
-	input logic [0:31]extIn,
-	output logic [0:31]extOut
+	input logic [0:31] extIn,
+	output logic [0:31] extOut,
+	
+	input logic [3:0] WA3EIn,
+	output logic [3:0] WA3EOut
 );
 
 logic [0:31] dataRegA;
