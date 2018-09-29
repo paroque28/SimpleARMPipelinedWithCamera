@@ -19,11 +19,11 @@ module Control_unit (input logic CLK,
 							);
 
 
-
+`include "ALU_params.h"
 	
 
 	
-always_ff@(posedge CLK)
+always_comb
 begin
 
 	case(funct)
@@ -31,7 +31,7 @@ begin
 	4'b0000: //Case SUM
 	begin
 			ALUSrcE 		=	opcode;
-			ALUControlE =	1;
+			ALUControlE =	ADD;
 			//TfuWD 		=	;
 			//TFUAdd 	=	;
 			MemRd 		=	2'b00;
@@ -47,7 +47,7 @@ begin
 	4'b0001: //Case SUBS
 	begin
 			ALUSrcE 		=	opcode;
-			ALUControlE =	4'b0010;
+			ALUControlE =	SUB;
 			//TfuWD 		=	;
 			//TFUAdd 		=	;
 			MemRd 		=	2'b00;
@@ -63,7 +63,7 @@ begin
 	4'b0010: //Case MULT
 	begin
 			ALUSrcE 		=	opcode;
-			ALUControlE =	4'b0011;
+			ALUControlE =	MULT;
 			//TfuWD 		=	;
 			//TFUAdd 		=	;
 			MemRd 		=	2'b00;
@@ -75,23 +75,7 @@ begin
 			PlusOne		=  0;
 			InmRegSel   =  0;
 			MemSelE		=  0;
-	end		
-	/*4'b0011: //Case DIV (under consideration)
-	begin
-			ALUSrcE 		=	;
-			ALUControlE =	;
-			//TfuWD 		=	;
-			//TFUAdd 		=	;
-			MemRd 		=	;
-			MemtoRegW 	=	;
-			RegSrcD 		=	;
-			//ImmSrcD 		=	;
-			RegWriteD   =	;
-			RdD         =  Rd;
-			PlusOne		=  0;
-			InmRegSel   =  0;
-			MemSelE		=  0;
-			end*/
+	end	
 			
 	4'b0100: //Case LOAD
 	begin
@@ -288,7 +272,22 @@ begin
 			InmRegSel   =  ;
 			MemSelE		=  ;
 			end*/
-	
+	default: 
+	begin
+			ALUSrcE 		=	1'bz;
+			ALUControlE =	1'bz;
+			//TfuWD 		=	x;
+			//TFUAdd 		=	x;
+			MemRd 		=	1'bz;
+			MemtoRegW 	=	1'bz;
+			RegSrcD 		=	1'bz;
+			//ImmSrcD 		=	x;
+			RegWriteD   =	1'bz;	
+			RdD         =  1'bz;
+			PlusOne		=  1'bz;
+			InmRegSel   =  1'bz;
+			MemSelE		=  1'bz;
+			end
 	endcase
 end
 
