@@ -9,3 +9,5 @@ logic [31:0] resultALUReg;
 logic [3:0]  WADataReg;
 
 pipeMemWB dut(.clk(clock));
+
+endmodule 
