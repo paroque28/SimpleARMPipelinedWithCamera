@@ -4,7 +4,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY Control_unit
+set_global_assignment -name TOP_LEVEL_ENTITY mem_controller
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.1.0
 set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:20:00 SEPTEMBER 12,2018"
@@ -296,6 +296,10 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
+set_global_assignment -name SYSTEMVERILOG_FILE src/deco.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/mem_controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/memSelect.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/insMem.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/ALU.sv
 set_global_assignment -name SOURCE_FILE arm/ALU_params.h
 set_global_assignment -name SYSTEMVERILOG_FILE arm/Control_unit.sv
@@ -330,4 +334,5 @@ set_global_assignment -name SDC_FILE IMG_PROC.sdc
 set_global_assignment -name QSYS_FILE video.qsys
 set_global_assignment -name VERILOG_FILE IMG_PROC.v
 set_global_assignment -name SYSTEMVERILOG_FILE pipeReg.sv
+set_global_assignment -name QIP_FILE memory/rom.qip
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

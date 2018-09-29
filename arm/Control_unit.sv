@@ -11,7 +11,7 @@ module Control_unit (input logic [3:0] funct,
 							output logic BranchTakenE,
 							output logic PCSrcW
 							);
-
+ 
 
 `include "ALU_params.h"
 `include "Control_params.h"	
