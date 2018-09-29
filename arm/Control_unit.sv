@@ -1,6 +1,5 @@
 
-module Control_unit (input logic CLK,
-							input logic [3:0] funct,
+module Control_unit (input logic [3:0] funct,
 							input logic opcode,
 							input logic [4:0] Rd,
 							output logic ALUSrcE,
@@ -15,7 +14,9 @@ module Control_unit (input logic CLK,
 							output logic [4:0] RdD,
 							output logic PlusOne,
 							output logic InmRegSel,
-							output logic MemSelE
+							output logic MemSelE,
+							output logic BranchTakenE,
+							output logic PCSrcW
 							);
 
 
