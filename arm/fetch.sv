@@ -19,9 +19,9 @@ module fetch(
   logic [31:0] dirPC;
   logic [31:0] mux1Out;
   logic [31:0] dirMem;
-	
+
   assign addressMem = dirMem;
-	
+
   pc PC (.clk(clock), .enable(pcEnable), .dirIn(dirPC), .dirOut(dirMem) );
 
   pipeFetchDeco pipe (.clk(clock),
@@ -30,8 +30,8 @@ module fetch(
                       .instIn(instPipeIn),
                       .instOut(instPipeOut)
                       );
-							 
-							 
+
+
   mux2x1 mux1 (.a(mux1pin0),
                .b(mux1pin1),
                .ctrl(ctrlMux1),
@@ -43,7 +43,7 @@ module fetch(
                 .ctrl(ctrlMux2),
                 .y(dirPC)
                 );
-					 
+
   adder #(32)add4(.a(dirMem), .b(4), .c(pcPlus4));
 
 endmodule
