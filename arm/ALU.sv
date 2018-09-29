@@ -6,6 +6,9 @@ module ALU(input logic [31:0] inputA,
 				output logic [31:0] outputC
 );
 
+
+`include "ALU_params.h"
+
 logic [32:0] sum;
 logic [32:0] sub;
 logic [32:0] mult;
@@ -17,16 +20,6 @@ logic [32:0] thin;
 logic [32:0] result;
 logic fneg, fzero, fcarry, foverflow;
 
-
-parameter BUFFER = 4'b0000;
-parameter ADD	 = 4'b0001;
-parameter SUB   = 4'b0010;
-parameter MULT   = 4'b0011;
-parameter DIV	 = 4'b0100;
-parameter SL     = 4'b0101;
-parameter SR     = 4'b0110;
-parameter AV     = 4'b0111;
-parameter THI    = 4'b1000;
 
 assign outputC = result [31:0];
 assign {fneg, fzero, fcarry, foverflow} = ALU_flags;
