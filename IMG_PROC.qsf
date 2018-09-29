@@ -178,8 +178,6 @@ set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ALU_TB -section_id ALU_TB
 set_global_assignment -name EDA_TEST_BENCH_NAME thinning_small_tb -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id thinning_small_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME thinning_small_tb -section_id thinning_small_tb
-
-
 set_global_assignment -name BOARD "DE1-SoC Board"
 set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
 set_global_assignment -name VERILOG_SHOW_LMF_MAPPING_MESSAGES OFF
@@ -188,6 +186,9 @@ set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id "Pipes TestB
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME "Pipes TestBench" -section_id "Pipes TestBench"
 set_global_assignment -name EDA_TEST_BENCH_FILE arm/pipes/pipesTB.sv -section_id "Pipes TestBench"
 
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[0]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[2]
@@ -303,14 +304,25 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
+<<<<<<< HEAD
 set_global_assignment -name SYSTEMVERILOG_FILE arm/fetchTB.sv
 set_global_assignment -name SOURCE_FILE arm/ALU_params.h
+=======
+set_global_assignment -name SYSTEMVERILOG_FILE src/deco.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/mem_controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/memSelect.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/insMem.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/ALU.sv
+set_global_assignment -name SOURCE_FILE arm/ALU_params.h
+set_global_assignment -name SYSTEMVERILOG_FILE arm/Control_unit.sv
+>>>>>>> master
 set_global_assignment -name SYSTEMVERILOG_FILE src/registerFile.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/mux4x1.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/mux3x1.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/mux2x1.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/extend.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/desp_2.sv
+<<<<<<< HEAD
 set_global_assignment -name SYSTEMVERILOG_FILE src/DECO_memSelect.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/adder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeMemWB.sv
@@ -332,4 +344,32 @@ set_global_assignment -name SYSTEMVERILOG_FILE arm/ALU.sv
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+=======
+set_global_assignment -name SYSTEMVERILOG_FILE src/adder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/arm.sv
+set_global_assignment -name SYSTEMVERILOG_FILE thinning/thinning_small.sv
+set_global_assignment -name VERILOG_FILE thinning/thinning_smal_tb.v
+set_global_assignment -name SYSTEMVERILOG_FILE thinning/thinning.sv
+set_global_assignment -name SYSTEMVERILOG_FILE thinning/counter_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE thinning/counter.sv
+set_global_assignment -name VERILOG_FILE i2c/I2C_Controller.v
+set_global_assignment -name VERILOG_FILE i2c/I2C_CCD_Config.v
+set_global_assignment -name VERILOG_FILE camera/Line_Buffer.v
+set_global_assignment -name VERILOG_FILE camera/Reset_Delay.v
+set_global_assignment -name VERILOG_FILE camera/RAW2RGB.v
+set_global_assignment -name VERILOG_FILE camera/CCD_Capture.v
+set_global_assignment -name SOURCE_FILE vga/VGA_Param.h
+set_global_assignment -name SYSTEMVERILOG_FILE vga/VGA_Controller.sv
+set_global_assignment -name VERILOG_FILE vga/framebuffer.v
+set_global_assignment -name SYSTEMVERILOG_FILE RAM.sv
+set_global_assignment -name SYSTEMVERILOG_FILE IMG_PROC.sv
+set_global_assignment -name QIP_FILE memory/ram_2port.qip
+set_global_assignment -name VERILOG_FILE thinning/thinning_tb.v
+set_global_assignment -name SYSTEMVERILOG_FILE pipeMem.sv
+set_global_assignment -name SDC_FILE IMG_PROC.sdc
+set_global_assignment -name QSYS_FILE video.qsys
+set_global_assignment -name VERILOG_FILE IMG_PROC.v
+set_global_assignment -name SYSTEMVERILOG_FILE pipeReg.sv
+set_global_assignment -name QIP_FILE memory/rom.qip
+>>>>>>> master
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
