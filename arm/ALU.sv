@@ -15,7 +15,7 @@ logic [32:0] sr;
 logic [32:0] average;
 logic [32:0] thin;
 logic [32:0] result;
-logic neg, zero, carry, overflow, ge;
+logic fneg, fzero, fcarry, foverflow;
 
 
 parameter BUFFER = 4'b0000;
@@ -26,10 +26,10 @@ parameter DIV	 = 4'b0100;
 parameter SL     = 4'b0101;
 parameter SR     = 4'b0110;
 parameter AV     = 4'b0111;
-parameter THI    = 4'b1000
+parameter THI    = 4'b1000;
 
 assign outputC = result [31:0];
-assign {neg, zero, carry, overflow} = ALUFlags;
+assign {fneg, fzero, fcarry, foverflow} = ALU_flags;
 assign sum = inputA + inputB;
 assign sub = inputA-inputB;
 assign mult = inputA*inputB;
@@ -37,6 +37,7 @@ assign div = inputA/inputB;
 assign sl = inputA<<inputB;
 assign sr = inputA>>inputB;
 assign average = (inputA[7:0] + inputA[15:8] + inputA[23:16])/3;
+
 thinning thi (
 	.top(inputA),
 	.center(inputB),
@@ -67,16 +68,17 @@ begin
 		THI://Case thinning
 			result = thin;
 			
-		default: result = buffer;
+		default: result = inputA;
 		endcase
 		
 end
 
 //ALUFlags
-assign zero = (result == 0);
-assign overflow = (result[32] == 1'b1);
-assign neg = (ALU_control == ADD || ALU_control == SUB) ? (result[31] == 1'b1) : 1'b0; //FIX
-assign overflow = 1'b0;// FIX
-assign ge = 1'b0;// FIX
+assign fzero = (result == 0);
+assign foverflow = (result[32] == 1'b1);
+assign fneg = (ALU_control == ADD || ALU_control == SUB) ? (result[31] == 1'b1) : 1'b0; //FIX
+assign fcarry = 1'b0;
+
+
 endmodule
 			
