@@ -36,7 +36,7 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module ram_2port (
+module ram_2port(
 	address_a,
 	address_b,
 	clock_a,
@@ -48,6 +48,9 @@ module ram_2port (
 	q_a,
 	q_b);
 
+	parameter words = 65536;
+	parameter address_length = 16;
+	
 	input	[15:0]  address_a;
 	input	[15:0]  address_b;
 	input	  clock_a;
@@ -106,8 +109,8 @@ module ram_2port (
 		altsyncram_component.indata_reg_b = "CLOCK1",
 		altsyncram_component.intended_device_family = "Cyclone V",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 65536,
-		altsyncram_component.numwords_b = 65536,
+		altsyncram_component.numwords_a = words,
+		altsyncram_component.numwords_b = words,
 		altsyncram_component.operation_mode = "BIDIR_DUAL_PORT",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_aclr_b = "NONE",
@@ -116,8 +119,8 @@ module ram_2port (
 		altsyncram_component.power_up_uninitialized = "FALSE",
 		altsyncram_component.read_during_write_mode_port_a = "NEW_DATA_NO_NBE_READ",
 		altsyncram_component.read_during_write_mode_port_b = "NEW_DATA_NO_NBE_READ",
-		altsyncram_component.widthad_a = 16,
-		altsyncram_component.widthad_b = 16,
+		altsyncram_component.widthad_a = address_length,
+		altsyncram_component.widthad_b = address_length,
 		altsyncram_component.width_a = 32,
 		altsyncram_component.width_b = 32,
 		altsyncram_component.width_byteena_a = 1,

@@ -10,4 +10,4 @@ parameter fPIC	     = 4'b1001;
 parameter fAVERAGE	 = 4'b1010;
 parameter fLDA	     = 4'b1011;
 parameter fSTR_ONE   = 4'b1100;
-parameter fTHI        = 4'b1100;
+parameter fTHI       = 4'b1100;
