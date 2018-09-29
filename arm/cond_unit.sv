@@ -41,7 +41,7 @@ begin
 		condExE = (ALU_flags[3] == 1);
 	cond_notequal:
 		condExE = (ALU_flags[2] == 0);
-	default: condExE = 1'bz;
+	default: condExE = 1'b1;
 	
 	endcase
 end
