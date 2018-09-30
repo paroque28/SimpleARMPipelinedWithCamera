@@ -66,7 +66,7 @@ begin
 		ALUSrcE <= ALUSrcEIn;
 		MemToRegD <= MemToRegDIn;
 		flagsE <= flagsEIn;
-		CondE <= CondEIn;
+		
 
 		end
 end
