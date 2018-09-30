@@ -1,1 +1,2 @@
-module memory ()
+module memory ();
+endmodule 

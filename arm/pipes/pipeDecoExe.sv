@@ -85,7 +85,7 @@ begin
 	ALUSrcEOut <= ALUSrcE;
 	MemToRegDOut <= MemToRegD;
 	flagsEOut <= flagsE;
-	CondEOut <= Cond;
+	CondEOut <= CondE;
 end
 
 endmodule
