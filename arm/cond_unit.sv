@@ -3,7 +3,7 @@ module cond_unit(input [3:0]flagsE_in,
 						input [3:0] condE,
 						input FlagWriteE,
 						output condExE,
-						output flagsE_out
+						output [3:0] flagsE_out
 						);
 
 assign flagsE_out = ALU_flags;
