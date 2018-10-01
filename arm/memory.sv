@@ -1,8 +1,8 @@
 module memory (
   input logic clock, writeEnableIn, PlusOne,
   input logic [31:0] ALUResultEIn, WA3Min, WriteDataM, ReadDataM,
-  input logic MemToRegIn,
-  output logic MemToRegOut,
+  input logic MemToRegIn,PCSrcIn,
+  output logic MemToRegOut,PCSrcOut,
   output logic [31:0] writeData,
   output logic [31:0] ALUResultMOut,ReadDataW, WA3Wout
   );
@@ -23,9 +23,9 @@ module memory (
  pipeMemWB pipeMEM (.clk(clock),
                      .RD(ReadDataM),
                      .ALUOutM(ALUResultEIn),
-                     .MemToRegIn(MemToRegMIn),
+                     .MemToRegIn(MemToRegIn),
                      .WA3M(WA3Min),
-                     .MemToRegOut(MemToRegMOut),
+                     .MemToRegOut(MemToRegOut),
                      .ReadDataW(ReadDataW),
                      .ALUOutW(ALUResultMOut),
                      .WA3W(WA3Wout));
