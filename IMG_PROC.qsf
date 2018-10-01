@@ -307,6 +307,46 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6] -enti
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7] -entity pc
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD -entity pc
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity pc -section_id Top
+<<<<<<< HEAD
+=======
+set_global_assignment -name SYSTEMVERILOG_FILE memory/memSelect_tb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/deco.sv
+set_global_assignment -name VERILOG_FILE memory/rom.v
+set_global_assignment -name QIP_FILE memory/rom.qip
+set_global_assignment -name VERILOG_FILE memory/ram_2port.v
+set_global_assignment -name QIP_FILE memory/ram_2port.qip
+set_global_assignment -name SYSTEMVERILOG_FILE memory/memSelect.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/mem_controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/insMem.sv
+set_global_assignment -name QSYS_FILE video.qsys
+set_global_assignment -name SYSTEMVERILOG_FILE IMG_PROC.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/fetchTB.sv
+set_global_assignment -name SOURCE_FILE arm/ALU_params.h
+set_global_assignment -name SYSTEMVERILOG_FILE src/registerFile.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/mux4x1.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/mux3x1.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/mux2x1.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/extend.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/desp_2.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/DECO_memSelect.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/adder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeMemWB.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeFetchDeco.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeExeMem.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeDecoExe.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/memWBTB.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/fetchDecoTB.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/exeMemTB.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/decoExeTB.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/pc.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/memory.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/fetch.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/execute.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/decode.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/Control_unit.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/arm.sv
+set_global_assignment -name SYSTEMVERILOG_FILE arm/ALU.sv
+>>>>>>> master
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -425,6 +465,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
+<<<<<<< HEAD
 set_global_assignment -name VERILOG_FILE thinning/thinning_tb.v
 set_global_assignment -name SYSTEMVERILOG_FILE thinning/thinning_small.sv
 set_global_assignment -name VERILOG_FILE thinning/thinning_smal_tb.v
@@ -460,4 +501,6 @@ set_global_assignment -name SYSTEMVERILOG_FILE arm/decode.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/Control_unit.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/arm.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/ALU.sv
+=======
+>>>>>>> master
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

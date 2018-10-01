@@ -1,11 +1,11 @@
-module memSelect(input address,
+module memSelect(input [31:0] address,
 				output logic [3:0] mem_select
 );
 
-parameter limitA = 5'h40000;
-parameter limitB = 5'h60000;
-parameter limitC = 5'h60004;
-parameter limitD = 5'h8000;
+parameter limitA = 'h40000;
+parameter limitB = 'h60000;
+parameter limitC = 'h60004;
+parameter limitD = 'h80000;
 
 always_comb
 	if (address >= limitD) mem_select = 4'bzzzz;
