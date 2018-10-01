@@ -307,46 +307,125 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6] -enti
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7] -entity pc
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD -entity pc
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity pc -section_id Top
-<<<<<<< HEAD
-=======
-set_global_assignment -name SYSTEMVERILOG_FILE memory/memSelect_tb.sv
-set_global_assignment -name SYSTEMVERILOG_FILE src/deco.sv
-set_global_assignment -name VERILOG_FILE memory/rom.v
-set_global_assignment -name QIP_FILE memory/rom.qip
-set_global_assignment -name VERILOG_FILE memory/ram_2port.v
-set_global_assignment -name QIP_FILE memory/ram_2port.qip
-set_global_assignment -name SYSTEMVERILOG_FILE memory/memSelect.sv
-set_global_assignment -name SYSTEMVERILOG_FILE memory/mem_controller.sv
-set_global_assignment -name SYSTEMVERILOG_FILE memory/insMem.sv
-set_global_assignment -name QSYS_FILE video.qsys
-set_global_assignment -name SYSTEMVERILOG_FILE IMG_PROC.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/fetchTB.sv
-set_global_assignment -name SOURCE_FILE arm/ALU_params.h
-set_global_assignment -name SYSTEMVERILOG_FILE src/registerFile.sv
-set_global_assignment -name SYSTEMVERILOG_FILE src/mux4x1.sv
-set_global_assignment -name SYSTEMVERILOG_FILE src/mux3x1.sv
-set_global_assignment -name SYSTEMVERILOG_FILE src/mux2x1.sv
-set_global_assignment -name SYSTEMVERILOG_FILE src/extend.sv
-set_global_assignment -name SYSTEMVERILOG_FILE src/desp_2.sv
-set_global_assignment -name SYSTEMVERILOG_FILE src/DECO_memSelect.sv
-set_global_assignment -name SYSTEMVERILOG_FILE src/adder.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeMemWB.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeFetchDeco.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeExeMem.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/pipeDecoExe.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/memWBTB.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/fetchDecoTB.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/exeMemTB.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pipes/decoExeTB.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/pc.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/memory.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/fetch.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/execute.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/decode.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/Control_unit.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/arm.sv
-set_global_assignment -name SYSTEMVERILOG_FILE arm/ALU.sv
->>>>>>> master
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity fetchTB -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity fetchTB -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -entity fetchTB -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[4] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[5] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[6] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK2_50 -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK3_50 -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK4_50 -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50 -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[4] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[5] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[6] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[7] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[8] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[9] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[10] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[11] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_ADDR[12] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_BA[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_BA[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_CAS_N -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_CKE -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_CLK -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_CS_N -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[4] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[5] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[6] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[7] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[8] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[9] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[10] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[11] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[12] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[13] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[14] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_DQ[15] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_LDQM -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_RAS_N -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_UDQM -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to DRAM_WE_N -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[4] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[5] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[6] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[7] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[8] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[9] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[4] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[5] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[6] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[7] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[8] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[9] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[10] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_D[11] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_FVAL -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_LVAL -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_PIXCLK -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_RESET_N -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_SCLK -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_SDATA -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_STROBE -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_TRIGGER -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to cameraD5M_XCLKIN -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_B[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_B[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_B[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_B[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_B[4] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_B[5] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_B[6] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_B[7] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_DCLK -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_G[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_G[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_G[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_G[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_G[4] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_G[5] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_G[6] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_G[7] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_HSD -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[0] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[1] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[2] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[3] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[4] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[5] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7] -entity fetchTB
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD -entity fetchTB
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity fetchTB -section_id Top
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -465,7 +544,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
-<<<<<<< HEAD
 set_global_assignment -name VERILOG_FILE thinning/thinning_tb.v
 set_global_assignment -name SYSTEMVERILOG_FILE thinning/thinning_small.sv
 set_global_assignment -name VERILOG_FILE thinning/thinning_smal_tb.v
@@ -501,6 +579,4 @@ set_global_assignment -name SYSTEMVERILOG_FILE arm/decode.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/Control_unit.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/arm.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/ALU.sv
-=======
->>>>>>> master
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
