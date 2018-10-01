@@ -4,17 +4,17 @@ module Control_unit (input logic [3:0] funct,
 							output logic ALUSrcE,
 							output logic [3:0] ALUControlE,
 							output logic MemToRegD,
-							output logic [1:0] RegSrcD,
-							output logic [1:0]ImmSrcD,
+							output logic [1:0] RegSrcD, // No va al pipe
+							output logic [1:0]ImmSrcD, // No va al pipe
 							output logic RegWriteD,
 							output logic PlusOne,
 							output logic BranchTakenE,
 							output logic PCSrcW
 							);
- 
+
 
 `include "ALU_params.h"
-`include "Control_params.h"	
+`include "Control_params.h"
 
 assign PlusOne = (funct == fSTR_ONE);
 assign ALUSrcE = opcode;
@@ -32,65 +32,65 @@ begin
 	fADD: begin //Case ADD
 			ALUControlE =	ADD;
 			RegSrcD 		=	2'b00;
-	end		
+	end
 	fSUB: begin //Case SUBS
 			ALUControlE =	SUB;
 			RegSrcD 		=	2'b00;
-	end		
+	end
 	fMULT: begin //Case MULT
 			ALUControlE =	MULT;
 			RegSrcD 		=	2'b00;
-	end	
-			
+	end
+
 	fLOAD: begin//Case LOAD
 			ALUControlE =	BUFFER;
 			RegSrcD 		=	0;
-	end		
+	end
 	fSTR: begin//Case Store
 	 //Revisar si no hace falta un MUX para pasar Reg2 o Inmediato a ser escrito
 			ALUControlE =	BUFFER;
 			RegSrcD 		=	0;
-	end		
-	/*		
+	end
+	/*
 	fSL: begin //Case Shift Left
 			ALUControlE =	;
 			RegSrcD 		=	;
-	end		
+	end
 	fSR: begin//Case Shift Right
 			ALUControlE =	;
 			RegSrcD 		=	;
-	end		
+	end
 	fB: begin//Case Branch
 			ALUControlE =	;
 			RegSrcD 		=	;
-	end		
+	end
 	fPIC: begin//Case Take Picture
 			ALUControlE =	;
 			RegSrcD 		=	;
 			end*/
-			
+
 	fAVERAGE: begin//Case Ponderate RGB
 			ALUControlE =	AV;
 			RegSrcD 		=	2'b00;
-	end		
+	end
 	fSTR_ONE: begin//Case Store Plus One //Revisar si no hace falta un MUX para pasar Reg2 o Inmediato a ser escrito
 			ALUControlE =	BUFFER;
 			RegSrcD 		=	0;
-	end		
+	end
 	// fTHI: begin//Case Thinning
 	// 		ALUControlE =	;
 	// 		RegSrcD 		=	;
-	// end		
+	// end
 	// 4'b1110: begin
 	// 		ALUControlE =	;
 	// 		RegSrcD 		=	;
-	// 		//ImmSrcD 		=	
-	// end		
+	// 		//ImmSrcD 		=
+	// end
 	// 4'b1111: begin
 	// 		ALUControlE =	;
 	// 		RegSrcD 		=	;
 	// 		end
-	default: 
+	default:
 	begin
 			ALUControlE =	1'bz;
 			RegSrcD 		=	1'bz;
