@@ -7,7 +7,7 @@ module ALU(input logic [31:0] inputA,
 );
 
 
-`include "ALU_params.h"
+`include "ALU_params.vh"
 
 logic [32:0] sum;
 logic [32:0] sub;
