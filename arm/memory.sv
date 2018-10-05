@@ -1,8 +1,8 @@
 module memory (
   input logic clock, writeEnableIn, PlusOne,
   input logic [31:0] ALUResultEIn, WA3Min, WriteDataM, ReadDataM,
-  input logic MemToRegIn,PCSrcIn,
-  output logic MemToRegOut,PCSrcOut,
+  input logic MemToRegIn,PCSrcIn,RegWriteM,
+  output logic MemToRegOut,PCSrcOut,RegWriteW,
   output logic [31:0] writeData,
   output logic [31:0] ALUResultMOut,ReadDataW, WA3Wout
   );
@@ -28,7 +28,9 @@ module memory (
                      .MemToRegOut(MemToRegOut),
                      .ReadDataW(ReadDataW),
                      .ALUOutW(ALUResultMOut),
-                     .WA3W(WA3Wout));
+                     .WA3W(WA3Wout),
+                     .RegWriteIn(RegWriteM),
+                     .RegWriteOut(RegWriteW));
 
 //FALTA LA MEMORIA
 

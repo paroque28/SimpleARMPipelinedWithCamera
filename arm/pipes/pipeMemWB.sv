@@ -2,17 +2,18 @@ module pipeMemWB (input         clk,
 					  input  [31:0] RD,
 					  input  [31:0] ALUOutM,
 					  input  [3:0]  WA3M,
-						input  [3:0] MemToRegIn,
+						input  MemToRegIn,RegWriteIn,
 					  output [31:0] ReadDataW,
 					  output [31:0] ALUOutW,
 					  output [3:0]  WA3W,
-						output [3:0] MemToRegOut);
+						output  MemToRegOut,RegWriteOut);
 
 
 	logic [31:0] dataMemory;
 	logic [31:0] resultALU;
 	logic [3:0]  WAData;
 	logic [3:0]  MemToReg;
+	logic RegWrite;
 
 	always_ff @(posedge clk)
 	begin
@@ -21,7 +22,7 @@ module pipeMemWB (input         clk,
 		resultALU  <= ALUOutM;
 		WAData     <= WA3M;
 		MemToReg <= MemToRegIn;
-
+		RegWrite <= RegWriteIn;
 	end
 
 	always_ff @(negedge clk)
@@ -31,6 +32,7 @@ module pipeMemWB (input         clk,
 		ALUOutW   <= resultALU;
 		WA3W      <= WAData;
 		MemToRegOut <= MemToReg;
+		RegWriteOut <= RegWrite;
 
 	end
 
