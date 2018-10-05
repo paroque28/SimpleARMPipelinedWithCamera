@@ -1,7 +1,7 @@
 module arm(
-   input logic clk, reset,
+   input logic clk, reset, write_enable,
 	 input logic [31:0] Instruction, ReadData,
-	 output logic [31:0] WriteData, AddressData, PC
+	 output logic [31:0] WriteData, ALUResult, PC
 );
   logic [31:0] ResultW;
   logic [31:0] ALUOutM;
