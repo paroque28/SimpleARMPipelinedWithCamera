@@ -18,12 +18,12 @@ module arm(
 
   fetch stageFetch(
         .clock(clk),
-        .mux1pin0(pc_4),
+        .mux1PcPlus8(pc_4),
         .PC(PC),
         .ctrlMux1(PCSrcW),
         .ctrlMux2(BranchE),
-        .mux1pin1(ResultW),
-        .mux2pin1(WA3E_W),
+        .mux1ResultW(ResultW),
+        .mux2_aluresult(WA3E_W),
         .instPipeIn(Instruction),
         .instPipeOut(InstMem),
         .pcPlus4(pc_4)
@@ -42,10 +42,11 @@ module arm(
         .CondEPipeOutput(CondE),
         .RD1(dataRegAD),
         .RD2(dataRegBD),
-        .extIn(ExtensionD)
+        .Extended(ExtensionD)
   );
   execute stageExe(
         .Clk(clk),
+        .reset(reset),
         .WA3E(WA3E_D),
         .ALUControlE(ALUControlD),
         .flagsE(flags),

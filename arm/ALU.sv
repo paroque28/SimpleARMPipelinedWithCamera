@@ -23,7 +23,7 @@ logic fneg, fzero, fcarry, foverflow;
 
 
 assign outputC = result [31:0];
-assign {fneg, fzero, fcarry, foverflow} = ALU_flags;
+assign  ALU_flags = {fneg, fzero, fcarry, foverflow};
 assign sum = inputA + inputB;
 assign sub = inputA-inputB;
 assign mult = inputA*inputB;
