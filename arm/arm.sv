@@ -16,7 +16,6 @@ module arm(
   logic BranchE, WA3E_W,WA3E_D, RegWriteW;
 
 
-
   fetch stageFetch(
         .clock(clk),
         .mux1PcPlus8(pc_4),
@@ -63,10 +62,11 @@ module arm(
   );
   memory stageMem(
         .clock(clk),
+        .reset(reset),
         .MemToRegOut(MemToRegW),
         .ALUResultMOut(ALUOutM),
         .writeEnableIn(MemWriteM),
-        .WriteData(WriteData),
+        .writeData(WriteData),
         .ReadDataM(ReadData),
         .ReadDataW(ReadDataW),
         .PCSrcOut(PCSrcW),
