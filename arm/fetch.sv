@@ -5,11 +5,11 @@ module fetch(
   input logic clearPipe,
   input logic pipeEnable,
   input logic pcEnable,
-  input logic ctrlMux1,
-  input logic ctrlMux2,
-  input logic [31:0] mux1pin0,
-  input logic [31:0] mux1pin1,
-  input logic [31:0] mux2pin1,
+  input logic ctrlMux1, //Control
+  input logic ctrlMux2, //Control
+  input logic [31:0] mux1PcPlus8,
+  input logic [31:0] mux1ResultW,
+  input logic [31:0] mux2_aluresult,
   input logic [31:0] instPipeIn,
   output logic [31:0] PC,
   output logic [31:0] instPipeOut,
@@ -36,14 +36,14 @@ module fetch(
                       );
 
 
-  mux2x1 mux1 (.a(mux1pin0),
-               .b(mux1pin1),
+  mux2x1 mux1 (.a(mux1PcPlus8),
+               .b(mux1ResultW),
                .ctrl(ctrlMux1),
                .y(mux1Out)
                );
 
   mux2x1 mux2 (.a(mux1Out),
-                .b(mux2pin1),
+                .b(mux2_aluresult),
                 .ctrl(ctrlMux2),
                 .y(dirPC)
                 );
