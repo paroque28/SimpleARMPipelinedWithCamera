@@ -8,14 +8,14 @@ module decode(input  logic			 Clk, Rst, RegWriteW,
 
 	//Instruction Mapping
 
-	logic        Op;
-	logic [3:0]  Funct;
+	logic [1:0]     Op;
+	logic [5:0]  Funct;
 	logic [3:0]  CondE, decodeMux2x1ToRA1D_IN1, decodeMux2x1ToRA2D_IN1, decodeMux2x1ToRA2D_IN2;
 	logic [23:0] ExtendedIN;
 
 	//TODO ARREGLAR MAPEO
-	assign Op 	 						= Instruction[25];
-	assign Funct 						= Instruction[24:21];
+	assign Op 	 						= Instruction[27:26];
+	assign Funct 						= Instruction[25:20];
 	assign CondE 						= Instruction[31:28];
 	assign decodeMux2x1ToRA1D_IN1 = Instruction[19:16];
 	assign decodeMux2x1ToRA2D_IN1 = Instruction[3:0];
