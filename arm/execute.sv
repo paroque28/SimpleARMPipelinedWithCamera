@@ -1,4 +1,4 @@
-module execute(input  logic			 Clk, RegWriteE, PlusOneIn, BranchE, PCSrcE, ALUSrcE, MemToRegE, FlagWriteEin, ForwardAE, ForwardBE,
+module execute(input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE, ALUSrcE, MemToRegE, FlagWriteEin, ForwardAE, ForwardBE,
 				   input  logic [31:0]   dataRegAIn, dataRegBIn, dataRegCIn, extIn, ResultW, ADataMem,
 				   input  logic [3:0]	 WA3E, ALUControlE, flagsE, CondE,
 				   output logic [3:0]  	 WA3Mout, flagsEout,
@@ -48,7 +48,7 @@ module execute(input  logic			 Clk, RegWriteE, PlusOneIn, BranchE, PCSrcE, ALUSr
 							 .y(executeMUXOut_Output));
 							 
 	cond_unit
-	executeCondUnit(.flagsE_in(flagsE),
+	executeCondUnit(.clk(clk),.reset(reset),.flagsE_in(flagsE),
 	                .ALU_flags(executeALUFlags_Output),
 						 .condE(CondE),
 						 .FlagWriteE(FlagWriteEin),

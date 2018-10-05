@@ -2,10 +2,10 @@ module pipeExeMem (input clk, PCSrcMin, RegWriteMin, MemToRegMin,
 					    input  [31:0] ALUResultE,
 					    input  [31:0] WriteDataE,
 					    input  [3:0]  WA3E,
-					    output [31:0] ADataMemory,
-					    output [31:0] WDDataMemory,
-					    output [3:0]  WA3M,
-						  output PCSrcMout, RegWriteMout, MemToRegMout);
+					    output logic [31:0] ADataMemory,
+					    output logic [31:0] WDDataMemory,
+					    output logic [3:0]  WA3M,
+						output logic PCSrcMout, RegWriteMout, MemToRegMout);
 
 
 	logic [31:0] writeData;

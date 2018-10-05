@@ -46,6 +46,7 @@ module arm(
   );
   execute stageExe(
         .Clk(clk),
+        .reset(reset),
         .WA3E(WA3E_D),
         .ALUControlE(ALUControlD),
         .flagsE(flags),
