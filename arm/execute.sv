@@ -3,7 +3,7 @@ module execute(input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE
 				   input  logic [3:0]	 WA3E, ALUControlE, flagsE, CondE,
 				   output logic [3:0]  	 WA3Mout, flagsEout,
 				   output logic [31:0]   AToMemout, WDToMemout,
-				   output logic          PCSrcMout, RegWriteMout, MemToRegMout, BranchTakenE);
+				   output logic          PCSrcMout, RegWriteMout, MemToRegMout, BranchTakenE, MemWriteM);
 			
 	
 	//Outputs

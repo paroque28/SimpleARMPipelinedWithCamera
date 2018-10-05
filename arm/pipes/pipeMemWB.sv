@@ -1,4 +1,5 @@
 module pipeMemWB (    input             clk,
+					  input				reset,
                       input  [31:0]     RD,
                       input  [31:0]     ALUOutM,
                       input  [3:0]      WA3M,
@@ -15,7 +16,18 @@ module pipeMemWB (    input             clk,
 	logic [3:0]  WAData;
 	logic [3:0]  MemToReg;
 	logic RegWrite;
+	initial begin
+		ReadDataW 	<= 0;
+		resultALU 	<= 0;
+		WAData 	  	<= 0;
+		MemToReg  	<= 0;
+		RegWrite  	<= 0;
+		MemToRegOut <= 0;
+		RegWriteOut <= 0;
+		WA3W		<= 0;
+		ALUOutW		<= 0;
 
+	end
 	always_ff @(posedge clk)
 	begin
 
