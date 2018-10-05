@@ -32,6 +32,5 @@ module memory (
                      .RegWriteIn(RegWriteM),
                      .RegWriteOut(RegWriteW));
 
-//FALTA LA MEMORIA
 
 endmodule
