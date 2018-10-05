@@ -2,6 +2,7 @@ module arm(
    input logic clk, reset, write_enable,
 	 input logic [31:0] Instruction, ReadData,
 	 output logic [31:0] WriteData, ALUResult, PC
+   //Write enable
 );
   logic [31:0] ResultW;
   logic [31:0] ALUOutM;
@@ -12,7 +13,8 @@ module arm(
   logic [31:0] dataRegAD, dataRegBD, dataRegCD, ExtensionD;
   logic [3:0] flags, ALUControlD, CondE;
   logic MemToRegM, MemToRegW, PCSrcW;
-  logic BranchE, WA3E_W,WA3E_D, RegWriteW;
+  logic BranchE, WA3E_W,  RegWriteW;
+  logic WA3E_D, plusOneD, BranchD, PCSrcD, ALUSrcD, FlagWriteD;
 
 
 
@@ -42,7 +44,12 @@ module arm(
         .CondEPipeOutput(CondE),
         .RD1(dataRegAD),
         .RD2(dataRegBD),
-        .extIn(ExtensionD)
+        .extIn(ExtensionD),
+        .PlusOne(plusOneD),
+        .BranchTakenE(BranchD),
+        .PCSrcW(PCSrcD),
+        .ALUSrcE(ALUSrcD),
+        .FlagWriteEin
   );
   execute stageExe(
         .Clk(clk),
@@ -54,7 +61,11 @@ module arm(
         .dataRegBIn(dataRegBD),
         .dataRegCIn(),
         .extIn(ExtensionD),
-        .ResultW(ResultW)
+        .ResultW(ResultW),
+        .PlusOneIn(plusOneD),
+        .BranchE(BranchD),
+        .PCSrcE(PCSrcD),
+        .ALUSrcE(ALUSrcD)
 
   );
   memory stageMem(
