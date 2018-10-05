@@ -31,7 +31,6 @@ ram_2port	RAM_VIDEO (
 
 initial 
 begin
-    ReadData = 0;
 
     op = 0;
     funct = 0;
