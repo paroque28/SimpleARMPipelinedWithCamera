@@ -4,25 +4,19 @@
 //=======================================================
 
 module IMG_PROC(
-
-	//////////// CLOCK //////////
+//////////// CLOCK //////////
 	input 		          		CLOCK2_50,
 	input 		          		CLOCK3_50,
 	input 		          		CLOCK4_50,
 	input 		          		CLOCK_50,
 
-	//////////// SDRAM //////////
-	output		    [12:0]		DRAM_ADDR,
-	output		     [1:0]		DRAM_BA,
-	output		          		DRAM_CAS_N,
-	output		          		DRAM_CKE,
-	output		          		DRAM_CLK,
-	output		          		DRAM_CS_N,
-	inout 		    [15:0]		DRAM_DQ,
-	output		          		DRAM_LDQM,
-	output		          		DRAM_RAS_N,
-	output		          		DRAM_UDQM,
-	output		          		DRAM_WE_N,
+	//////////// SEG7 //////////
+	output		     [6:0]		HEX0,
+	output		     [6:0]		HEX1,
+	output		     [6:0]		HEX2,
+	output		     [6:0]		HEX3,
+	output		     [6:0]		HEX4,
+	output		     [6:0]		HEX5,
 
 	//////////// KEY //////////
 	input 		     [3:0]		KEY,
@@ -34,38 +28,39 @@ module IMG_PROC(
 	input 		     [9:0]		SW,
 
 	//////////// GPIO_0, GPIO_0 connect to D5M - 5M Pixel Camera //////////
-	input 		    [11:0]		cameraD5M_D,
-	input 		          		cameraD5M_FVAL,
-	input 		          		cameraD5M_LVAL,
-	input 		          		cameraD5M_PIXCLK,
-	output		          		cameraD5M_RESET_N,
-	output		          		cameraD5M_SCLK,
-	inout 		          		cameraD5M_SDATA,
-	input 		          		cameraD5M_STROBE,
-	output		          		cameraD5M_TRIGGER,
-	output		          		cameraD5M_XCLKIN,
+	input 		    [11:0]		D5M_D,
+	input 		          		D5M_FVAL,
+	input 		          		D5M_LVAL,
+	input 		          		D5M_PIXCLK,
+	output		          		D5M_RESET_N,
+	output		          		D5M_SCLK,
+	inout 		          		D5M_SDATA,
+	input 		          		D5M_STROBE,
+	output		          		D5M_TRIGGER,
+	output		          		D5M_XCLKIN,
 
-	//////////// GPIO_1, GPIO_1 connect to MTL2 - Multi-Touch LCD Panel //////////
-	output		     [7:0]		screenMTL_B,
-	output		          		screenMTL_DCLK,
-	output		     [7:0]		screenMTL_G,
-	output		          		screenMTL_HSD,
-	output		     [7:0]		screenMTL_R,
-	output		          		screenMTL_VSD
+	//////////// GPIO_1, GPIO_1 connect to MTL - Multi-Touch LCD Panel //////////
+	output		     [7:0]		MTL_B,
+	output		          		MTL_DCLK,
+	output		     [7:0]		MTL_G,
+	output		          		MTL_HSD,
+	output		     [7:0]		MTL_R,
+	output		          		MTL_VSD
 );
 
-
+`include "camera/img_size.vh"
 
 //=======================================================
 //  REG/WIRE declarations
 //=======================================================
-
+logic	[1:0]		rClk;
 //VGA
-logic vga_clock, reset;
+logic  reset;
 //VGA-Frame
 logic [7:0] fr, fg, fb;
 logic [11:0] fx ,fy;
-
+logic [PIXELS-1:0] pixel_count_vga;
+logic pixel_valid_vga;
 //Camera
 
  logic	[11:0]	mCCD_DATA;
@@ -75,12 +70,14 @@ logic [11:0] fx ,fy;
 
  logic	[15:0]	X_Cont;
  logic	[15:0]	Y_Cont;
+ logic [PIXELS-1:0] pixel_count_camera;
+ logic  pixel_valid_camera;
  logic	[31:0]	Frame_Cont;
 	
  logic	[11:0]	sCCD_R;
  logic	[11:0]	sCCD_G;
  logic	[11:0]	sCCD_B;
- logic				sCCD_DVAL;
+ logic			sCCD_DVAL;
 
 
 // Delay
@@ -91,21 +88,19 @@ logic				DLY_RST_2;
 //=======================================================
 //  Structural coding
 //=======================================================
-assign screenMTL_DCLK = vga_clock;
+assign MTL_DCLK = ~rClk[0];
+assign D5M_XCLKIN = rClk[0];
 
+always@(posedge CLOCK_50)	rClk	<=	rClk+1;
 
-
- always_ff @(posedge cameraD5M_PIXCLK)
+ always_ff @(posedge D5M_PIXCLK)
  begin
- 	rCCD_DATA	<=	cameraD5M_D;
- 	rCCD_LVAL	<=	cameraD5M_LVAL;
- 	rCCD_FVAL	<=	cameraD5M_FVAL;
+ 	rCCD_DATA	<=	D5M_D;
+ 	rCCD_LVAL	<=	D5M_LVAL;
+ 	rCCD_FVAL	<=	D5M_FVAL;
  end
 
 
-
-
-assign reset_vga = 1'b1;
 
 //=======================================================
 // Modules
@@ -113,60 +108,48 @@ assign reset_vga = 1'b1;
 
 //VGA
 
-video u0 (
-		.ref_clk_clk        (CLOCK_50),
-		.lcd_clk_clk        (vga_clock),
-		.video_in_clk_clk   (cameraD5M_XCLKIN)
-);
-VGA_Controller vga_blue(	//	Host Side
-						.iRed(mCCD_DATA[2:0]),
-						.iGreen(mCCD_DATA[5:3]),
-						.iBlue(mCCD_DATA[8:6]),
+VGA_Controller vga(	//	Host Side
+						.iRed(  {q_b[23:16], 4'b0000}),
+						.iGreen({q_b[15:8] , 4'b0000}),
+						.iBlue( {q_b[7:0]  , 4'b0000}),
 						.oX(fx),
 						.oY(fy),
+						.oPixel_Cont(pixel_count_vga),
+						.oPixel_Valid(pixel_valid_vga),
 						//	VGA Side
-						.oVGA_R(screenMTL_R),
-						.oVGA_G(screenMTL_G),
-						.oVGA_B(screenMTL_B),
-						.oVGA_H_SYNC(screenMTL_HSD),
-						.oVGA_V_SYNC(screenMTL_VSD),
+						.oVGA_R(MTL_R),
+						.oVGA_G(MTL_G),
+						.oVGA_B(MTL_B),
+						.oVGA_H_SYNC(MTL_HSD),
+						.oVGA_V_SYNC(MTL_VSD),
 						//	Control Signal
-						.iCLK(vga_clock),
-						.iRST_N(reset_vga)
+						.iCLK(rClk[0]),
+						.iRST_N(~rDLY_RST_2)
 						);
-framebuffer frame (
-		.reset_n					(reset_vga),
-	   .vga_clk					(vga_clock),
-	 
-		.fb_xpos				(fx),
-		.fb_ypos				(fy),
-		
-		.red						(fr),
-		.green					(fg),
-		.blue						(fb)
-	);
 	
 	
 //Camera
-	
-	
+assign	D5M_RESET_N	=	DLY_RST_1;
+assign	D5M_TRIGGER	=	1'b1;  // tRIGGER
  CCD_Capture			ccdc	(	
  							.oDATA      (mCCD_DATA),
  							.oDVAL      (mCCD_DVAL),
  							.oX_Cont    (X_Cont),
  							.oY_Cont    (Y_Cont),
+							.oPixel_Cont(pixel_count_camera),
+							.oPixel_Valid(pixel_valid_camera),
  							.oFrame_Cont(Frame_Cont),
  							.iDATA      (rCCD_DATA),
  							.iFVAL      (rCCD_FVAL),
  							.iLVAL      (rCCD_LVAL),
  							.iSTART     (!KEY[3]),
  							.iEND       (!KEY[2]),
- 							.iCLK       (cameraD5M_PIXCLK),
+ 							.iCLK       (D5M_PIXCLK),
  							.iRST       (DLY_RST_2)
  						);
 
  RAW2RGB				raw2rgb	(	
- 						   .iCLK   (cameraD5M_PIXCLK),
+ 						   .iCLK   (D5M_PIXCLK),
  							.iRST   (DLY_RST_1),
  							.iDATA  (mCCD_DATA),
  							.iDVAL  (mCCD_DVAL),
@@ -195,12 +178,40 @@ I2C_CCD_Config 		u8	(	//	Host Side
 								 .iEXPOSURE_ADJ  (KEY[1]),
 								 .iEXPOSURE_DEC_p(SW[0]),
 								  //	I2C Side
-								 .I2C_SCLK		  (cameraD5M_SCLK),
-								 .I2C_SDAT		  (cameraD5M_SDATA)
+								 .I2C_SCLK		  (D5M_SCLK),
+								 .I2C_SDAT		  (D5M_SDATA)
 							   );
 								
 //RAM
 
+logic [15:0] address_a, address_b;
+logic [31:0] q_a, q_b, data_a, data_b;
+logic clock_a, clock_b, wren_a, wren_b;
+assign address_a = pixel_count_camera;
+assign clock_a = rClk[0];
+assign data_a = {4'b00000000, sCCD_R[11:4], sCCD_G[7:0], sCCD_B[11:4]} ;
+assign address_b = (pixel_valid_vga) ? pixel_count_vga : 0;
+assign clock_b = rClk[0];
+assign wren_a = pixel_valid_camera;
+assign wren_b = 1'b0;
+ram_2port	RAM_VIDEO (
+	.address_a ( address_a ),
+	.address_b ( address_b ),
+	.clock_a ( clock_a ),
+	.clock_b ( clock_b ),
+	.data_a ( data_a ),
+	.data_b ( data_b ),
+	.wren_a ( wren_a ),
+	.wren_b ( wren_b ),
+	.q_a ( q_a ),
+	.q_b ( q_b )
+	);
+
+
+
+
+assign LEDR[8:0] = rCCD_DATA;
+assign LEDR[9] = D5M_PIXCLK;
 
 
 endmodule
