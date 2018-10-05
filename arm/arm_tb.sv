@@ -1,3 +1,4 @@
+`timescale 1ns / 1ns
 module arm_tb;
 
 logic clk, write_enable, ImmEnable, SetFlags;
@@ -8,15 +9,7 @@ logic [11:0] src2;
 logic N,Z,C,V;
 assign cond = {N,Z,C,V};
 assign Instr = {cond, op, ImmEnable, cmd, SetFlags, rn, rd, src2};
-arm  a1(
-    .clk(clk),
-    .reset(1'b0),
-    .PC(PC),
-    .Instruction(Instr),
-    .write_enable(write_enable),
-    .ALUResult(ALUResult), .WriteData(WriteData),
-    .ReadData(ReadData)
-);
+
 
 //RAM
 ram	RAM1 (
