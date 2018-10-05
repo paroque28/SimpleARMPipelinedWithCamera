@@ -1,6 +1,6 @@
 module memory (
   input logic clock, reset, writeEnableIn, PlusOne,
-  input logic [31:0] ALUResultEIn, WA3Min, ReadDataM,
+  input logic [31:0] ALUResultEIn, WA3Min, WriteDataM, ReadDataM,
   input logic MemToRegIn,PCSrcIn,RegWriteM,
   output logic MemToRegOut,PCSrcOut,RegWriteW,
   output logic [31:0] writeData,
