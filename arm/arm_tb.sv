@@ -10,6 +10,15 @@ logic N,Z,C,V;
 assign cond = {N,Z,C,V};
 assign Instr = {cond, op, ImmEnable, cmd, SetFlags, rn, rd, src2};
 
+arm  a1(
+    .clk(clk),
+    .reset(1'b0),
+    .PC(PC),
+    .Instruction(Instr),
+    .write_enable(write_enable),
+    .ALUResult(ALUResult), .WriteData(WriteData),
+    .ReadData(ReadData)
+);
 
 //RAM
 ram	RAM1 (
@@ -24,6 +33,7 @@ ram	RAM1 (
 initial 
 begin
 
+    //Initial state zero
     N=0;
     Z=0;
     C=0;
@@ -37,6 +47,7 @@ begin
     rm = 0;
     src2 = 0;
 
+    // Add instruction
     #4
     N=0;
     Z=0;
