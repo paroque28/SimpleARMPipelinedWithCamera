@@ -9,9 +9,11 @@ module arm(
   logic [31:0] InstMem; //Dato q sale da la memoria
   logic [31:0] pc_4;
   logic [31:0] R15;
-  logic [3:0] flags;
+  logic [31:0] dataRegAD, dataRegBD, dataRegCD, ExtensionD;
+  logic [3:0] flags, ALUControlD, CondE;
   logic MemToRegM, MemToRegW, PCSrcW;
   logic BranchE, WA3E_W,WA3E_D, RegWriteW;
+
 
 
   fetch stageFetch(
@@ -35,12 +37,25 @@ module arm(
         .WA3W(WA3E_W),
         .flagsEin(flags), //Flags que vienen de la condition unit
         .RegWriteW(RegWriteM),
-        .WA3E(WA3E_D)
+        .WA3E(WA3E_D),
+        .ALUControlE(ALUControlD),
+        .CondEPipeOutput(CondE),
+        .RD1(dataRegAD),
+        .RD2(dataRegBD),
+        .extIn(ExtensionD)
   );
   execute stageExe(
         .Clk(clk),
+        .WA3E(WA3E_D),
+        .ALUControlE(ALUControlD),
         .flagsE(flags),
-        .WA3E(WA3E_D)
+        .CondE(CondE),
+        .dataRegAIn(dataRegAD),
+        .dataRegBIn(dataRegBD),
+        .dataRegCIn(),
+        .extIn(ExtensionD),
+        .ResultW(ResultW)
+
   );
   memory stageMem(
         .clock(clk),

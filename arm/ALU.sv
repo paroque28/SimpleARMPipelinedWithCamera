@@ -18,6 +18,7 @@ logic [32:0] sr;
 logic [32:0] average;
 logic [32:0] thin;
 logic [32:0] result;
+
 logic fneg, fzero, fcarry, foverflow;
 
 
