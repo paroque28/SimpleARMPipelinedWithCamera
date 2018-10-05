@@ -1,7 +1,7 @@
 `timescale 1ns / 1ns
 module arm_tb;
 
-logic clk, write_enable, ImmEnable, SetFlags;
+logic clk, reset, write_enable, ImmEnable, SetFlags;
 logic [31:0] PC, Instr, ALUResult, WriteData, ReadData;
 logic [1:0] op;
 logic [3:0] cmd, cond, rn, rd, rm;
@@ -10,9 +10,9 @@ logic N,Z,C,V;
 assign cond = {N,Z,C,V};
 assign Instr = {cond, op, ImmEnable, cmd, SetFlags, rn, rd, src2};
 
-arm  a1(
+arm  processor(
     .clk(clk),
-    .reset(1'b0),
+    .reset(reset),
     .PC(PC),
     .Instruction(Instr),
     .write_enable(write_enable),
@@ -47,7 +47,12 @@ begin
     rd = 0;
     rm = 0;
     src2 = 0;
-
+    reset = 0;
+    #2
+    reset = 1;
+    #2
+    reset = 0;
+    
     // Add instruction
     #4
     N=0;
@@ -56,11 +61,24 @@ begin
     V=0;
     op = 1;
     ImmEnable = 1;
-    cmd = 0;
-	SetFlags = 0;
+    cmd = 4'b0001;
+	SetFlags = 1;
     rn = 3;
     rd = 1;
-    rm = 2;
+    src2 = {11'b0 , 1'b1};
+    
+    // Sub instruction
+    #4
+    N=0;
+    Z=0;
+    C=0;
+    V=0;
+    op = 1;
+    ImmEnable = 1;
+    cmd = 4'b0010;
+	SetFlags = 1;
+    rn = 3;
+    rd = 2;
     src2 = {11'b0 , 1'b1};
 
 

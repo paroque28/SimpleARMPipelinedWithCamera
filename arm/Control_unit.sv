@@ -13,8 +13,8 @@ module Control_unit (input logic [3:0] funct,
 							);
 
 
-`include "ALU_params.h"
-`include "Control_params.h"
+`include "ALU_params.vh"
+`include "Control_params.vh"
 
 assign PlusOne = (funct == fSTR_ONE);
 assign ALUSrcE = opcode[0];
