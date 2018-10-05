@@ -109,9 +109,9 @@ always@(posedge CLOCK_50)	rClk	<=	rClk+1;
 //VGA
 
 VGA_Controller vga(	//	Host Side
-						.iRed(  {q_b[23:16], 4'b0000}),
-						.iGreen({q_b[15:8] , 4'b0000}),
-						.iBlue( {q_b[7:0]  , 4'b0000}),
+						.iRed(  (pixel_valid_vga) ?{q_b[23:16], 4'b0000}:0),
+						.iGreen((pixel_valid_vga) ?{q_b[15:8] , 4'b0000}:0),
+						.iBlue( (pixel_valid_vga) ?{q_b[7:0]  , 4'b0000}:0),
 						.oX(fx),
 						.oY(fy),
 						.oPixel_Cont(pixel_count_vga),
