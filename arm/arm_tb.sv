@@ -17,11 +17,8 @@ arm  a1(
 );
 
 //RAM
-
-logic [15:0] address_a;
-logic [31:0] q_a, data_a;
 ram_2port	RAM_VIDEO (
-	.address_a ( address_a ),
+	.address_a ( ALUResult ),
 	.clock_a ( clk ),
 	.data_a ( WriteData ),
 	.wren_a ( write_enable ),
