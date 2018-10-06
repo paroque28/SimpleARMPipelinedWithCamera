@@ -40,8 +40,9 @@ module decode(input  logic			 Clk, Rst, RegWriteW,
 	//Components
 
 	Control_unit
-	controlUnit(.funct(Funct),
- 	            .opcode(Op),
+	controlUnit(
+					.funct(Funct),
+ 	        .opcode(Op),
 					.ALUSrcE(decodeALUSrcE_Output),
 					.ALUControlE(decodeALUControlE_Output),
 					.MemToRegD(decodeMemtoRegD_Output),
