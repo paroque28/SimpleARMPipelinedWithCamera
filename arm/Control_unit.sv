@@ -1,6 +1,6 @@
 
 module Control_unit (input logic [3:0] funct,
-							input logic opcode,
+							input logic [1:0]opcode,
 							output logic ALUSrcE,
 							output logic [3:0] ALUControlE,
 							output logic MemToRegD,
@@ -17,7 +17,7 @@ module Control_unit (input logic [3:0] funct,
 `include "Control_params.h"
 
 assign PlusOne = (funct == fSTR_ONE);
-assign ALUSrcE = opcode;
+assign ALUSrcE = opcode[0];
 assign MemToRegD = (funct == fLOAD);
 assign RegWriteD = ~(funct == fSTR || funct == fPIC);
 

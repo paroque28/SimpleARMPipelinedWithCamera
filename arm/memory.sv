@@ -1,6 +1,6 @@
 module memory (
-  input logic clock, writeEnableIn, PlusOne,
-  input logic [31:0] ALUResultEIn, WA3Min, WriteDataM, ReadDataM,
+  input logic clock, reset, writeEnableIn, PlusOne,
+  input logic [31:0] ALUResultEIn, WA3Min, ReadDataM,
   input logic MemToRegIn,PCSrcIn,RegWriteM,
   output logic MemToRegOut,PCSrcOut,RegWriteW,
   output logic [31:0] writeData,
@@ -9,9 +9,7 @@ module memory (
 
   logic [31:0] WDataPlusOne;
 
-  adder #(32) AddOne(.a(WriteDataM),
-                      .b(1),
-                      .c(WDataPlusOne));
+  assign WDataPlusOne = WriteDataM + 1;
 
   mux2x1 #(32) mux7 (.a(WriteDataM),
                      .b(WDataPlusOne),
@@ -20,7 +18,7 @@ module memory (
 
 //MEMORY Retorna
 
- pipeMemWB pipeMEM (.clk(clock),
+ pipeMemWB pipeMEM (.clk(clock), .reset(reset),
                      .RD(ReadDataM),
                      .ALUOutM(ALUResultEIn),
                      .MemToRegIn(MemToRegIn),
