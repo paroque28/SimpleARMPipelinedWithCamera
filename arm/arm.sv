@@ -19,7 +19,6 @@ module arm(
   logic MemWriteM;
 
 
-
   fetch stageFetch(
         .clock(clk),
         .mux1PcPlus8(pc_4),
@@ -75,6 +74,7 @@ module arm(
   );
   memory stageMem(
         .clock(clk),
+        .reset(reset),
         .MemToRegOut(MemToRegW),
         .ALUResultMOut(ALUOutM),
         .writeEnableIn(MemWriteM),
