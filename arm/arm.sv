@@ -4,7 +4,6 @@ module arm(
      output logic write_enable,
 	 output logic [31:0] WriteData, ALUResult, PC
 );
-  logic [31:0] ResultW;
   logic [31:0] ALUOutM;
   logic [31:0] ReadDataW;
   logic [31:0] InstMem; //Dato q sale da la memoria
@@ -63,23 +62,30 @@ module arm(
   memory stageMem(
         .clock(clk),
         .reset(reset),
-        .MemToRegOut(MemToRegW),
-        .ALUResultMOut(ALUOutM),
         .writeEnableIn(MemWriteM),
-        .writeData(WriteData),
-        .ReadDataM(ReadData),
-        .ReadDataW(ReadDataW),
-        .PCSrcOut(PCSrcW),
         .PlusOne(1'b0),
-        .WA3Wout(WA3E_W),
-        .RegWriteW(RegWriteW)
+        .ALUResultEIn(),
+        .WA3Min(),
+        .WriteDataM(),
+        .ReadDataM(ReadData),
+        .MemToRegIn(),
+        .PCSrcIn(),
+        .RegWriteM()
+        .MemToRegOut(MemToRegW),
+        .PCSrcOut(PCSrcW),
+        .RegWriteW(RegWriteW),
+        .writeData(WriteData),
+        .ALUResultMOut(ALUOutM),
+        .ReadDataW(ReadDataW),
+        .WA3Wout(WA3E_W)
+       
   );
 // Write back stage
   mux2x1 #(32) ResultWMux (
         .a(ReadDataW),
         .b(ALUOutM),
         .ctrl(MemToRegW),
-        .y(ResultW)
+        .y(ALUResult)
   );
 
 endmodule
