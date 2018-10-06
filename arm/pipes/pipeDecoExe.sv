@@ -2,8 +2,8 @@ module pipeDecoExe(
 	input logic clk,
 	input logic rst,
 
-	input logic [31:0] dataRegAIn, dataRegBIn,extIn,
-	output logic [31:0] dataRegAOut, dataRegBOut,extOut,
+	input logic [31:0] dataRegAIn, dataRegBIn, dataRegCIn, extIn,
+	output logic [31:0] dataRegAOut, dataRegBOut, dataRegCOut,extOut,
 
 	input logic [3:0] WA3EIn,
 	output logic [3:0] WA3EOut,
@@ -21,8 +21,7 @@ module pipeDecoExe(
 	output logic RegWriteDOut, PlusOneOut, BranchTakenEOut, PCSrcWOut, ALUSrcEOut, MemToRegDOut
 );
 
-logic [31:0] dataRegA;
-logic [31:0] dataRegB;
+logic [31:0] dataRegA, dataRegB, dataRegC;
 logic [3:0] WA3E;
 logic [31:0] ext;
 logic [3:0] ALUControlE;
@@ -33,12 +32,13 @@ logic [3:0] CondE;
 logic RegWriteD, PlusOne, BranchTakenE, PCSrcW, ALUSrcE, MemToRegD;
 
 
-always_ff @(posedge clk or negedge rst)
+always_ff @(posedge clk or posedge rst)
 begin
-	if(~rst)
+	if(rst)
 		begin
 		dataRegA <= 0;
 		dataRegB <= 0;
+		dataRegC <= 0;
 		ext <= 0;
 		WA3E <= 0;
 		ALUControlE <= 0;
@@ -56,6 +56,7 @@ begin
 		begin
 		dataRegA <= dataRegAIn;
 		dataRegB <= dataRegBIn;
+		dataRegC <= dataRegCIn;
 		ext <= extIn;
 		WA3E <= WA3EIn;
 		ALUControlE <= ALUControlEIn;
@@ -75,6 +76,7 @@ always_ff @(negedge clk)
 begin
 	dataRegAOut <= dataRegA;
 	dataRegBOut <= dataRegB;
+	dataRegCOut <= dataRegC;
 	WA3EOut <= WA3E;
 	extOut <= ext;
 	ALUControlEOut <= ALUControlE;

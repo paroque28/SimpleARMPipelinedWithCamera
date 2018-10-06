@@ -1,8 +1,8 @@
-module decode(input  logic			 Clk, Rst, RegWriteW,
+module decode(input  logic			 clk, reset, RegWriteW,
 				  input  logic [31:0] Instruction, ResultW, PCPlus8D,
 				  input  logic [3:0]	 WA3W, flagsEin,
 				  output logic [3:0]  WA3E, CondEPipeOutput, flagsEout, ALUControlE,
-				  output logic [31:0] RD1, RD2, Extended,
+				  output logic [31:0] RD1, RD2, RD3, Extended,
 				  output logic 		 ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchTakenE, PCSrcW);
 
 
@@ -24,12 +24,12 @@ module decode(input  logic			 Clk, Rst, RegWriteW,
 
 	//Outputs
 
-	logic [3:0]  decodeMux2x1ToRA1D_Output, decodeMux2x1ToRA2D_Output, decodeWA3E_Output,
+	logic [3:0]  decodeMux2x1ToRA1D_Output, decodeMux2x1ToRA2D_Output, decodeMux2x1ToRA3D_Output, decodeWA3E_Output,
 	             decodeALUControlE_Output, decodePipeALUControlE_Output,
 					 decodePipeFlagsE_Output, decodePipeCondE_Output;
 
-	logic [31:0] decodeExtended_Output, decodeRD1_Output, decodeRD2_Output, decodePipeRA_Output,
-	             decodePipeRB_Output, decodePipeExtended_Output;
+	logic [31:0] decodeExtended_Output, decodeRD1_Output, decodeRD2_Output,decodeRD3_Output, decodePipeRA_Output,
+	             decodePipeRB_Output, decodePipeRC_Output, decodePipeExtended_Output;
 
 	logic [1:0]  decodeRegSrcD_Output, decodeInmRegSel_Output;
 	logic			 decodeMemtoRegD_Output, decodeALUSrcE_Output, decodeRegWriteD_Output, decodePlusOne_Output,
@@ -72,24 +72,28 @@ module decode(input  logic			 Clk, Rst, RegWriteW,
 				  .extImm(decodeExtended_Output));
 
 	registerFile
-	registerFileUnit(.clk(Clk),
-						  .we3(RegWriteW),
+	registerFileUnit(.clk(clk),
+						  .we(RegWriteW),
 						  .a1(decodeMux2x1ToRA1D_Output),
 						  .a2(decodeMux2x1ToRA2D_Output),
-						  .a3(WA3W),
-						  .wd3(ResultW),
+						  .a3(decodeMux2x1ToRA3D_Output),
+						  .wa(WA3W),
+						  .wd(ResultW),
 						  .r15(PCPlus8D),
 						  .rd1(decodeRD1_Output),
-						  .rd2(decodeRD2_Output));
+						  .rd2(decodeRD2_Output),
+						  .rd3(decodeRD3_Output));
 
 	pipeDecoExe
-	pipeDE(.clk(Clk),
-			 .rst(Rst),
+	pipeDE(.clk(clk),
+			 .rst(reset),
 			 .dataRegAIn(decodeRD1_Output),
 			 .dataRegBIn(decodeRD2_Output),
+			 .dataRegCIn(decodeRD3_Output),
 			 .extIn(decodeExtended_Output),
 			 .dataRegAOut(decodePipeRA_Output),
 			 .dataRegBOut(decodePipeRB_Output),
+			 .dataRegCOut(decodePipeRC_Output),
 			 .extOut(decodePipeExtended_Output),
 			 .WA3EIn(decodeMux2x1ToRA2D_IN2),
 			 .WA3EOut(decodeWA3E_Output),
@@ -117,6 +121,7 @@ module decode(input  logic			 Clk, Rst, RegWriteW,
 	assign WA3E  	 		  = decodeWA3E_Output;
 	assign RD1  	 		  = decodePipeRA_Output;
 	assign RD2 		 		  = decodePipeRB_Output;
+	assign RD3 		 		  = decodePipeRC_Output;
 	assign Extended 		  = decodePipeExtended_Output;
 	assign flagsEout       = decodePipeFlagsE_Output;
 	assign ALUSrcE         = decodePipeALUSrcE_Output;
