@@ -16,50 +16,84 @@ module arm(
 
 
   fetch stageFetch(
+        //Inputs
         .clock(clk),
-        .mux1PcPlus8(pc_4),
-        .PC(PC),
+        .clearPipe(),
+        .pipeEnable(),
+        .pcEnable(),
         .ctrlMux1(PCSrcW),
         .ctrlMux2(BranchE),
+        .mux1PcPlus8(pc_4),
         .mux1ResultW(ResultW),
         .mux2_aluresult(WA3E_W),
         .instPipeIn(Instruction),
+        //Outputs
+        .PC(PC),
         .instPipeOut(InstMem),
         .pcPlus4(pc_4)
         );
   decode stageDeco(
-        .Clk(clk),
-        //.Rst(hazard)
+        //inputs
+        .clk(clk),
+        .reset(),
+        .RegWriteW(RegWriteM),
         .Instruction(InstMem),
         .ResultW(ResultW),
         .PCPlus8D(pc_4),
         .WA3W(WA3E_W),
         .flagsEin(flags), //Flags que vienen de la condition unit
-        .RegWriteW(RegWriteM),
+        //Outputs
         .WA3E(WA3E_D),
-        .ALUControlE(ALUControlD),
         .CondEPipeOutput(CondE),
+        .flagsEout(),
+        .ALUControlE(ALUControlD),
         .RD1(dataRegAD),
         .RD2(dataRegBD),
-        .Extended(ExtensionD)
+        .RD3(),  //thinning extra register
+        .Extended(ExtensionD),
+        .ALUSrcE(),
+        .MemToRegD(), 
+        .RegWriteD(), 
+        .PlusOne(), 
+        .BranchTakenE(), 
+        .PCSrcW()
   );
   logic MemWriteM;
   execute stageExe(
+        //Inputs
         .Clk(clk),
         .reset(reset),
-        .WA3E(WA3E_D),
-        .ALUControlE(ALUControlD),
-        .flagsE(flags),
-        .CondE(CondE),
+        .RegWriteE(),
+        .PlusOneIn(),
+        .BranchE(),
+        .PCSrcE(),
+        .ALUSrcE(),
+        .MemToRegE(),
+        .FlagWriteEin(),
+        .ForwardAE(),
+        .ForwardBE(),
         .dataRegAIn(dataRegAD),
         .dataRegBIn(dataRegBD),
         .dataRegCIn(),
         .extIn(ExtensionD),
         .ResultW(ResultW),
+        .ADataMem(),
+        .WA3E(WA3E_D),
+        .ALUControlE(ALUControlD),
+        .flagsE(flags),
+        .CondE(CondE),
+        //Outputs 
+        .AToMemout(),
+        .WDToMemout(),
+        .PCSrcMout(),
+        .RegWriteMout(), 
+        .MemToRegMout(), 
+        .BranchTakenE(),
         .MemWriteM(MemWriteM)
 
   );
   memory stageMem(
+        //Inputs
         .clock(clk),
         .reset(reset),
         .writeEnableIn(MemWriteM),
@@ -70,7 +104,8 @@ module arm(
         .ReadDataM(ReadData),
         .MemToRegIn(),
         .PCSrcIn(),
-        .RegWriteM()
+        .RegWriteM(),
+        //Outputs
         .MemToRegOut(MemToRegW),
         .PCSrcOut(PCSrcW),
         .RegWriteW(RegWriteW),
