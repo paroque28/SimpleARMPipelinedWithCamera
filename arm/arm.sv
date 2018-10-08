@@ -5,7 +5,6 @@ module arm(
 	 output logic [31:0] WriteData, ALUResult, PC
    //Write enable
 );
-  logic [31:0] ResultW;
   logic [31:0] ALUOutM;
   logic [31:0] ReadDataW;
   logic [31:0] InstMem; //Dato q sale da la memoria
@@ -20,78 +19,108 @@ module arm(
 
 
   fetch stageFetch(
+        //Inputs
         .clock(clk),
-        .mux1PcPlus8(pc_4),
-        .PC(PC),
+        .clearPipe(),
+        .pipeEnable(),
+        .pcEnable(),
         .ctrlMux1(PCSrcW),
         .ctrlMux2(BranchE),
+        .mux1PcPlus8(pc_4),
         .mux1ResultW(ResultW),
         .mux2_aluresult(WA3E_W),
         .instPipeIn(Instruction),
+        //Outputs
+        .PC(PC),
         .instPipeOut(InstMem),
         .pcPlus4(pc_4)
         );
 
   decode stageDeco(
-        .Clk(clk),
-        .Rst(reset),
+
+        //inputs
+        .clk(clk),
+        .reset(reset),
+        .RegWriteW(RegWriteM),
+
         .Instruction(InstMem),
         .ResultW(ResultW),
         .PCPlus8D(pc_4),
         .WA3W(WA3E_W),
         .flagsEin(flags), //Flags que vienen de la condition unit
-        .RegWriteW(RegWriteM),
+        //Outputs
         .WA3E(WA3E_D),
-        .ALUControlE(ALUControlD),
         .CondEPipeOutput(CondE),
+        .flagsEout(),
+        .ALUControlE(ALUControlD),
         .RD1(dataRegAD),
         .RD2(dataRegBD),
+
         .Extended(ExtensionD),
         .PlusOne(plusOneD),
         .BranchTakenE(BranchD),
         .PCSrcW(PCSrcD),
         .ALUSrcE(ALUSrcD)
+
   );
 
   execute stageExe(
+        //Inputs
         .Clk(clk),
         .reset(reset),
-        .WA3E(WA3E_D),
-        .ALUControlE(ALUControlD),
-        .flagsE(flags),
-        .CondE(CondE),
+
         .dataRegAIn(dataRegAD),
         .dataRegBIn(dataRegBD),
-        .dataRegCIn(),
         .extIn(ExtensionD),
         .ResultW(ResultW),
         .PlusOneIn(plusOneD),
         .BranchE(BranchD),
         .PCSrcE(PCSrcD),
         .ALUSrcE(ALUSrcD),
+        .ADataMem(),
+        .WA3E(WA3E_D),
+        .ALUControlE(ALUControlD),
+        .flagsE(flags),
+        .CondE(CondE),
+        //Outputs
+        .AToMemout(),
+        .WDToMemout(),
+        .PCSrcMout(),
+        .RegWriteMout(),
+        .MemToRegMout(),
+        .BranchTakenE(),
         .MemWriteM(MemWriteM)
 
   );
   memory stageMem(
+        //Inputs
         .clock(clk),
         .reset(reset),
-        .MemToRegOut(MemToRegW),
-        .ALUResultMOut(ALUOutM),
         .writeEnableIn(MemWriteM),
-        .writeData(WriteData),
-        .ReadDataM(ReadData),
-        .ReadDataW(ReadDataW),
-        .PCSrcOut(PCSrcW),
         .PlusOne(1'b0),
-        .WA3Wout(WA3E_W),
-        .RegWriteW(RegWriteW)
+        .ALUResultEIn(),
+        .WA3Min(),
+        .WriteDataM(),
+        .ReadDataM(ReadData),
+        .MemToRegIn(),
+        .PCSrcIn(),
+        .RegWriteM(),
+        //Outputs
+        .MemToRegOut(MemToRegW),
+        .PCSrcOut(PCSrcW),
+        .RegWriteW(RegWriteW),
+        .writeData(WriteData),
+        .ALUResultMOut(ALUOutM),
+        .ReadDataW(ReadDataW),
+        .WA3Wout(WA3E_W)
+
   );
 // Write back stage
   mux2x1 #(32) ResultWMux (
         .a(ReadDataW),
         .b(ALUOutM),
         .ctrl(MemToRegW),
-        .y(ResultW)
+        .y(ALUResult)
   );
 
 endmodule
