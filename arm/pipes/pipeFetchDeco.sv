@@ -1,6 +1,6 @@
 module pipeFetchDeco(
 	input logic clk,
-	input logic clr,
+	input logic reset,
 	input logic E,
 
 	input logic [0:31] instIn,
@@ -9,9 +9,9 @@ module pipeFetchDeco(
 
 logic [0:31] inst;
 
-always_ff @(posedge clk or negedge clr)
+always_ff @(posedge clk or posedge reset)
 begin
-	if(~clr)
+	if(reset)
 		begin
 		inst <= 0;
 		end
