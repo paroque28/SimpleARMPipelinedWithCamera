@@ -7,3 +7,4 @@ parameter SL     = 4'b0101;
 parameter SR     = 4'b0110;
 parameter AV     = 4'b0111;
 parameter THI    = 4'b1000;
+parameter AND	 = 4'b1001;

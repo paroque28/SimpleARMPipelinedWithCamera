@@ -29,44 +29,41 @@ assign ImmSrcD[1] = (cmd == FB); //LUT
 
 assign BranchD = (opcode == OPBRANCH);
 assign ALUOp = (opcode == OPDATA);
+assign RegSrcD[0] = (opcode == OPBRANCH);
+assign RegSrcD[1] = (opcode == OPMEMORY && ~funct[0]);
 
 always_comb
 begin
 
 	case(cmd)
+	FAND: begin //Case AND
+			ALUControlE =	AND;
+	end
 	FADD: begin //Case ADD
 			ALUControlE =	ADD;
-			RegSrcD 		=	2'b00;
 	end
 	FSUB: begin //Case SUBS
 			ALUControlE =	SUB;
-			RegSrcD 		=	2'b00;
 	end
 	FMULT: begin //Case MULT
 			ALUControlE =	MULT;
-			RegSrcD 		=	2'b00;
 	end
 	FLOAD: begin//Case LOAD
 			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
 	end
 	FSTR: begin//Case Store
 	 //Revisar si no hace Falta un MUX para pasar Reg2 o Inmediato a ser escrito
 			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
 	end
 	FAVERAGE: begin//Case Ponderate RGB
 			ALUControlE =	AV;
-			RegSrcD 		=	2'b00;
 	end
 	FSTR_ONE: begin//Case Store Plus One //Revisar si no hace Falta un MUX para pasar Reg2 o Inmediato a ser escrito
 			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
 	end
 	default:
 	begin
-			ALUControlE =	1'bz;
-			RegSrcD 		=	1'bz;
+			ALUControlE =	4'bz;
 			end
 	endcase
 end
