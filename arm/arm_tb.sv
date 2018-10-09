@@ -11,6 +11,7 @@ logic N,Z,C,V;
 assign cond = {N,Z,C,V};
 assign Instr = {cond, op, ImmEnable, cmd, SetFlags, rn, rd, src2};
 
+
 arm  processor(
     .clk(clk),
     .reset(reset),
@@ -64,7 +65,7 @@ begin
     rd = 1;
     src2 = {11'b0 , 1'b1};
     
-    
+    //NOP
     #2
     op = 0;
     ImmEnable = 0;
