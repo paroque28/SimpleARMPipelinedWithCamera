@@ -1,4 +1,5 @@
-module execute(input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE, ALUSrcE, MemToRegE, FlagWriteEin, ForwardAE, ForwardBE,
+module execute(    input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE, ALUSrcE, MemToRegE, FlagWriteEin,
+				   input logic [1:0] ForwardAE, ForwardBE,
 				   input  logic [31:0]   dataRegAIn, dataRegBIn, dataRegCIn, extIn, ResultW, ADataMem,
 				   input  logic [3:0]	 	 WA3E, ALUControlE, flagsE, CondE,
 				   output logic [3:0]  	 WA3Mout, flagsEout,
@@ -72,10 +73,10 @@ module execute(input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE
 
 	pipeExeMem
 	pipeEM(.clk(Clk),
-	     .PCSrcMin(executeANDPCSrcM_Output),
+	         .PCSrcMin(executeANDPCSrcM_Output),
 			 .RegWriteMin(executeANDRegWriteM_Output),
 			 .MemToRegMin(MemToRegE),
-	     .ALUResultE(executeALUResult_Output),
+	         .ALUResultE(executeALUResult_Output),
 			 .WriteDataE(executeMUX3x1BOut_Output),
 			 .WA3E(WA3E),
 			 .ADataMemory(executePipeADataToMem_Output),
@@ -93,5 +94,6 @@ module execute(input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE
 	assign PCSrcMout    = executePipePCSrcMout_Output;
 	assign RegWriteMout = executePipeRegWriteMout_Output;
 	assign MemToRegMout = executePipeMemToRegMout_Output;
+	assign ALUResultE   = executeALUResult_Output;
 
 endmodule
