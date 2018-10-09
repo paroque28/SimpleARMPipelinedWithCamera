@@ -9,8 +9,9 @@ module arm(
 	 output logic [31:0] WriteData,
 								ALUResult,
 								PC
-   //Write enable 
+   //Write enable
 );
+
   logic [31:0] ALUOutM,
                ALUOutE,
                ALUResultE,
@@ -80,7 +81,7 @@ module arm(
         .ALUControlE(ALUControlD),
         .RD1(dataRegAD),
         .RD2(dataRegBD),
-
+        .RD3(dataRegCD),
         .Extended(ExtensionD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
@@ -93,29 +94,33 @@ module arm(
         //Inputs
         .Clk(clk),
         .reset(reset),
-
-        .dataRegAIn(dataRegAD),
-        .dataRegBIn(dataRegBD),
-        .extIn(ExtensionD),
-        .ResultW(ResultW),
+        .RegWriteE(),
         .PlusOneIn(plusOneD),
         .BranchE(BranchD),
         .PCSrcE(PCSrcD),
         .ALUSrcE(ALUSrcD),
+        .MemToRegE(),
+        .FlagWriteEin(),
+        .ForwardAE(0),
+        .ForwardBE(0),
+        .dataRegAIn(dataRegAD),
+        .dataRegBIn(dataRegBD),
+        .dataRegCIn(dataRegCD),
+        .extIn(ExtensionD),
+        .ResultW(ResultW),
         //Salida del pipe ExeMemory recibe ALUResult del ciclo adelante
         .ADataMem(ALUOutM),
         .WA3E(WA3E_D),
         .ALUControlE(ALUControlD),
         .flagsE(flagsD),
         .CondE(CondE),
+        //Outputs
+        .WA3Mout(),
         .flagsEout(flagsE),
-
-        //Outputs ALUResultE
-
         .ALUResultE(ALUResultE),
         //Salida del pipe. Guarda la salida de la ALU y Address de la memoria de datos
         .AToMemout(ALUOutE),
-        //.WDToMemout(),
+        .WDToMemout(),
         .PCSrcMout(),
         .RegWriteMout(),
         .MemToRegMout(),
