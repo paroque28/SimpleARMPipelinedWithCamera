@@ -1,4 +1,5 @@
 `timescale 1ns / 1ns
+`include "Control_params.vh"
 module arm_tb;
 
 logic clk, reset, write_enable, ImmEnable, SetFlags;
@@ -55,27 +56,29 @@ begin
     
     // Add instruction
     #4
-    N=0;
-    Z=0;
-    C=0;
-    V=0;
-    op = 1;
+    op = OPDATA;
+    cmd = FADD;
     ImmEnable = 1;
-    cmd = 4'b0001;
 	SetFlags = 1;
     rn = 3;
     rd = 1;
     src2 = {11'b0 , 1'b1};
     
+    #2
+    op = 0;
+    ImmEnable = 0;
+    cmd = 4'b0000;
+	SetFlags = 0;
+    rn = 0;
+    rd = 0;
+    src2 = {11'b0 , 1'b0};
+    
+   
     // Sub instruction
-    #4
-    N=0;
-    Z=0;
-    C=0;
-    V=0;
-    op = 1;
+    #8
+    op = OPDATA;
+    cmd = FSUB;
     ImmEnable = 1;
-    cmd = 4'b0010;
 	SetFlags = 1;
     rn = 3;
     rd = 2;

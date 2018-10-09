@@ -5,7 +5,6 @@ module arm(
 	 output logic [31:0] WriteData, ALUResult, PC
    //Write enable
 );
-  logic [31:0] ALUOutM;
   logic [31:0] ALUResultE;
   logic [31:0] ReadDataW;
   logic [31:0] InstMem; //Dato q sale da la memoria
@@ -18,10 +17,9 @@ module arm(
 
 
   logic MemToRegM, MemToRegW, PCSrcW;
-  logic BranchE, WA3E_W,  RegWriteW;
+  logic BranchTakenE, WA3E_W,  RegWriteW;
   logic WA3E_D, plusOneD, BranchD, PCSrcD, ALUSrcD, FlagWriteD;
   logic MemWriteM;
-
 
   fetch stageFetch(
         //Inputs
@@ -30,7 +28,7 @@ module arm(
         .pipeEnable(1),
         .pcEnable(1),
         .pcSrcW(PCSrcW),
-        .Branch(BranchE),
+        .Branch(BranchTakenE),
         .mux1ResultW(ResultW),
         .mux2_aluresult(ALUResultE),
         .instPipeIn(Instruction),
@@ -95,7 +93,7 @@ module arm(
         .PCSrcMout(),
         .RegWriteMout(),
         .MemToRegMout(),
-        .BranchTakenE(),
+        .BranchTakenE(BranchTakenE),
         .MemWriteM(MemWriteM)
 
   );
@@ -105,7 +103,7 @@ module arm(
         .reset(reset),
         .writeEnableIn(MemWriteM),
         .PlusOne(1'b0),
-        .ALUResultEIn(),
+        .ALUResultEIn(ALUResultE),
         .WA3Min(),
         .WriteDataM(),
         .ReadDataM(ReadData),
@@ -117,7 +115,7 @@ module arm(
         .PCSrcOut(PCSrcW),
         .RegWriteW(RegWriteW),
         .writeData(WriteData),
-        .ALUResultMOut(ALUOutM),
+        .ALUResultMOut(ALUResult),
         .ReadDataW(ReadDataW),
         .WA3Wout(WA3E_W)
 
@@ -125,7 +123,7 @@ module arm(
 // Write back stage
   mux2x1 #(32) ResultWMux (
         .a(ReadDataW),
-        .b(ALUOutM),
+        .b(ALUResult),
         .ctrl(MemToRegW),
         .y(ResultW)
   );
