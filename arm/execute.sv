@@ -8,23 +8,33 @@ module execute(input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE
 
 	//Outputs
 
-	logic [31:0] executeALUResult_Output, executeMUXOut_Output, executeMUX3x1AOut_Output,
-	             executeMUX3x1BOut_Output, executePipeADataToMem_Output, executePipeWDDataToMem_Output;
+	logic [31:0] executeALUResult_Output,
+							 executeMUXOut_Output,
+							 executeMUX3x1AOut_Output,
+	             executeMUX3x1BOut_Output,
+							 executePipeADataToMem_Output,
+							 executePipeWDDataToMem_Output;
 
-	logic [3:0]  executeALUFlags_Output, executePipeWA3M_Output, executeCondUnit_flags_Output;
+	logic [3:0] executeALUFlags_Output,
+							executePipeWA3M_Output,
+							executeCondUnit_flags_Output;
 
-	logic        executeCondUnit_condExe_Output, executeANDPCSrcM_Output, executeANDRegWriteM_Output,
-	             executePipePCSrcMout_Output, executePipeRegWriteMout_Output, executePipeMemToRegMout_Output;
+	logic executeCondUnit_condExe_Output,
+				executeANDPCSrcM_Output,
+				executeANDRegWriteM_Output,
+				executePipePCSrcMout_Output,
+				executePipeRegWriteMout_Output,
+				executePipeMemToRegMout_Output;
 
 	//Components
 
 	ALU
 	alu(.inputA(executeMUX3x1AOut_Output),
 	    .inputB(executeMUXOut_Output),
-		 .inputC(dataRegCIn),
-		 .ALU_control(ALUControlE),
-		 .ALU_flags(executeALUFlags_Output),
-		 .outputC(executeALUResult_Output));
+		  .inputC(dataRegCIn),
+		  .ALU_control(ALUControlE),
+		  .ALU_flags(executeALUFlags_Output),
+		  .outputC(executeALUResult_Output));
 
    mux3x1
 	executeMux3x1ToALUA(.a(dataRegAIn),
