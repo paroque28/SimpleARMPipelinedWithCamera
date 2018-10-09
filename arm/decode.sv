@@ -32,6 +32,7 @@ module decode(input  logic			 clk, reset, RegWriteW,
 	             decodePipeRB_Output, decodePipeRC_Output, decodePipeExtended_Output;
 
 	logic [1:0]  decodeRegSrcD_Output, decodeInmRegSel_Output;
+
 	logic			 decodeMemtoRegD_Output, decodeALUSrcE_Output, decodeRegWriteD_Output, decodePlusOne_Output,
 	             decodeBranchTake_Output, decodePCSrcW_Output, decodePipeRegWriteD_Output,
 					 decodePipePlusOne_Output, decodePipeBranchTake_Output, decodePipePCSrcW_Output,
