@@ -17,8 +17,8 @@ module pipeDecoExe(
 	input logic [3:0] CondEIn,
 	output  logic [3:0] CondEOut,
 
-	input logic RegWriteDIn, PlusOneIn, BranchTakenEIn, PCSrcWIn, ALUSrcEIn, MemToRegDIn,
-	output logic RegWriteDOut, PlusOneOut, BranchTakenEOut, PCSrcWOut, ALUSrcEOut, MemToRegDOut
+	input logic RegWriteDIn, PlusOneIn, BranchEIn, PCSrcWIn, ALUSrcEIn, MemToRegDIn,
+	output logic RegWriteDOut, PlusOneOut, BranchEOut, PCSrcWOut, ALUSrcEOut, MemToRegDOut
 );
 
 logic [31:0] dataRegA, dataRegB, dataRegC;
@@ -29,7 +29,7 @@ logic [3:0] flagsE;
 logic [3:0] CondE;
 
 
-logic RegWriteD, PlusOne, BranchTakenE, PCSrcW, ALUSrcE, MemToRegD;
+logic RegWriteD, PlusOne, BranchE, PCSrcW, ALUSrcE, MemToRegD;
 
 
 always_ff @(posedge clk or posedge rst)
@@ -44,7 +44,7 @@ begin
 		ALUControlE <= 0;
 		RegWriteD <= 0;
 		PlusOne <= 0;
-		BranchTakenE <= 0;
+		BranchE <= 0;
 		PCSrcW <= 0;
 		ALUSrcE <= 0;
 		MemToRegD <= 0;
@@ -62,7 +62,7 @@ begin
 		ALUControlE <= ALUControlEIn;
 		RegWriteD <= RegWriteDIn;
 		PlusOne <= PlusOneIn;
-		BranchTakenE <= BranchTakenEIn;
+		BranchE <= BranchEIn;
 		PCSrcW <= PCSrcWIn;
 		ALUSrcE <= ALUSrcEIn;
 		MemToRegD <= MemToRegDIn;
@@ -74,20 +74,40 @@ end
 
 always_ff @(negedge clk)
 begin
-	dataRegAOut <= dataRegA;
-	dataRegBOut <= dataRegB;
-	dataRegCOut <= dataRegC;
-	WA3EOut <= WA3E;
-	extOut <= ext;
-	ALUControlEOut <= ALUControlE;
-	RegWriteDOut <= RegWriteD;
-	PlusOneOut <= PlusOne;
-	BranchTakenEOut <= BranchTakenE;
-	PCSrcWOut <= PCSrcW;
-	ALUSrcEOut <= ALUSrcE;
-	MemToRegDOut <= MemToRegD;
-	flagsEOut <= flagsE;
-	CondEOut <= CondE;
+	if (rst)
+	begin
+		dataRegAOut 	<= 0;
+		dataRegBOut 	<= 0;
+		dataRegCOut 	<= 0;
+		WA3EOut 		<= 0;
+		extOut 			<= 0;
+		ALUControlEOut 	<= 0;
+		RegWriteDOut 	<= 0;
+		PlusOneOut		<= 0;
+		BranchEOut 		<= 0;
+		PCSrcWOut 		<= 0;
+		ALUSrcEOut 		<= 0;
+		MemToRegDOut 	<= 0;
+		flagsEOut 		<= 0;
+		CondEOut 		<= 0;
+	end
+
+	else begin
+		dataRegAOut <= dataRegA;
+		dataRegBOut <= dataRegB;
+		dataRegCOut <= dataRegC;
+		WA3EOut <= WA3E;
+		extOut <= ext;
+		ALUControlEOut <= ALUControlE;
+		RegWriteDOut <= RegWriteD;
+		PlusOneOut <= PlusOne;
+		BranchEOut <= BranchE;
+		PCSrcWOut <= PCSrcW;
+		ALUSrcEOut <= ALUSrcE;
+		MemToRegDOut <= MemToRegD;
+		flagsEOut <= flagsE;
+		CondEOut <= CondE;
+	end
 end
 
 endmodule
