@@ -2,7 +2,7 @@ module execute(input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE
 				   input  logic [31:0]   dataRegAIn, dataRegBIn, dataRegCIn, extIn, ResultW, ADataMem,
 				   input  logic [3:0]	 	 WA3E, ALUControlE, flagsE, CondE,
 				   output logic [3:0]  	 WA3Mout, flagsEout,
-				   output logic [31:0]   AToMemout, WDToMemout,
+				   output logic [31:0]   ALUResultE, AToMemout, WDToMemout,
 				   output logic          PCSrcMout, RegWriteMout, MemToRegMout, BranchTakenE, MemWriteM);
 
 
@@ -62,10 +62,10 @@ module execute(input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE
 
 	pipeExeMem
 	pipeEM(.clk(Clk),
-	       .PCSrcMin(executeANDPCSrcM_Output),
+	     .PCSrcMin(executeANDPCSrcM_Output),
 			 .RegWriteMin(executeANDRegWriteM_Output),
 			 .MemToRegMin(MemToRegE),
-	       .ALUResultE(executeALUResult_Output),
+	     .ALUResultE(executeALUResult_Output),
 			 .WriteDataE(executeMUX3x1BOut_Output),
 			 .WA3E(WA3E),
 			 .ADataMemory(executePipeADataToMem_Output),
