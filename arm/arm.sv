@@ -18,7 +18,7 @@ module arm(
 
 
   logic MemToRegM, MemToRegW, PCSrcW;
-  logic BranchE, WA3E_W,  RegWriteW;
+  logic BranchTakenE, WA3E_W,  RegWriteW;
   logic WA3E_D, plusOneD, BranchD, PCSrcD, ALUSrcD, FlagWriteD;
   logic MemWriteM;
 
@@ -30,7 +30,7 @@ module arm(
         .pipeEnable(1),
         .pcEnable(1),
         .pcSrcW(PCSrcW),
-        .Branch(BranchE),
+        .Branch(BranchTakenE),
         .mux1ResultW(ResultW),
         .mux2_aluresult(ALUResultE),
         .instPipeIn(Instruction),
@@ -95,7 +95,7 @@ module arm(
         .PCSrcMout(),
         .RegWriteMout(),
         .MemToRegMout(),
-        .BranchTakenE(),
+        .BranchTakenE(BranchTakenE),
         .MemWriteM(MemWriteM)
 
   );
