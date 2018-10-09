@@ -1,5 +1,5 @@
 
-module Control_unit (input logic [3:0] funct,
+module Control_unit (input logic [5:0] funct,
 							input logic [1:0]opcode,
 							output logic ALUSrcE,
 							output logic [3:0] ALUControlE,
@@ -16,80 +16,53 @@ module Control_unit (input logic [3:0] funct,
 `include "ALU_params.vh"
 `include "Control_params.vh"
 
-assign PlusOne = (funct == fSTR_ONE);
+logic [3:0] cmd;
+logic Branch, ALUOp;
+
+assign cmd = funct [4:1];
+assign PlusOne = (cmd == FSTR_ONE);
 assign ALUSrcE = opcode[0];
-assign MemToRegD = (funct == fLOAD);
-assign RegWriteD = ~(funct == fSTR || funct == fPIC);
+assign MemToRegD = (cmd == FLOAD);
+assign RegWriteD = ~(cmd == FSTR || cmd == FPIC);
 
-assign ImmSrcD[0] = (funct == fSTR || funct == fLOAD); //LUT
-assign ImmSrcD[1] = (funct == fB); //LUT
-
+assign ImmSrcD[0] = (cmd == FSTR || cmd == FLOAD); //LUT
+assign ImmSrcD[1] = (cmd == FB); //LUT
+assign Branch = (opcode == OPBRANCH);
+assign ALUOp = (opcode == OPDATA);
 
 always_comb
 begin
 
-	case(funct)
-	fADD: begin //Case ADD
+	case(cmd)
+	FADD: begin //Case ADD
 			ALUControlE =	ADD;
 			RegSrcD 		=	2'b00;
 	end
-	fSUB: begin //Case SUBS
+	FSUB: begin //Case SUBS
 			ALUControlE =	SUB;
 			RegSrcD 		=	2'b00;
 	end
-	fMULT: begin //Case MULT
+	FMULT: begin //Case MULT
 			ALUControlE =	MULT;
 			RegSrcD 		=	2'b00;
 	end
-
-	fLOAD: begin//Case LOAD
+	FLOAD: begin//Case LOAD
 			ALUControlE =	BUFFER;
 			RegSrcD 		=	0;
 	end
-	fSTR: begin//Case Store
-	 //Revisar si no hace falta un MUX para pasar Reg2 o Inmediato a ser escrito
+	FSTR: begin//Case Store
+	 //Revisar si no hace Falta un MUX para pasar Reg2 o Inmediato a ser escrito
 			ALUControlE =	BUFFER;
 			RegSrcD 		=	0;
 	end
-	/*
-	fSL: begin //Case Shift Left
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end
-	fSR: begin//Case Shift Right
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end
-	fB: begin//Case Branch
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end
-	fPIC: begin//Case Take Picture
-			ALUControlE =	;
-			RegSrcD 		=	;
-			end*/
-
-	fAVERAGE: begin//Case Ponderate RGB
+	FAVERAGE: begin//Case Ponderate RGB
 			ALUControlE =	AV;
 			RegSrcD 		=	2'b00;
 	end
-	fSTR_ONE: begin//Case Store Plus One //Revisar si no hace falta un MUX para pasar Reg2 o Inmediato a ser escrito
+	FSTR_ONE: begin//Case Store Plus One //Revisar si no hace Falta un MUX para pasar Reg2 o Inmediato a ser escrito
 			ALUControlE =	BUFFER;
 			RegSrcD 		=	0;
 	end
-	// fTHI: begin//Case Thinning
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// end
-	// 4'b1110: begin
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// 		//ImmSrcD 		=
-	// end
-	// 4'b1111: begin
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// 		end
 	default:
 	begin
 			ALUControlE =	1'bz;
