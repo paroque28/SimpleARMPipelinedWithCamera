@@ -38,12 +38,15 @@ module memory (
                      .ALUOutM(ALUOutM),
                      .MemToRegIn(MemToRegIn),
                      .WA3M(WA3Min),
+                     .PCSrcIn(PCSrcIn),
                      .MemToRegOut(MemToRegOut),
                      .ReadDataW(ReadDataW),
                      .ALUOutW(ALUOutW),
                      .WA3W(WA3Wout),
                      .RegWriteIn(RegWriteM),
-                     .RegWriteOut(RegWriteW));
+                     .RegWriteOut(RegWriteW),
+                     .PCSrcOut(PCSrcOut)
+);
 
 
 endmodule
