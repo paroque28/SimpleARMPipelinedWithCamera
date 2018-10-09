@@ -1,9 +1,9 @@
-module decode(input  logic			 clk, reset, RegWriteW,
+module decode(input  logic			  clk, reset, RegWriteW,
 				  input  logic [31:0] Instruction, ResultW, PCPlus8D,
-				  input  logic [3:0]	 WA3W, flagsEin,
+				  input  logic [3:0]  WA3W, flagsEin,
 				  output logic [3:0]  WA3E, CondEPipeOutput, flagsEout, ALUControlE,
 				  output logic [31:0] RD1, RD2, RD3, Extended,
-				  output logic 		 ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcW);
+				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcW);
 
 
 	//Instruction Mapping
