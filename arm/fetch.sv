@@ -29,7 +29,7 @@ module fetch(
           .dirOut(dirMem) );
 
   pipeFetchDeco pipe (.clk(clock),
-                      .clr(rst),
+                      .reset(rst),
                       .E(pipeEnable),
                       .instIn(instPipeIn),
                       .instOut(instPipeOut)
