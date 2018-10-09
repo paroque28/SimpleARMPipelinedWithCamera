@@ -60,7 +60,7 @@ module arm(
         //Outputs
         .PC(PC),
         .instPipeOut(InstMem),
-        .pcPlus4D(pcPlus8D)
+        .pcPlus8D(pcPlus8D)
         );
 
   decode stageDeco(
