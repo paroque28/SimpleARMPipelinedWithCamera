@@ -8,7 +8,7 @@ module Control_unit (input logic [5:0] funct,
 							output logic [1:0]ImmSrcD, // No va al pipe
 							output logic RegWriteD,
 							output logic PlusOne,
-							output logic BranchTakenE,
+							output logic BranchD,
 							output logic PCSrcW
 							);
 
@@ -17,17 +17,17 @@ module Control_unit (input logic [5:0] funct,
 `include "Control_params.vh"
 
 logic [3:0] cmd;
-logic Branch, ALUOp;
+logic ALUOp;
 
 assign cmd = funct [4:1];
 assign PlusOne = (cmd == FSTR_ONE);
 assign ALUSrcE = opcode[0];
 assign MemToRegD = (cmd == FLOAD);
 assign RegWriteD = ~(cmd == FSTR || cmd == FPIC);
-
 assign ImmSrcD[0] = (cmd == FSTR || cmd == FLOAD); //LUT
 assign ImmSrcD[1] = (cmd == FB); //LUT
-assign Branch = (opcode == OPBRANCH);
+
+assign BranchD = (opcode == OPBRANCH);
 assign ALUOp = (opcode == OPDATA);
 
 always_comb
