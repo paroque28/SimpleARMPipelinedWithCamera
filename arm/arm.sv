@@ -1,13 +1,13 @@
 module arm(
-    input logic clk, 
+    input logic clk,
 					 reset,
-	 
-	 input logic [31:0] Instruction, 
+
+	 input logic [31:0] Instruction,
 						     ReadData,
     output logic write_enable,
-	 
-	 output logic [31:0] WriteData, 
-								ALUResult, 
+
+	 output logic [31:0] WriteData,
+								ALUResult,
 								PC
    //Write enable
 );
@@ -45,6 +45,7 @@ module arm(
         MemWriteM;
 
 
+
   fetch stageFetch(
         //Inputs
         .clock(clk),
@@ -52,7 +53,7 @@ module arm(
         .pipeEnable(1),
         .pcEnable(1),
         .pcSrcW(PCSrcW),
-        .Branch(BranchE),
+        .Branch(BranchTakenE),
         .mux1ResultW(ResultW),
         .mux2_aluresult(ALUResultE),
         .instPipeIn(Instruction),
@@ -119,7 +120,7 @@ module arm(
         .PCSrcMout(),
         .RegWriteMout(),
         .MemToRegMout(),
-        .BranchTakenE(),
+        .BranchTakenE(BranchTakenE),
         .MemWriteM(MemWriteM)
 
   );
