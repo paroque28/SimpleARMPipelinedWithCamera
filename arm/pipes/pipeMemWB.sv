@@ -1,13 +1,14 @@
 module pipeMemWB (    input             clk,
-					  input				reset,
+							        input				reset,
                       input  [31:0]     RD,
                       input  [31:0]     ALUOutM,
                       input  [3:0]      WA3M,
                       input             MemToRegIn,RegWriteIn, PCSrcIn,
                       output logic [31:0] ReadDataW,
                       output logic [31:0] ALUOutW,
-                      output logic [3:0]  WA3W,
-					  output logic        MemToRegOut,RegWriteOut, PCSrcOut
+                      output logic [3:0]  WA3W, MemToRegOut,
+					            output logic        RegWriteOut, PCSrcOut
+
  );
 
 
