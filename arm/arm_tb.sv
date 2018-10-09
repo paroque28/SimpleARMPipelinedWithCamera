@@ -11,7 +11,6 @@ logic N,Z,C,V;
 assign cond = {N,Z,C,V};
 assign Instr = {cond, op, ImmEnable, cmd, SetFlags, rn, rd, src2};
 
-
 arm  processor(
     .clk(clk),
     .reset(reset),
@@ -36,7 +35,7 @@ initial
 begin
 
     //Initial state zero
-    clk=0;
+    clk=1;
     N=0;
     Z=0;
     C=0;
