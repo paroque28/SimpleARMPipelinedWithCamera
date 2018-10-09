@@ -15,6 +15,8 @@ module arm(
   logic [31:0] Ae;
   logic [31:0] ResultW;
   logic [3:0] flagsE, flagsD, ALUControlD, CondE;
+
+
   logic MemToRegM, MemToRegW, PCSrcW;
   logic BranchE, WA3E_W,  RegWriteW;
   logic WA3E_D, plusOneD, BranchD, PCSrcD, ALUSrcD, FlagWriteD;
@@ -28,7 +30,7 @@ module arm(
         .pipeEnable(1),
         .pcEnable(1),
         .pcSrcW(PCSrcW),
-        .CondE(CondE),
+        .Branch(BranchE),
         .mux1ResultW(ResultW),
         .mux2_aluresult(ALUResultE),
         .instPipeIn(Instruction),
@@ -43,7 +45,7 @@ module arm(
         //inputs
         .clk(clk),
         .reset(reset),
-        .RegWriteW(RegWriteW),
+
         .Instruction(InstMem),
         .ResultW(ResultW),
         .PCPlus8D(pcPlus8D),
