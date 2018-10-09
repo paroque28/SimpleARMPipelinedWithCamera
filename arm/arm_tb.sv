@@ -64,6 +64,7 @@ begin
     rd = 1;
     src2 = {11'b0 , 1'b1};
     
+    
     #2
     op = 0;
     ImmEnable = 0;
