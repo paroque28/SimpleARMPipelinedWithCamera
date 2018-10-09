@@ -1,26 +1,49 @@
 module arm(
-   input logic clk, reset,
-	 input logic [31:0] Instruction, ReadData,
-   output logic write_enable,
-	 output logic [31:0] WriteData, ALUResult, PC
+    input logic clk,
+					 reset,
+
+	 input logic [31:0] Instruction,
+						     ReadData,
+    output logic write_enable,
+
+	 output logic [31:0] WriteData,
+								ALUResult,
+								PC
    //Write enable
 );
-  logic [31:0] ALUOutM;
-  logic [31:0] ALUResultE;
-  logic [31:0] ReadDataW;
-  logic [31:0] InstMem; //Dato q sale da la memoria
-  logic [31:0] pcPlus8D;
-  logic [31:0] R15;
-  logic [31:0] dataRegAD, dataRegBD, dataRegCD, ExtensionD;
-  logic [31:0] Ae;
-  logic [31:0] ResultW;
-  logic [3:0] flagsE, flagsD, ALUControlD, CondE;
+  logic [31:0] ALUOutM,
+               ALUOutE,
+               ALUResultE,
+               ReadDataW,
+               InstMem, //Dato q sale da la memoria
+               pcPlus8D,
+               R15,
+               dataRegAD,
+               dataRegBD,
+               dataRegCD,
+               ExtensionD,
+               ResultW;
+
+  logic [3:0] flagsE,
+              flagsD,
+              ALUControlD,
+              CondE;
 
 
-  logic MemToRegM, MemToRegW, PCSrcW;
-  logic BranchTakenE, WA3E_W,  RegWriteW;
-  logic WA3E_D, plusOneD, BranchD, PCSrcD, ALUSrcD, FlagWriteD;
-  logic MemWriteM;
+  logic MemToRegM,
+        MemToRegW,
+        PCSrcW,
+        BranchE,
+        WA3E_W,
+        RegWriteW,
+        WA3E_D,
+        plusOneD,
+        BranchD,
+        PCSrcD,
+        ALUSrcD,
+        FlagWriteD,
+        MemWriteM;
+
 
 
   fetch stageFetch(
@@ -37,7 +60,7 @@ module arm(
         //Outputs
         .PC(PC),
         .instPipeOut(InstMem),
-        .pcPlus8D(pcPlus8D)
+        .pcPlus4D(pcPlus8D)
         );
 
   decode stageDeco(
@@ -80,7 +103,8 @@ module arm(
         .BranchE(BranchD),
         .PCSrcE(PCSrcD),
         .ALUSrcE(ALUSrcD),
-        //.ADataMem(),
+        //Salida del pipe ExeMemory recibe ALUResult del ciclo adelante
+        .ADataMem(ALUOutM),
         .WA3E(WA3E_D),
         .ALUControlE(ALUControlD),
         .flagsE(flagsD),
@@ -90,7 +114,8 @@ module arm(
         //Outputs ALUResultE
 
         .ALUResultE(ALUResultE),
-        .AToMemout(), //Guarda la salida de la ALU y Address de la memoria de datos
+        //Salida del pipe. Guarda la salida de la ALU y Address de la memoria de datos
+        .AToMemout(ALUOutE),
         //.WDToMemout(),
         .PCSrcMout(),
         .RegWriteMout(),
@@ -105,7 +130,7 @@ module arm(
         .reset(reset),
         .writeEnableIn(MemWriteM),
         .PlusOne(1'b0),
-        .ALUResultEIn(),
+        .ALUOutM(ALUOutE),
         .WA3Min(),
         .WriteDataM(),
         .ReadDataM(ReadData),
@@ -117,7 +142,7 @@ module arm(
         .PCSrcOut(PCSrcW),
         .RegWriteW(RegWriteW),
         .writeData(WriteData),
-        .ALUResultMOut(ALUOutM),
+        .ALUOutW(ALUOutM),
         .ReadDataW(ReadDataW),
         .WA3Wout(WA3E_W)
 
