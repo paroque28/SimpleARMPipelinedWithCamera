@@ -21,6 +21,7 @@ arm  processor(
     .ReadData(ReadData)
 );
 
+
 //RAM
 ram	RAM1 (
 	.address_a ( ALUResult ),
@@ -29,7 +30,6 @@ ram	RAM1 (
 	.wren_a ( write_enable ),
 	.q_a ( ReadData )
 	);
-
 
 initial 
 begin

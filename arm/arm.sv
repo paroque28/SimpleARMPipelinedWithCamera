@@ -75,6 +75,7 @@ module arm(
         .PCPlus8D(pcPlus8D),
         .RegWriteW(RegWriteW),
         .flagsEin(flagsE), //Flags que vienen de la condition unit
+        .WA3W(ResultW),
         //Outputs
         .WA3E(WA3E_D),
         .CondEPipeOutput(CondE),
@@ -86,7 +87,7 @@ module arm(
         .Extended(ExtensionD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
-        .PCSrcW(PCSrcD),
+        .PCSrcD(PCSrcD),
         .ALUSrcE(ALUSrcD)
 
   );
