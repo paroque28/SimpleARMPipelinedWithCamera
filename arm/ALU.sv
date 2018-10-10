@@ -7,7 +7,7 @@ module ALU(input logic [31:0] inputA,
 );
 
 
-`include "ALU_params.h"
+`include "ALU_params.vh"
 
 logic [32:0] sum;
 logic [32:0] sub;
@@ -15,20 +15,24 @@ logic [32:0] mult;
 logic [32:0] div;
 logic [32:0] sl;
 logic [32:0] sr;
+logic [31:0] and_r;
 logic [32:0] average;
 logic [32:0] thin;
 logic [32:0] result;
+
 logic fneg, fzero, fcarry, foverflow;
 
 
 assign outputC = result [31:0];
-assign {fneg, fzero, fcarry, foverflow} = ALU_flags;
+assign  ALU_flags = {fneg, fzero, fcarry, foverflow};
 assign sum = inputA + inputB;
 assign sub = inputA-inputB;
 assign mult = inputA*inputB;
 assign div = inputA/inputB;
 assign sl = inputA<<inputB;
 assign sr = inputA>>inputB;
+assign and_r = inputA & inputB;
+
 assign average = (inputA[7:0] + inputA[15:8] + inputA[23:16])/3;
 
 thinning thi (
@@ -46,6 +50,8 @@ begin
 			result = inputA;
 		ADD://Case sum
 			result = sum;
+		ADD://Case sum
+			result = {1'b0 , and_r};
 		SUB://Case substraction
 			result = sub;
 		MULT://Case multiply
@@ -60,6 +66,8 @@ begin
 			result = average;
 		THI://Case thinning
 			result = thin;
+		NOP://Case NOP
+			result = 0;
 			
 		default: result = inputA;
 		endcase

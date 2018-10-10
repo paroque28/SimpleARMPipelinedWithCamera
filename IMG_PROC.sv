@@ -202,13 +202,5 @@ I2C_CCD_Config 		u8	(	//	Host Side
 //RAM
 
 
-ram_2port	ram_2port_inst (
-	.address_a ( SW ),
-	.clock_a ( CLOCK_50 ),
-	.data_a ( SW ),
-	.wren_a ( ~KEY[0] ),
-	.q_a ( LEDR),
-	);
-
 
 endmodule
