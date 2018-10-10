@@ -1,0 +1,5 @@
+mul r2, r2, r3
+add r3, r4
+ld r3, #123
+mul [r3]
+ld [#123]
