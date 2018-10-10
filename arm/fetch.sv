@@ -40,7 +40,7 @@ module fetch(
 
   mux2x1 mux1 (.a(mux1ResultW),
                .b(pcPlus4),
-               .ctrl(ctrlMux1),
+               .ctrl(pcSrcW),
                .y(mux1Out)
                );
 

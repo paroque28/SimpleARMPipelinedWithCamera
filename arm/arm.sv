@@ -42,7 +42,8 @@ module arm(
         PCSrcD,
         ALUSrcD,
         FlagWriteD,
-        MemWriteM;
+		    BranchTakenE,
+        MemWriteD;
 
 
 
@@ -73,7 +74,7 @@ module arm(
         .ResultW(ResultW),
         .PCPlus8D(pcPlus8D),
         .RegWriteW(RegWriteW),
-        .flagsEin(flags), //Flags que vienen de la condition unit
+        .flagsEin(flagsE), //Flags que vienen de la condition unit
         //Outputs
         .WA3E(WA3E_D),
         .CondEPipeOutput(CondE),
@@ -110,6 +111,7 @@ module arm(
         .flagsE(flagsD),
         .CondE(CondE),
         .flagsEout(flagsE),
+        .MemWriteDin(MemWriteD),
 
         //Outputs ALUResultE
 
@@ -121,14 +123,14 @@ module arm(
         .RegWriteMout(),
         .MemToRegMout(),
         .BranchTakenE(BranchTakenE),
-        .MemWriteM(MemWriteM)
+        .MemWriteEout(MemWriteE)
 
   );
   memory stageMem(
         //Inputs
         .clock(clk),
         .reset(reset),
-        .writeEnableIn(MemWriteM),
+        .writeEnableIn(MemWriteE),
         .PlusOne(1'b0),
         .ALUOutM(ALUOutE),
         .WA3Min(),
@@ -137,14 +139,16 @@ module arm(
         .MemToRegIn(),
         .PCSrcIn(),
         .RegWriteM(),
-        //Outputs
+
+        // Outputs
         .MemToRegOut(MemToRegW),
         .PCSrcOut(PCSrcW),
         .RegWriteW(RegWriteW),
         .writeData(WriteData),
         .ALUOutW(ALUOutM),
         .ReadDataW(ReadDataW),
-        .WA3Wout(WA3E_W)
+        .WA3Wout(WA3E_W),
+		    .MemWriteMOut(write_enable)
 
   );
 // Write back stage
