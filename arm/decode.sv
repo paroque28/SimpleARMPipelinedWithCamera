@@ -1,6 +1,6 @@
 module decode(input  logic			  clk, reset, RegWriteW,
 				  input  logic [31:0] Instruction, ResultW, PCPlus8D,
-				  input  logic [3:0]  WA3W, flagsEin,
+				  input  logic [3:0]  flagsEin,
 				  output logic [3:0]  WA3E, CondEPipeOutput, flagsEout, ALUControlE,
 				  output logic [31:0] RD1, RD2, RD3, Extended,
 				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcW);
@@ -10,17 +10,19 @@ module decode(input  logic			  clk, reset, RegWriteW,
 
 	logic [1:0]     Op;
 	logic [5:0]  Funct;
-	logic [3:0]  CondE, decodeMux2x1ToRA1D_IN1, decodeMux2x1ToRA2D_IN1, decodeMux2x1ToRA2D_IN2;
+	logic [3:0]  CondE, decodeMux2x1ToRA1D_IN1, decodeMux2x1ToRA2D_IN1, decodeMux2x1ToRA2D_IN2, WA3D;
 	logic [23:0] ExtendedIN;
+	
 
-	//TODO ARREGLAR MAPEO
 	assign Op 	 						= Instruction[27:26];
 	assign Funct 						= Instruction[25:20];
 	assign CondE 						= Instruction[31:28];
-	assign decodeMux2x1ToRA1D_IN1 = Instruction[19:16];
-	assign decodeMux2x1ToRA2D_IN1 = Instruction[3:0];
-	assign decodeMux2x1ToRA2D_IN2 = Instruction[15:12];
-	assign ExtendedIN 				= Instruction[23:0];
+	assign decodeMux2x1ToRA1D_IN1 		= Instruction[19:16];
+	assign decodeMux2x1ToRA2D_IN1 		= Instruction[3	:0];
+	assign decodeMux2x1ToRA2D_IN2		= Instruction[15:12];
+	assign decodeMux2x1ToRA3D_Output    = Instruction[15:12];
+	assign ExtendedIN 					= Instruction[23:0];
+	assign WA3D 						= Instruction[15:12];
 
 	//Outputs
 
@@ -59,7 +61,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 	decodeMux2x1ToRA1D(.a(decodeMux2x1ToRA1D_IN1),
 	                   .b(15),
 							 .ctrl(decodeRegSrcD_Output[0]),
-							 .y(decodeMux2x1ToRA1D_Output));
+							 .y(decodeMux2x1ToRA1D_Output));4
 
 	mux2x1
 	#(4)
@@ -97,7 +99,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 			 .dataRegBOut(decodePipeRB_Output),
 			 .dataRegCOut(decodePipeRC_Output),
 			 .extOut(decodePipeExtended_Output),
-			 .WA3EIn(decodeMux2x1ToRA2D_IN2),
+			 .WA3EIn(WA3D),
 			 .WA3EOut(decodeWA3E_Output),
 			 .ALUControlEIn(decodeALUControlE_Output),
 			 .ALUControlEOut(decodePipeALUControlE_Output),
