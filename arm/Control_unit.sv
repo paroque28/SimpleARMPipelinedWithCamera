@@ -23,7 +23,7 @@ assign cmd = funct [4:1];
 assign PlusOne = (cmd == FSTR_ONE);
 assign ALUSrcE = opcode[0];
 assign MemToRegD = (cmd == FLOAD);
-assign RegWriteD = ~(cmd == FSTR || cmd == FPIC);
+assign RegWriteD = ~(cmd == FSTR || cmd == FPIC || cmd == FNOP);
 assign ImmSrcD[0] = (cmd == FSTR || cmd == FLOAD); //LUT
 assign ImmSrcD[1] = (cmd == FB); //LUT
 
@@ -36,8 +36,8 @@ always_comb
 begin
 
 	case(cmd)
-	FAND: begin //Case AND
-			ALUControlE =	AND;
+	FNOP: begin //Case AND
+			ALUControlE =	NOP;
 	end
 	FADD: begin //Case ADD
 			ALUControlE =	ADD;
