@@ -44,7 +44,8 @@ module arm(
         ALUSrcD,
         FlagWriteD,
 		    BranchTakenE,
-        MemWriteD;
+        MemWriteD,
+		  MemWriteE;
 
 
   fetch stageFetch(
