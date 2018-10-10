@@ -24,6 +24,9 @@ begin
 		end
 end
 
-assign instOut = inst;
+always_ff @(negedge clk)
+begin
+	instOut <= inst;
+end
 
 endmodule
