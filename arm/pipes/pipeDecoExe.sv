@@ -17,8 +17,8 @@ module pipeDecoExe(
 	input logic [3:0] CondEIn,
 	output  logic [3:0] CondEOut,
 
-	input logic RegWriteDIn, PlusOneIn, BranchEIn, PCSrcWIn, ALUSrcEIn, MemToRegDIn,
-	output logic RegWriteDOut, PlusOneOut, BranchEOut, PCSrcWOut, ALUSrcEOut, MemToRegDOut
+	input logic RegWriteDIn, PlusOneIn, BranchEIn, PCSrcDIn, ALUSrcEIn, MemToRegDIn,
+	output logic RegWriteDOut, PlusOneOut, BranchEOut, PCSrcDOut, ALUSrcEOut, MemToRegDOut
 );
 
 logic [31:0] dataRegA, dataRegB, dataRegC;
@@ -29,7 +29,7 @@ logic [3:0] flagsE;
 logic [3:0] CondE;
 
 
-logic RegWriteD, PlusOne, BranchE, PCSrcW, ALUSrcE, MemToRegD;
+logic RegWriteD, PlusOne, BranchE, PCSrcD, ALUSrcE, MemToRegD;
 
 
 always_ff @(posedge clk or posedge rst)
@@ -45,7 +45,7 @@ begin
 		RegWriteD <= 0;
 		PlusOne <= 0;
 		BranchE <= 0;
-		PCSrcW <= 0;
+		PCSrcD <= 0;
 		ALUSrcE <= 0;
 		MemToRegD <= 0;
 		flagsE <= 0;
@@ -63,7 +63,7 @@ begin
 		RegWriteD <= RegWriteDIn;
 		PlusOne <= PlusOneIn;
 		BranchE <= BranchEIn;
-		PCSrcW <= PCSrcWIn;
+		PCSrcD <= PCSrcDIn;
 		ALUSrcE <= ALUSrcEIn;
 		MemToRegD <= MemToRegDIn;
 		flagsE <= flagsEIn;
@@ -85,7 +85,7 @@ begin
 		RegWriteDOut 	<= 0;
 		PlusOneOut		<= 0;
 		BranchEOut 		<= 0;
-		PCSrcWOut 		<= 0;
+		PCSrcDOut 		<= 0;
 		ALUSrcEOut 		<= 0;
 		MemToRegDOut 	<= 0;
 		flagsEOut 		<= 0;
@@ -102,7 +102,7 @@ begin
 		RegWriteDOut <= RegWriteD;
 		PlusOneOut <= PlusOne;
 		BranchEOut <= BranchE;
-		PCSrcWOut <= PCSrcW;
+		PCSrcDOut <= PCSrcD;
 		ALUSrcEOut <= ALUSrcE;
 		MemToRegDOut <= MemToRegD;
 		flagsEOut <= flagsE;
