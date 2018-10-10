@@ -43,9 +43,15 @@ module arm(
         PCSrcD,
         ALUSrcD,
         FlagWriteD,
+<<<<<<< HEAD
         BranchTakenE,
         RegWriteD,
         MemWriteD;
+=======
+		    BranchTakenE,
+        MemWriteD,
+		  MemWriteE;
+>>>>>>> c19cd75fbb60f755e4c11388247d29451ff1e475
 
 
   fetch stageFetch(
