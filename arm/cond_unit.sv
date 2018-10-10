@@ -11,7 +11,7 @@ module cond_unit(   input logic clk, reset,
     logic [3:0] Flags;
     logic CondEx;
     assign FlagWrite = FlagWriteE & {2{CondEx}};
-    
+    assign flagsE_out = Flags;
     flopenr #(2)flagreg1(clk, reset, FlagWrite[1],
                         ALU_flags[3:2], Flags[3:2]);
     flopenr #(2)flagreg0(clk, reset, FlagWrite[0],
