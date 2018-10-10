@@ -66,6 +66,8 @@ begin
 			result = average;
 		THI://Case thinning
 			result = thin;
+		NOP://Case NOP
+			result = 0;
 			
 		default: result = inputA;
 		endcase
