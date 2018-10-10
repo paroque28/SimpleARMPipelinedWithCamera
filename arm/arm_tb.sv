@@ -84,6 +84,10 @@ begin
     rn = 3;
     rd = 2;
     src2 = {11'b0 , 1'b1};
+    
+    
+    #100
+    $stop;
 
 
 end

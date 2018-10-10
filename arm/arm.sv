@@ -43,7 +43,8 @@ module arm(
         PCSrcD,
         ALUSrcD,
         FlagWriteD,
-		    BranchTakenE,
+        BranchTakenE,
+        RegWriteD,
         MemWriteD;
 
 
@@ -69,11 +70,10 @@ module arm(
         //inputs
         .clk(clk),
         .reset(reset),
-
+        .RegWriteW(RegWriteW),
         .Instruction(InstMem),
         .ResultW(ResultW),
         .PCPlus8D(pcPlus8D),
-        .RegWriteW(RegWriteW),
         .flagsEin(flagsE), //Flags que vienen de la condition unit
         .WA3W(ResultW),
         //Outputs
@@ -85,18 +85,19 @@ module arm(
         .RD2(dataRegBD),
         .RD3(dataRegCD),
         .Extended(ExtensionD),
+        .ALUSrcE(ALUSrcD),
+        .MemToRegD(),
+        .RegWriteD(RegWriteD)
         .PlusOne(plusOneD),
         .BranchE(BranchD),
-        .PCSrcD(PCSrcD),
-        .ALUSrcE(ALUSrcD)
-
+        .PCSrcD(PCSrcD)
   );
 
   execute stageExe(
         //Inputs
         .Clk(clk),
         .reset(reset),
-        .RegWriteE(),
+        .RegWriteE(RegWriteD),
         .PlusOneIn(plusOneD),
         .BranchE(BranchD),
         .PCSrcE(PCSrcD),
