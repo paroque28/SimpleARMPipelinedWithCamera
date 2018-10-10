@@ -1,18 +1,21 @@
-module pipeExeMem (input clk, PCSrcMin, RegWriteMin, MemToRegMin,
+module pipeExeMem (input clk, PCSrcMin, RegWriteMin, MemToRegMin, MemWriteMin,
 					    input  [31:0] ALUResultE,
 					    input  [31:0] WriteDataE,
 					    input  [3:0]  WA3E,
 					    output logic [31:0] ADataMemory,
 					    output logic [31:0] WDDataMemory,
 					    output logic [3:0]  WA3M,
-						output logic PCSrcMout, RegWriteMout, MemToRegMout);
+						output logic PCSrcMout, RegWriteMout, MemToRegMout, MemWriteMout);
 
 
 	logic [31:0] writeData;
 	logic [31:0] resultALU;
 	logic [3:0]  WAData;
 
-	logic        tmpPCSrcMinOut, tmpRegWriteMinOut, tmpMemToRegMinOut;
+	logic        tmpPCSrcMinOut, 
+					 tmpRegWriteMinOut, 
+					 tmpMemToRegMinOut,
+					 tmpMemWriteM;
 
 
 	always_ff @(posedge clk)
@@ -24,6 +27,7 @@ module pipeExeMem (input clk, PCSrcMin, RegWriteMin, MemToRegMin,
 		tmpPCSrcMinOut    <= PCSrcMin;
 		tmpRegWriteMinOut <= RegWriteMin;
 		tmpMemToRegMinOut <= MemToRegMin;
+		tmpMemWriteM		<=  MemWriteMin;
 
 
 	end
@@ -37,6 +41,7 @@ module pipeExeMem (input clk, PCSrcMin, RegWriteMin, MemToRegMin,
 		PCSrcMout    <= tmpPCSrcMinOut;
 		RegWriteMout <= tmpRegWriteMinOut;
 		MemToRegMout <= tmpMemToRegMinOut;
+		MemWriteMout <= tmpMemWriteM;
 
 
 	end
