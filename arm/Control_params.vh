@@ -1,4 +1,4 @@
-localparam FAND	      = 4'b0000;
+localparam FNOP	      = 4'b0000;
 localparam FMULT	  = 4'b0001;
 localparam FSUB	      = 4'b0010;
 localparam FLOAD	  = 4'b0011;

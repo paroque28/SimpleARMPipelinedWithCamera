@@ -12,17 +12,17 @@ module fetch(
   input logic [31:0] instPipeIn,
   output logic [31:0] PC,
   output logic [31:0] instPipeOut,
-  output logic [31:0] pcPlus4D
+  output logic [31:0] pcPlus8D
   );
 
-  logic [31:0] dirPC,
-               pcPlus4,
-               mux1Out,
-               dirMem;
+  logic [31:0] dirPC, pcPlus4F;
+  logic [31:0] mux1Out;
+  logic [31:0] dirMem;
 
 
+  assign pcPlus4F = PC + 4;
+  assign pcPlus8D = pcPlus4F;
   assign PC = dirMem;
-  assign pcPlus4D = pcPlus4;
 
   pc PCreg (
           .clk(clock),
@@ -38,8 +38,8 @@ module fetch(
                       );
 
 
-  mux2x1 mux1 (.a(mux1ResultW),
-               .b(pcPlus4),
+  mux2x1 mux1 (.a(pcPlus4F),
+               .b(mux1ResultW),
                .ctrl(pcSrcW),
                .y(mux1Out)
                );
@@ -50,6 +50,5 @@ module fetch(
                 .y(dirPC)
                 );
 
-  adder #(32)add4(.a(dirMem), .b(4), .c(pcPlus4));
 
 endmodule

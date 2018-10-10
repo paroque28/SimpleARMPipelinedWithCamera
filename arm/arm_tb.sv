@@ -36,7 +36,7 @@ initial
 begin
 
     //Initial state zero
-    clk=0;
+    clk=1;
     N=0;
     Z=0;
     C=0;
