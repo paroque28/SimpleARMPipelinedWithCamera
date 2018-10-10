@@ -3,10 +3,12 @@ module memory (
               reset,
               writeEnableIn,
               PlusOne,
+				  MemWriteMin,
 
   input logic MemToRegIn,
               PCSrcIn,
               RegWriteM,
+				  
   input logic [31:0] ALUOutM,
                      WA3Min,
                      WriteDataM,
@@ -15,6 +17,7 @@ module memory (
   output logic MemToRegOut,
                PCSrcOut,
                RegWriteW,
+					MemWriteMOut,
 
   output logic [31:0] writeData,
                       ALUOutW,
