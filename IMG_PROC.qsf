@@ -430,7 +430,7 @@ set_global_assignment -name EDA_TEST_BENCH_RUN_SIM_FOR "100 ns" -section_id arm_
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME arm_testbench -section_id arm_testbench
 set_global_assignment -name EDA_TEST_BENCH_FILE arm/arm_tb.sv -section_id arm_testbench
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH "Pipes TestBench" -section_id eda_simulation
-set_global_assignment -name TOP_LEVEL_ENTITY execute_tb
+set_global_assignment -name TOP_LEVEL_ENTITY arm_tb
 
 set_global_assignment -name SYSTEMVERILOG_FILE arm/execute_tb.sv
 set_global_assignment -name QSYS_FILE video.qsys
