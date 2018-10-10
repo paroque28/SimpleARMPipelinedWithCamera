@@ -1,99 +1,69 @@
 
-module Control_unit (input logic [3:0] funct,
-							input logic opcode,
+module Control_unit (input logic [5:0] funct,
+							input logic [1:0]opcode,
 							output logic ALUSrcE,
 							output logic [3:0] ALUControlE,
 							output logic MemToRegD,
-							output logic [1:0] RegSrcD,
-							output logic [1:0]ImmSrcD,
+							output logic [1:0] RegSrcD, // No va al pipe
+							output logic [1:0]ImmSrcD, // No va al pipe
 							output logic RegWriteD,
 							output logic PlusOne,
-							output logic BranchTakenE,
+							output logic BranchD,
 							output logic PCSrcW
 							);
 
 
-`include "ALU_params.h"
-`include "Control_params.h"	
+`include "ALU_params.vh"
+`include "Control_params.vh"
 
-assign PlusOne = (funct == fSTR_ONE);
-assign ALUSrcE = opcode;
-assign MemToRegD = (funct == fLOAD);
-assign RegWriteD = ~(funct == fSTR || funct == fPIC);
+logic [3:0] cmd;
+logic ALUOp;
 
-assign ImmSrcD[0] = (funct == fSTR || funct == fLOAD); //LUT
-assign ImmSrcD[1] = (funct == fB); //LUT
+assign cmd = funct [4:1];
+assign PlusOne = (cmd == FSTR_ONE);
+assign ALUSrcE = opcode[0];
+assign MemToRegD = (cmd == FLOAD);
+assign RegWriteD = ~(cmd == FSTR || cmd == FPIC || cmd == FNOP);
+assign ImmSrcD[0] = (cmd == FSTR || cmd == FLOAD); //LUT
+assign ImmSrcD[1] = (cmd == FB); //LUT
 
+assign BranchD = (opcode == OPBRANCH);
+assign ALUOp = (opcode == OPDATA);
+assign RegSrcD[0] = (opcode == OPBRANCH);
+assign RegSrcD[1] = (opcode == OPMEMORY && ~funct[0]);
 
 always_comb
 begin
 
-	case(funct)
-	fADD: begin //Case ADD
+	case(cmd)
+	FNOP: begin //Case AND
+			ALUControlE =	NOP;
+	end
+	FADD: begin //Case ADD
 			ALUControlE =	ADD;
-			RegSrcD 		=	2'b00;
-	end		
-	fSUB: begin //Case SUBS
+	end
+	FSUB: begin //Case SUBS
 			ALUControlE =	SUB;
-			RegSrcD 		=	2'b00;
-	end		
-	fMULT: begin //Case MULT
+	end
+	FMULT: begin //Case MULT
 			ALUControlE =	MULT;
-			RegSrcD 		=	2'b00;
-	end	
-			
-	fLOAD: begin//Case LOAD
+	end
+	FLOAD: begin//Case LOAD
 			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
-	end		
-	fSTR: begin//Case Store
-	 //Revisar si no hace falta un MUX para pasar Reg2 o Inmediato a ser escrito
+	end
+	FSTR: begin//Case Store
+	 //Revisar si no hace Falta un MUX para pasar Reg2 o Inmediato a ser escrito
 			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
-	end		
-	/*		
-	fSL: begin //Case Shift Left
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end		
-	fSR: begin//Case Shift Right
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end		
-	fB: begin//Case Branch
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end		
-	fPIC: begin//Case Take Picture
-			ALUControlE =	;
-			RegSrcD 		=	;
-			end*/
-			
-	fAVERAGE: begin//Case Ponderate RGB
+	end
+	FAVERAGE: begin//Case Ponderate RGB
 			ALUControlE =	AV;
-			RegSrcD 		=	2'b00;
-	end		
-	fSTR_ONE: begin//Case Store Plus One //Revisar si no hace falta un MUX para pasar Reg2 o Inmediato a ser escrito
+	end
+	FSTR_ONE: begin//Case Store Plus One //Revisar si no hace Falta un MUX para pasar Reg2 o Inmediato a ser escrito
 			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
-	end		
-	// fTHI: begin//Case Thinning
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// end		
-	// 4'b1110: begin
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// 		//ImmSrcD 		=	
-	// end		
-	// 4'b1111: begin
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// 		end
-	default: 
+	end
+	default:
 	begin
-			ALUControlE =	1'bz;
-			RegSrcD 		=	1'bz;
+			ALUControlE =	4'bz;
 			end
 	endcase
 end
