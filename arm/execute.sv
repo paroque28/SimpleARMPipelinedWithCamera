@@ -22,11 +22,11 @@ input  logic [3:0]	WA3E,
 											ALUControlE,
 											flagsE,
 											CondE,
-											//Outputs
+//################ Outputs ##########################
 output logic [3:0]  	 WA3Mout,
 											flagsEout,
 output logic [31:0]   ALUResultE,
-											AToMemout,
+					  AToMemout,
 											WDToMemout,
 output logic          PCSrcMout,
 											RegWriteMout,
@@ -68,9 +68,9 @@ output logic          PCSrcMout,
    mux3x1
 	executeMux3x1ToALUA(.a(dataRegAIn),
 	                    .b(ResultW),
-							  .c(ADataMem),
-							  .ctrl(ForwardAE),
-							  .y(executeMUX3x1AOut_Output));
+						.c(ADataMem),
+						.ctrl(ForwardAE),
+						.y(executeMUX3x1AOut_Output));
 
 	mux3x1
 	executeMux3x1ToALUB(.a(dataRegBIn),
@@ -104,7 +104,7 @@ output logic          PCSrcMout,
 	         .PCSrcMin(executeANDPCSrcM_Output),
 			 .RegWriteMin(executeANDRegWriteM_Output),
 			 .MemToRegMin(MemToRegE),
-	         .ALUResultE(executeALUResult_Output),
+	         .ALUResultE(ALUResultE),
 			 .WriteDataE(executeMUX3x1BOut_Output),
 			 .WA3E(WA3E),
 			 .ADataMemory(executePipeADataToMem_Output),
@@ -124,6 +124,7 @@ output logic          PCSrcMout,
 	assign PCSrcMout    = executePipePCSrcMout_Output;
 	assign RegWriteMout = executePipeRegWriteMout_Output;
 	assign MemToRegMout = executePipeMemToRegMout_Output;
-	assign ALUResultE   = executeALUResult_Output;
+	assign ALUResultE 	= executeALUResult_Output;
+	
 
 endmodule

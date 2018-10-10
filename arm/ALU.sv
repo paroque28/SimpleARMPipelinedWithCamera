@@ -50,7 +50,7 @@ begin
 			result = inputA;
 		ADD://Case sum
 			result = sum;
-		ADD://Case sum
+		AND://Case AND
 			result = {1'b0 , and_r};
 		SUB://Case substraction
 			result = sub;

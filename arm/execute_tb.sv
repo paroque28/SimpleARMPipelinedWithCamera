@@ -46,15 +46,17 @@ execute StageEXE (
                   .dataRegAIn(dataRegAIn),
 				  .dataRegBIn(dataRegBIn),
                   .ALUControlE(ALUControlE),
-                  .ALUResultE(ALUResultE),
                   .ForwardAE(ForwardAE),
                   .ForwardBE(ForwardBE),
-                  .ALUSrcE(ALUSrcE)
+                  .ALUSrcE(ALUSrcE),
+                  //OUTPUTS
+                  .ALUResultE(ALUResultE)
 );
 
 
 initial 
 begin
+ALUResultE = 0;
 reset = 0;
 #1
 reset = 1;
@@ -67,10 +69,10 @@ ALUControlE = 4'b0001;
 ForwardAE = 0;
 ForwardBE = 0;
 ALUSrcE = 0;
-
+flagsE = 4'b0000;
 
 end
 
-always   #1  clk =  ! clk; 
+always  #1  clk =  ! clk; 
 
 endmodule
