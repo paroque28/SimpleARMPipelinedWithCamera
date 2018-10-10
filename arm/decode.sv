@@ -74,7 +74,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 				  .extImm(decodeExtended_Output));
 
 	registerFile
-	registerFileUnit(.clk(clk),
+	registerFileUnit(.clk(clk), .reset(reset),
 						  .we(RegWriteW),
 						  .a1(decodeMux2x1ToRA1D_Output),
 						  .a2(decodeMux2x1ToRA2D_Output),
