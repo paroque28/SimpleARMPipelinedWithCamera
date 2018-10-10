@@ -11,7 +11,6 @@ logic N,Z,C,V;
 assign cond = {N,Z,C,V};
 assign Instr = {cond, op, ImmEnable, cmd, SetFlags, rn, rd, src2};
 
-
 arm  processor(
     .clk(clk),
     .reset(reset),
@@ -22,6 +21,7 @@ arm  processor(
     .ReadData(ReadData)
 );
 
+
 //RAM
 ram	RAM1 (
 	.address_a ( ALUResult ),
@@ -30,7 +30,6 @@ ram	RAM1 (
 	.wren_a ( write_enable ),
 	.q_a ( ReadData )
 	);
-
 
 initial 
 begin
@@ -73,7 +72,7 @@ begin
 	SetFlags = 0;
     rn = 0;
     rd = 0;
-    src2 = {11'b0 , 1'b0};
+    src2 = 12'b0;
     
    
     // Sub instruction

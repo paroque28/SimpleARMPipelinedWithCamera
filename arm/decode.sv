@@ -1,30 +1,31 @@
 module decode(input  logic			  clk, reset, RegWriteW,
 				  input  logic [31:0] Instruction, ResultW, PCPlus8D,
-				  input  logic [3:0]  WA3W, flagsEin,
+				  input  logic [3:0]  flagsEin, WA3W,
 				  output logic [3:0]  WA3E, CondEPipeOutput, flagsEout, ALUControlE,
 				  output logic [31:0] RD1, RD2, RD3, Extended,
-				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcW);
+				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcD);
 
 
 	//Instruction Mapping
 
 	logic [1:0]     Op;
 	logic [5:0]  Funct;
-	logic [3:0]  CondE, decodeMux2x1ToRA1D_IN1, decodeMux2x1ToRA2D_IN1, decodeMux2x1ToRA2D_IN2;
+	logic [3:0]  CondE, decodeMux2x1ToRA1D_IN1, decodeMux2x1ToRA2D_IN1, decodeMux2x1ToRA2D_IN2, WA3D;
 	logic [23:0] ExtendedIN;
+	
 
-	//TODO ARREGLAR MAPEO
 	assign Op 	 						= Instruction[27:26];
 	assign Funct 						= Instruction[25:20];
 	assign CondE 						= Instruction[31:28];
-	assign decodeMux2x1ToRA1D_IN1 = Instruction[19:16];
-	assign decodeMux2x1ToRA2D_IN1 = Instruction[3:0];
-	assign decodeMux2x1ToRA2D_IN2 = Instruction[15:12];
-	assign ExtendedIN 				= Instruction[23:0];
+	assign decodeMux2x1ToRA1D_IN1 		= Instruction[19:16];
+	assign decodeMux2x1ToRA2D_IN1 		= Instruction[3	:0];
+	assign decodeMux2x1ToRA2D_IN2		= Instruction[15:12];
+	assign ExtendedIN 					= Instruction[23:0];
+	assign WA3D 						= Instruction[15:12]; // rd
 
 	//Outputs
 
-	logic [3:0]  decodeMux2x1ToRA1D_Output, decodeMux2x1ToRA2D_Output, decodeMux2x1ToRA3D_Output, decodeWA3E_Output,
+	logic [3:0]  decodeMux2x1ToRA1D_Output, decodeMux2x1ToRA2D_Output, decodeWA3E_Output,
 	             decodeALUControlE_Output, decodePipeALUControlE_Output,
 					 decodePipeFlagsE_Output, decodePipeCondE_Output;
 
@@ -34,8 +35,8 @@ module decode(input  logic			  clk, reset, RegWriteW,
 	logic [1:0]  decodeRegSrcD_Output, decodeInmRegSel_Output;
 
 	logic			 decodeMemtoRegD_Output, decodeALUSrcE_Output, decodeRegWriteD_Output, decodePlusOne_Output,
-	             decodeBranch_Output, decodePCSrcW_Output, decodePipeRegWriteD_Output,
-					 decodePipePlusOne_Output, decodePipeBranch_Output, decodePipePCSrcW_Output,
+	             decodeBranch_Output, decodePCSrcD_Output, decodePipeRegWriteD_Output,
+					 decodePipePlusOne_Output, decodePipeBranch_Output, decodePipePCSrcD_Output,
 					 decodePipeALUSrcE_Output, decodePipeMemtoRegD_Output;
 
 	//Components
@@ -52,7 +53,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 					.RegWriteD(decodeRegWriteD_Output),
 					.PlusOne(decodePlusOne_Output),
 					.BranchD(decodeBranch_Output),
-					.PCSrcW(decodePCSrcW_Output));
+					.PCSrcD(decodePCSrcD_Output));
 
 	mux2x1
 	#(4)
@@ -74,11 +75,11 @@ module decode(input  logic			  clk, reset, RegWriteW,
 				  .extImm(decodeExtended_Output));
 
 	registerFile
-	registerFileUnit(.clk(clk),
+	registerFileUnit(.clk(clk), .reset(reset),
 						  .we(RegWriteW),
 						  .a1(decodeMux2x1ToRA1D_Output),
 						  .a2(decodeMux2x1ToRA2D_Output),
-						  .a3(decodeMux2x1ToRA3D_Output),
+						  .a3(WA3D),
 						  .wa(WA3W),
 						  .wd(ResultW),
 						  .r15(PCPlus8D),
@@ -97,7 +98,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 			 .dataRegBOut(decodePipeRB_Output),
 			 .dataRegCOut(decodePipeRC_Output),
 			 .extOut(decodePipeExtended_Output),
-			 .WA3EIn(decodeMux2x1ToRA2D_IN2),
+			 .WA3EIn(WA3D),
 			 .WA3EOut(decodeWA3E_Output),
 			 .ALUControlEIn(decodeALUControlE_Output),
 			 .ALUControlEOut(decodePipeALUControlE_Output),
@@ -106,13 +107,13 @@ module decode(input  logic			  clk, reset, RegWriteW,
 			 .RegWriteDIn(decodeRegWriteD_Output),
 			 .PlusOneIn(decodePlusOne_Output),
 			 .BranchEIn(decodeBranch_Output),
-			 .PCSrcWIn(decodePCSrcW_Output),
+			 .PCSrcDIn(decodePCSrcD_Output),
 			 .ALUSrcEIn(decodeALUSrcE_Output),
 			 .MemToRegDIn(decodeMemtoRegD_Output),
 			 .RegWriteDOut(decodePipeRegWriteD_Output),
 			 .PlusOneOut(decodePipePlusOne_Output),
 			 .BranchEOut(decodePipeBranch_Output),
-			 .PCSrcWOut(decodePipePCSrcW_Output),
+			 .PCSrcDOut(decodePipePCSrcD_Output),
 			 .ALUSrcEOut(decodePipeALUSrcE_Output),
 			 .MemToRegDOut(decodePipeMemtoRegD_Output),
 			 .CondEIn(CondE),
@@ -132,7 +133,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 	assign RegWriteD       = decodePipeRegWriteD_Output;
 	assign PlusOne         = decodePipePlusOne_Output;
 	assign BranchE         = decodePipeBranch_Output;
-	assign PCSrcW          = decodePipePCSrcW_Output;
+	assign PCSrcD          = decodePipePCSrcD_Output;
 	assign CondEPipeOutput = decodePipeCondE_Output;
 
 endmodule
