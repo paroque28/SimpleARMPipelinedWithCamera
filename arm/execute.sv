@@ -1,11 +1,39 @@
-module execute(    input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PCSrcE, ALUSrcE, MemToRegE, FlagWriteEin,
-				   input logic [1:0] ForwardAE, ForwardBE,
-				   input  logic [31:0]   dataRegAIn, dataRegBIn, dataRegCIn, extIn, ResultW, ADataMem,
-				   input  logic [3:0]	 	 WA3E, ALUControlE, flagsE, CondE,
-				   output logic [3:0]  	 WA3Mout, flagsEout,
-				   output logic [31:0]   ALUResultE, AToMemout, WDToMemout,
-				   output logic          PCSrcMout, RegWriteMout, MemToRegMout, BranchTakenE, MemWriteM);
+module execute(input  logic			Clk,
+																reset,
+																RegWriteE,
+																PlusOneIn,
+																BranchE,
+																PCSrcE,
+																ALUSrcE,
+																MemToRegE,
+																FlagWriteEin,
+																ForwardAE,
+																ForwardBE,
+																MemWriteDin,
 
+					 input  logic [31:0]  dataRegAIn,
+					  										dataRegBIn,
+																dataRegCIn,
+																extIn,
+																ResultW,
+																ADataMem,
+
+				   input  logic [3:0]	 	 WA3E,
+					 											 ALUControlE,
+																 flagsE,
+																 CondE,
+																 //Outputs
+				   output logic [3:0]  	 WA3Mout,
+					 											 flagsEout,
+				   output logic [31:0]   ALUResultE,
+					 											 AToMemout,
+																 WDToMemout,
+				   output logic          PCSrcMout,
+					 											 RegWriteMout,
+																 MemToRegMout,
+																 BranchTakenE,
+																 MemWriteEout
+																 );
 
 	//Outputs
 
@@ -59,7 +87,7 @@ module execute(    input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PC
 							 .y(executeMUXOut_Output));
 
 	cond_unit
-	executeCondUnit(.clk(clk),.reset(reset),.flagsE_in(flagsE),
+	executeCondUnit(.clk(Clk),.reset(reset),.flagsE_in(flagsE),
 	                .ALU_flags(executeALUFlags_Output),
 						 .condE(CondE),
 						 .FlagWriteE(FlagWriteEin),
@@ -84,7 +112,9 @@ module execute(    input  logic			 Clk, reset, RegWriteE, PlusOneIn, BranchE, PC
 			 .WA3M(executePipeWA3M_Output),
 			 .PCSrcMout(executePipePCSrcMout_Output),
 			 .RegWriteMout(executePipeRegWriteMout_Output),
-			 .MemToRegMout(executePipeMemToRegMout_Output));
+			 .MemToRegMout(executePipeMemToRegMout_Output),
+			 .MemWriteMin(MemWriteDin),
+		 	 .MemWriteMout(MemWriteEout));
 
 	//Assign outputs
 	assign WA3Mout      = executePipeWA3M_Output;
