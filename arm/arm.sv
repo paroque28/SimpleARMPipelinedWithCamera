@@ -86,11 +86,7 @@ logic [1:0] FlagWriteE;
         .RD3(dataRegCD),
         .Extended(ExtensionD),
         .ALUSrcE(ALUSrcD),
-<<<<<<< HEAD
-        .MemToRegD(),
-=======
         .MemToRegD(MemToRegD),
->>>>>>> d7a2884de56ff129e342586498c1e6d831b29217
         .RegWriteD(RegWriteD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
