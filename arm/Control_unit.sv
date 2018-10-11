@@ -9,7 +9,8 @@ module Control_unit (input logic [5:0] funct,
 							output logic RegWriteD,
 							output logic PlusOne,
 							output logic BranchD,
-							output logic PCSrcD
+							output logic PCSrcD,
+							output logic [1:0] FlagW
 							);
 
 
@@ -32,6 +33,9 @@ assign BranchD = (opcode == OPBRANCH);
 assign RegSrcD[0] = (opcode == OPBRANCH);
 assign RegSrcD[1] = (opcode == OPMEMORY && ~funct[0]);
 assign PCSrcD = (opcode == OPBRANCH);
+
+assign FlagW[1] = funct[0];
+assign FlagW[0] = funct[0] & (ALUControl == ADD | ALUControl == SUB);
 
 always_comb
 begin

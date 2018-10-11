@@ -23,13 +23,13 @@ arm  processor(
 
 
 //RAM
-ram	RAM1 (
-	.address_a ( ALUResult ),
-	.clock_a ( clk ),
-	.data_a ( WriteData ),
-	.wren_a ( write_enable ),
-	.q_a ( ReadData )
-	);
+// ram	RAM1 (
+// 	.address_a ( ALUResult ),
+// 	.clock_a ( clk ),
+// 	.data_a ( WriteData ),
+// 	.wren_a ( write_enable ),
+// 	.q_a ( ReadData )
+// 	);
 
 initial 
 begin

@@ -32,8 +32,7 @@ module arm(
               CondE;
 
 
-  logic MemToRegM,
-        MemToRegW,
+  logic MemToRegD,MemToRegM, MemToRegW,
         PCSrcW,
         BranchE,
         WA3E_W,
@@ -43,10 +42,10 @@ module arm(
         PCSrcD,
         ALUSrcD,
         FlagWriteD,
-        BranchTakenE,
-        MemWriteD,
-	  MemWriteE;
+	  BranchTakenE,
+        MemWriteD, MemWriteE;
 
+logic [1:0] FlagWriteE;
 
 
   fetch stageFetch(
@@ -87,11 +86,16 @@ module arm(
         .RD3(dataRegCD),
         .Extended(ExtensionD),
         .ALUSrcE(ALUSrcD),
+<<<<<<< HEAD
         .MemToRegD(),
+=======
+        .MemToRegD(MemToRegD),
+>>>>>>> d7a2884de56ff129e342586498c1e6d831b29217
         .RegWriteD(RegWriteD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
-        .PCSrcD(PCSrcD)
+        .PCSrcD(PCSrcD),
+        .FlagWriteE(FlagWriteE)
   );
 
   execute stageExe(
@@ -103,8 +107,8 @@ module arm(
         .BranchE(BranchD),
         .PCSrcE(PCSrcD),
         .ALUSrcE(ALUSrcD),
-        .MemToRegE(),
-        .FlagWriteEin(),
+        .MemToRegE(MemToRegD),
+        .FlagWriteEin(FlagWriteE),
         .ForwardAE(0),
         .ForwardBE(0),
         .dataRegAIn(dataRegAD),

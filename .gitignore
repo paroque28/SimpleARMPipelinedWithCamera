@@ -48,4 +48,5 @@ timing
 *~
 *example*
 *sopc_*
+video.sopcinfo
 PLLJ_PLLSPE_INFO.txt # The generated PLL specification file
