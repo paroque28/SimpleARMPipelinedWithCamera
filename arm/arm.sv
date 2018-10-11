@@ -43,16 +43,22 @@ module arm(
         ALUSrcD,
         FlagWriteD,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae06e589277a38f9e0aca4484984699d34ddb4d0
 	  BranchTakenE,
         MemWriteD, MemWriteE;
 
 logic [1:0] FlagWriteE;
+<<<<<<< HEAD
 =======
         BranchTakenE,
         MemWriteD,
 	  MemWriteE;
 
 >>>>>>> 148d7a5d2fa61216c2d5ba756f928535dcc0f0cf
+=======
+>>>>>>> ae06e589277a38f9e0aca4484984699d34ddb4d0
 
 
   fetch stageFetch(
@@ -94,10 +100,17 @@ logic [1:0] FlagWriteE;
         .Extended(ExtensionD),
         .ALUSrcE(ALUSrcD),
 <<<<<<< HEAD
+<<<<<<< HEAD
         .MemToRegD(MemToRegD),
 =======
         .MemToRegD(),
 >>>>>>> 148d7a5d2fa61216c2d5ba756f928535dcc0f0cf
+=======
+        .MemToRegD(),
+=======
+        .MemToRegD(MemToRegD),
+>>>>>>> d7a2884de56ff129e342586498c1e6d831b29217
+>>>>>>> ae06e589277a38f9e0aca4484984699d34ddb4d0
         .RegWriteD(RegWriteD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
