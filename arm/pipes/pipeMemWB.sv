@@ -54,7 +54,7 @@ module pipeMemWB (    input             clk,
             WA3W      <= WAData;
             MemToRegOut <= MemToReg;
             RegWriteOut <= RegWrite;
-            PCSrcOut    <= PCSrcIn;
+            PCSrcOut    <= PCSrc;
         end
 
 	end

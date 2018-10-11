@@ -27,6 +27,7 @@ module arm(
 
   logic [3:0] flagsE,
               flagsD,
+              WA3E_D,
               ALUControlD,
               CondE;
 
@@ -37,7 +38,6 @@ module arm(
         BranchE,
         WA3E_W,
         RegWriteW,
-        WA3E_D,
         plusOneD,
         BranchD,
         PCSrcD,
@@ -45,7 +45,7 @@ module arm(
         FlagWriteD,
         BranchTakenE,
         MemWriteD,
-		  MemWriteE;
+	  MemWriteE;
 
 
 
