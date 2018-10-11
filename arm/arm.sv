@@ -159,8 +159,8 @@ logic [1:0] FlagWriteE;
   );
 // Write back stage
   mux2x1 #(32) ResultWMux (
-        .a(ReadDataW),
-        .b(ALUOutM),
+        .a(ALUOutM),
+        .b(ReadDataW),
         .ctrl(MemToRegW),
         .y(ResultW)
   );
