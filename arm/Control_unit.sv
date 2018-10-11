@@ -35,7 +35,7 @@ assign RegSrcD[1] = (opcode == OPMEMORY && ~funct[0]);
 assign PCSrcD = (opcode == OPBRANCH);
 
 assign FlagW[1] = funct[0];
-assign FlagW[0] = funct[0] & (ALUControl == ADD | ALUControl == SUB);
+assign FlagW[0] = funct[0] & (ALUControlE == ADD | ALUControlE == SUB);
 
 always_comb
 begin
