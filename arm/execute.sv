@@ -1,38 +1,41 @@
-module execute(input  logic		Clk,
-								reset,
-								RegWriteE,
-								PlusOneIn,
-								BranchE,
-								PCSrcE,
-								ALUSrcE,
-								MemToRegE,
-								FlagWriteEin,
-								ForwardAE,
-								ForwardBE,
-								MemWriteDin,
+module execute(input  logic Clk,
+							reset,
+							RegWriteE,
+							PlusOneIn,
+							BranchE,
+							PCSrcE,
+							ALUSrcE,
+							MemToRegE,
+							FlagWriteEin,
+							MemWriteDin,
+input logic [1:0] ForwardAE,
+				  ForwardBE,
 
 input  logic [31:0] dataRegAIn,
 				  	dataRegBIn,
 					dataRegCIn,
 					extIn,
 					ResultW,
-					ADataMem,
+					ADataMem, //DEBERIA ESTAR DENTRO DEL PIPE Y NO SER SALIDA
 
 input  logic [3:0]	WA3E,
-											ALUControlE,
-											flagsE,
-											CondE,
+					ALUControlE,
+					flagsE,
+					CondE,
+					
 //################ Outputs ##########################
-output logic [3:0]  	 WA3Mout,
-											flagsEout,
-output logic [31:0]   ALUResultE,
-					  AToMemout,
-											WDToMemout,
-output logic          PCSrcMout,
-											RegWriteMout,
-											MemToRegMout,
-											BranchTakenE,
-											MemWriteEout
+output logic [3:0]  WA3Mout,
+					flagsEout,
+
+output logic [31:0] ALUResultE,
+					AToMemout,
+					WDToMemout,
+
+output logic        PCSrcMout,
+					RegWriteMout,
+					MemToRegMout,
+					BranchTakenE,
+					MemWriteEout
 											);
 
 	//Outputs
