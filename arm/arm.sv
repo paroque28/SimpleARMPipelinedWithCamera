@@ -26,7 +26,7 @@ module arm( input logic clk,
 
   logic [3:0] flagsE,
               flagsD,
-              WA3E_D, WA3E_E, WA3E_W,
+              WA3E_D, WA3E_E, WA3M,
               ALUControlD,
               CondE;
 
@@ -50,8 +50,8 @@ logic [1:0] FlagWriteE;
         //Inputs
         .clock(clk),
         .rst(reset),
-        .pipeEnable(1),
-        .pcEnable(1),
+        .pipeEnable(1'b1),
+        .pcEnable(1'b1),
         .pcSrcW(PCSrcW),
         .Branch(BranchTakenE),
         .mux1ResultW(ResultW),
@@ -73,7 +73,7 @@ logic [1:0] FlagWriteE;
         .ResultW(ResultW),
         .PCPlus8D(pcPlus8D),
         .flagsEin(flagsE), //Flags que vienen de la condition unit
-        .WA3W(ResultW),
+        .WA3W(WA3M),
         //Outputs
         .WA3E(WA3E_D),
         .CondEPipeOutput(CondE),
@@ -103,10 +103,10 @@ logic [1:0] FlagWriteE;
         .PCSrcE(PCSrcD),
         .ALUSrcE(ALUSrcD),
         .MemToRegE(MemToRegD),
-        .FlagWriteEin(FlagWriteE),
         .MemWriteDin(MemWriteD),
-        .ForwardAE(0),
-        .ForwardBE(0),
+        .ForwardAE(2'b0),
+        .ForwardBE(2'b0),
+        .FlagWriteEin(FlagWriteE),
         .dataRegAIn(dataRegAD),
         .dataRegBIn(dataRegBD),
         .dataRegCIn(dataRegCD),
@@ -153,7 +153,7 @@ logic [1:0] FlagWriteE;
         .writeData(WriteData),
         .ALUOutW(ALUOutM),
         .ReadDataW(ReadDataW),
-        .WA3Wout(WA3E_W),
+        .WA3Wout(WA3M),
 	  .MemWriteMOut(write_enable)
 
   );
