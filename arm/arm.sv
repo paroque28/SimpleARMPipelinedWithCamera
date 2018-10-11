@@ -88,7 +88,7 @@ module arm(
         .Extended(ExtensionD),
         .ALUSrcE(ALUSrcD),
         .MemToRegD(),
-        .RegWriteD(RegWriteD)
+        .RegWriteD(RegWriteD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
         .PCSrcD(PCSrcD)
