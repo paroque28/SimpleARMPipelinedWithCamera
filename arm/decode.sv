@@ -63,7 +63,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 	mux2x1
 	#(4)
 	decodeMux2x1ToRA1D(.a(decodeMux2x1ToRA1D_IN1),
-	                   .b(15),
+	                   .b(4'b1111),
 							 .ctrl(decodeRegSrcD_Output[0]),
 							 .y(decodeMux2x1ToRA1D_Output));
 
