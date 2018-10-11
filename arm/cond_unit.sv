@@ -2,7 +2,7 @@ module cond_unit(   input logic clk, reset,
                     input [3:0] flagsE_in,
                     input [3:0] ALU_flags,
                     input [3:0] condE,
-                    input       FlagWriteE,
+                    input [1:0] FlagWriteE,
                     output logic    condEx,
                     output [3:0] flagsE_out
                     );
