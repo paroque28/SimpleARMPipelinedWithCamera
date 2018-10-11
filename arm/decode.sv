@@ -3,8 +3,9 @@ module decode(input  logic			  clk, reset, RegWriteW,
 				  input  logic [3:0]  flagsEin, WA3W,
 				  output logic [3:0]  WA3E, CondEPipeOutput, flagsEout, ALUControlE,
 				  output logic [31:0] RD1, RD2, RD3, Extended,
-				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrc,
-				  output logic [1:0] FlagWriteE);
+				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcD, MemWriteD,
+				  output logic [1:0] FlagWriteE
+ );
 
 
 	//Instruction Mapping
@@ -55,7 +56,8 @@ module decode(input  logic			  clk, reset, RegWriteW,
 					.PlusOne(decodePlusOne_Output),
 					.BranchD(decodeBranch_Output),
 					.PCSrcD(decodePCSrcD_Output),
-					.FlagW(controlFlagW)
+					.FlagW(controlFlagW),
+					.MemWriteD(MemWriteD)
 );
 
 	mux2x1
