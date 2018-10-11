@@ -31,16 +31,13 @@ module arm( input logic clk,
               CondE;
 
 
-  logic MemToRegD,MemToRegM, MemToRegE,  MemToRegW, 
+  logic MemToRegD, MemToRegE,  MemToRegW, 
         PCSrcE, PCSrcW,
-        BranchE,
         RegWriteD, RegWriteE, RegWriteW,
         plusOneD,
-        BranchD,
+        BranchD, BranchTakenE,
         PCSrcD,
         ALUSrcD,
-        FlagWriteD,
-	  BranchTakenE,
         MemWriteD, MemWriteE;
 
 logic [1:0] FlagWriteE;
