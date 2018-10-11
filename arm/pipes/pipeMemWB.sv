@@ -40,7 +40,7 @@ module pipeMemWB (    input             clk,
 
 	always_ff @(negedge clk)
 	begin
-        if(~reset) begin
+        if(reset) begin
             ReadDataW   <= 0;
             ALUOutW     <= 0;
             WA3W        <= 0;

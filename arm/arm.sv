@@ -15,6 +15,7 @@ module arm( input logic clk,
                ALUResultE,
                ReadDataW,
                InstMem, //Dato q sale da la memoria
+               WriteDataE,
                pcPlus8D,
                R15,
                dataRegAD,
@@ -25,16 +26,15 @@ module arm( input logic clk,
 
   logic [3:0] flagsE,
               flagsD,
-              WA3E_D,
+              WA3E_D, WA3E_E, WA3E_W,
               ALUControlD,
               CondE;
 
 
-  logic MemToRegD,MemToRegM, MemToRegW,
-        PCSrcW,
+  logic MemToRegD,MemToRegM, MemToRegE,  MemToRegW, 
+        PCSrcE, PCSrcW,
         BranchE,
-        WA3E_W,
-        RegWriteW,
+        RegWriteD, RegWriteE, RegWriteW,
         plusOneD,
         BranchD,
         PCSrcD,
@@ -119,16 +119,16 @@ logic [1:0] FlagWriteE;
         .flagsE(flagsD),
         .CondE(CondE),
         //Outputs
-        .WA3Mout(),
+        .WA3Mout(WA3E_E),
         .flagsEout(flagsE),
         //Outputs ALUResultE
         .ALUResultE(ALUResultE),
         //Salida del pipe. Guarda la salida de la ALU y Address de la memoria de datos
         .AToMemout(ALUOutE),
-        .WDToMemout(),
-        .PCSrcMout(),
-        .RegWriteMout(),
-        .MemToRegMout(),
+        .WDToMemout(WriteDataE),
+        .PCSrcMout(PCSrcE),
+        .RegWriteMout(RegWriteE),
+        .MemToRegMout(MemToRegE),
         .BranchTakenE(BranchTakenE),
         .MemWriteEout(MemWriteE)
 
@@ -139,12 +139,12 @@ logic [1:0] FlagWriteE;
         .reset(reset),
         .PlusOne(1'b0),
         .ALUOutM(ALUOutE),
-        .WA3Min(),
-        .WriteDataM(),
+        .WA3Min(WA3E_E),
+        .WriteDataM(WriteDataE),
         .ReadDataM(ReadData),
-        .MemToRegIn(),
-        .PCSrcIn(),
-        .RegWriteM(),
+        .MemToRegIn(MemToRegE),
+        .PCSrcIn(PCSrcE),
+        .RegWriteM(RegWriteE),
 
         // Outputs
         .MemToRegOut(MemToRegW),
