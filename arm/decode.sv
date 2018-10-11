@@ -3,7 +3,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 				  input  logic [3:0]  flagsEin, WA3W,
 				  output logic [3:0]  WA3E, CondEPipeOutput, flagsEout, ALUControlE,
 				  output logic [31:0] RD1, RD2, RD3, Extended,
-				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrc,
+				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcD,
 				  output logic [1:0] FlagWriteE);
 
 
