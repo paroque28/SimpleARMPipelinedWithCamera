@@ -28,6 +28,7 @@ module memory (
   logic [31:0] WDataPlusOne;
 
   assign WDataPlusOne = WriteDataM + 1;
+  assign MemWriteMin = MemWriteMOut;
 
   mux2x1 #(32) mux7 (.a(WriteDataM),
                      .b(WDataPlusOne),
