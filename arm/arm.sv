@@ -12,6 +12,7 @@ module arm(
    //Write enable
 );
 
+
   logic [31:0] ALUOutM,
                ALUOutE,
                ALUResultE,
@@ -46,7 +47,7 @@ module arm(
         MemWriteD, MemWriteE;
 
 logic [1:0] FlagWriteE;
-
+ 
 
   fetch stageFetch(
         //Inputs
@@ -90,7 +91,7 @@ logic [1:0] FlagWriteE;
         .RegWriteD(RegWriteD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
-        .PCSrcD(PCSrcD),
+        .PCSrc(PCSrcD),
         .FlagWriteE(FlagWriteE)
   );
 

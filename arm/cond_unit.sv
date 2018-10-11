@@ -9,14 +9,14 @@ module cond_unit(   input logic clk, reset,
                         
     logic [1:0] FlagWrite;
     logic [3:0] Flags;
-    assign FlagWrite = FlagWriteE & {2{CondEx}};
+    assign FlagWrite = FlagWriteE & {2{condEx}};
     assign flagsE_out = Flags;
     flopenr #(2)flagreg1(clk, reset, FlagWrite[1],
                         ALU_flags[3:2], Flags[3:2]);
     flopenr #(2)flagreg0(clk, reset, FlagWrite[0],
                         ALU_flags[1:0], Flags[1:0]);
 
-    condcheck cc(condE, Flags, CondEx);
+    condcheck cc(condE, Flags, condEx);
 
 endmodule
 
