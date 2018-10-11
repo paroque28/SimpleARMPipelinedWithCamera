@@ -2,8 +2,7 @@ module arm(
     input logic clk,
 					 reset,
 
-	 input logic [31:0] Instruction,
-						     ReadData,
+	 input logic [31:0] Instruction, ReadData,
     output logic write_enable,
 
 	 output logic [31:0] WriteData,
