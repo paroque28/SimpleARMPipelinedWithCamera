@@ -103,20 +103,22 @@ output logic        PCSrcMout,
 	assign BranchTakenE               = BranchE     &&    executeCondUnit_condExe_Output;
 
 	pipeExeMem
-	pipeEM(.clk(Clk),
-	         .PCSrcMin(executeANDPCSrcM_Output),
-			 .RegWriteMin(executeANDRegWriteM_Output),
+	pipeEM(	 .clk(Clk),
+	 		 .MemWriteMin(MemWriteDin),
 			 .MemToRegMin(MemToRegE),
 	         .ALUResultE(ALUResultE),
-			 .WriteDataE(executeMUX3x1BOut_Output),
 			 .WA3E(WA3E),
+			 //________ OUTPUTS ______
+			 .WriteDataE(executeMUX3x1BOut_Output),
+			 .PCSrcMin(executeANDPCSrcM_Output),
+			 .RegWriteMin(executeANDRegWriteM_Output),
 			 .ADataMemory(executePipeADataToMem_Output),
 			 .WDDataMemory(executePipeWDDataToMem_Output),
 			 .WA3M(executePipeWA3M_Output),
 			 .PCSrcMout(executePipePCSrcMout_Output),
 			 .RegWriteMout(executePipeRegWriteMout_Output),
 			 .MemToRegMout(executePipeMemToRegMout_Output),
-			 .MemWriteMin(MemWriteDin),
+			
 		 	 .MemWriteMout(MemWriteEout));
 
 	//Assign outputs
