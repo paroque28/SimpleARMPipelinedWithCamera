@@ -17,7 +17,7 @@ module Control_unit (input logic [5:0] funct,
 `include "Control_params.vh"
 
 logic [3:0] cmd;
-logic ALUOp;
+//logic ALUOp;
 
 assign cmd = funct [4:1];
 assign PlusOne = (cmd == FSTR_ONE);
@@ -28,7 +28,7 @@ assign ImmSrcD[0] = (cmd == FSTR || cmd == FLOAD); //LUT
 assign ImmSrcD[1] = (cmd == FB); //LUT
 
 assign BranchD = (opcode == OPBRANCH);
-assign ALUOp = (opcode == OPDATA);
+//assign ALUOp = (opcode == OPDATA);
 assign RegSrcD[0] = (opcode == OPBRANCH);
 assign RegSrcD[1] = (opcode == OPMEMORY && ~funct[0]);
 assign PCSrcD = (opcode == OPBRANCH);
