@@ -1,17 +1,14 @@
-module arm(
-    input logic clk,
-					 reset,
+module arm( input logic clk,
+                        reset,
 
-	 input logic [31:0] Instruction,
-						     ReadData,
-    output logic write_enable,
+            input logic [31:0] Instruction,
+                              ReadData,
+            output logic write_enable,
 
-	 output logic [31:0] WriteData,
-								ALUResult,
-								PC
-   //Write enable
+            output logic [31:0] WriteData,
+                              ALUResult,
+                              PC
 );
-
 
   logic [31:0] ALUOutM,
                ALUOutE,
@@ -47,7 +44,7 @@ module arm(
         MemWriteD, MemWriteE;
 
 logic [1:0] FlagWriteE;
- 
+
 
   fetch stageFetch(
         //Inputs
@@ -91,7 +88,8 @@ logic [1:0] FlagWriteE;
         .RegWriteD(RegWriteD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
-        .PCSrc(PCSrcD),
+        .PCSrcD(PCSrcD),
+        .MemWriteD(MemWriteD),
         .FlagWriteE(FlagWriteE)
   );
 
@@ -106,6 +104,7 @@ logic [1:0] FlagWriteE;
         .ALUSrcE(ALUSrcD),
         .MemToRegE(MemToRegD),
         .FlagWriteEin(FlagWriteE),
+        .MemWriteDin(MemWriteD),
         .ForwardAE(0),
         .ForwardBE(0),
         .dataRegAIn(dataRegAD),
@@ -122,10 +121,7 @@ logic [1:0] FlagWriteE;
         //Outputs
         .WA3Mout(),
         .flagsEout(flagsE),
-        .MemWriteDin(MemWriteD),
-
         //Outputs ALUResultE
-
         .ALUResultE(ALUResultE),
         //Salida del pipe. Guarda la salida de la ALU y Address de la memoria de datos
         .AToMemout(ALUOutE),
