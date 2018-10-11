@@ -75,15 +75,7 @@ ForwardAE = 2'b00;
 ForwardBE = 2'b00;
 ALUSrcE = 0;
 //flagsE = 4'b0000;
-#10
-ForwardAE = 2'b00;
-ForwardBE = 2'b00;
-#10
-ForwardAE = 2'b01;
-ForwardBE = 2'b01;
-#10
-ForwardAE = 2'b10;
-ForwardBE = 2'b10;
+
 
 
 

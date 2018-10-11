@@ -27,6 +27,7 @@ module arm(
 
   logic [3:0] flagsE,
               flagsD,
+              WA3E_D,
               ALUControlD,
               CondE;
 
@@ -36,16 +37,22 @@ module arm(
         BranchE,
         WA3E_W,
         RegWriteW,
-        WA3E_D,
         plusOneD,
         BranchD,
         PCSrcD,
         ALUSrcD,
         FlagWriteD,
+<<<<<<< HEAD
 	  BranchTakenE,
         MemWriteD, MemWriteE;
 
 logic [1:0] FlagWriteE;
+=======
+        BranchTakenE,
+        MemWriteD,
+	  MemWriteE;
+
+>>>>>>> 148d7a5d2fa61216c2d5ba756f928535dcc0f0cf
 
 
   fetch stageFetch(
@@ -86,7 +93,11 @@ logic [1:0] FlagWriteE;
         .RD3(dataRegCD),
         .Extended(ExtensionD),
         .ALUSrcE(ALUSrcD),
+<<<<<<< HEAD
         .MemToRegD(MemToRegD),
+=======
+        .MemToRegD(),
+>>>>>>> 148d7a5d2fa61216c2d5ba756f928535dcc0f0cf
         .RegWriteD(RegWriteD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
