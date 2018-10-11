@@ -34,7 +34,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 	logic [31:0] decodeExtended_Output, decodeRD1_Output, decodeRD2_Output,decodeRD3_Output, decodePipeRA_Output,
 	             decodePipeRB_Output, decodePipeRC_Output, decodePipeExtended_Output;
 
-	logic [1:0]  decodeRegSrcD_Output, decodeInmRegSel_Output, controlFlagW ,  FlagWD;
+	logic [1:0]  decodeRegSrcD_Output, decodeInmRegSel_Output ,  FlagWD;
 
 	logic			 decodeMemtoRegD_Output, decodeALUSrcE_Output, decodeRegWriteD_Output, decodePlusOne_Output,
 	             decodeBranch_Output, decodePCSrcD_Output, decodePipeRegWriteD_Output,
@@ -56,7 +56,7 @@ module decode(input  logic			  clk, reset, RegWriteW,
 					.PlusOne(decodePlusOne_Output),
 					.BranchD(decodeBranch_Output),
 					.PCSrcD(decodePCSrcD_Output),
-					.FlagW(controlFlagW),
+					.FlagW(FlagWD),
 					.MemWriteD(MemWriteD)
 );
 
