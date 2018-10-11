@@ -8,7 +8,6 @@ module decode(input  logic			  clk, reset, RegWriteW,
  );
 
 
-
 	//Instruction Mapping
 
 	logic [1:0]     Op;

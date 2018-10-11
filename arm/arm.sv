@@ -6,7 +6,7 @@ module arm( input logic clk,
             output logic write_enable,
 
             output logic [31:0] WriteData,
-                              ALUResult,
+                              WriteAddress,
                               PC
 );
 
@@ -164,6 +164,6 @@ logic [1:0] FlagWriteE;
         .ctrl(MemToRegW),
         .y(ResultW)
   );
-  assign ALUResult = ALUResultE ;
+  assign WriteAddress = ALUOutM ;
 
 endmodule
