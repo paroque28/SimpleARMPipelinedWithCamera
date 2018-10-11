@@ -22,10 +22,10 @@ logic [3:0] cmd;
 //logic ALUOp;
 
 assign cmd = funct [4:1];
-assign PlusOne = (cmd == FSTR_ONE);
-assign ALUSrcE = opcode[0];
-assign MemToRegD = (cmd == FLOAD);
-assign RegWriteD = ~(cmd == FSTR || cmd == FPIC || cmd == FNOP);
+assign PlusOne = (cmd == FSTR_ONE && opcode == OPMEMORY);
+assign ALUSrcE = funct[5];
+assign MemToRegD = ( opcode == OPDATA && cmd == FLOAD); //TODO
+assign RegWriteD = ~(cmd == FSTR || cmd == FPIC || ( opcode == OPDATA && cmd == FNOP)); //TODO: STR vs LOAD
 assign ImmSrcD[0] = (cmd == FSTR || cmd == FLOAD); //LUT
 assign ImmSrcD[1] = (cmd == FB); //LUT
 
