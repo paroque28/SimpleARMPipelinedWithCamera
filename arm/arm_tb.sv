@@ -1,4 +1,4 @@
-`timescale 1ns / 1ns
+`timescale 1ns / 1ps
 `include "Control_params.vh"
 module arm_tb;
 
