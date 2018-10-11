@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="video" kind="video" version="1.0" fabric="QSYS">
  <!-- Format version 18.0 614 (Future versions may contain additional information.) -->
-<<<<<<< HEAD
- <!-- 2018.10.10.19:31:56 -->
+ <!-- 2018.10.10.19:43:53 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1539221516</value>
-=======
- <!-- 2018.10.10.18:46:10 -->
- <!-- A collection of modules and connections -->
- <parameter name="AUTO_GENERATION_ID">
-  <type>java.lang.Integer</type>
-  <value>1539218770</value>
->>>>>>> d7a2884de56ff129e342586498c1e6d831b29217
+  <value>1539222233</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
