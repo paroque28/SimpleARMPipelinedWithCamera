@@ -91,7 +91,7 @@ logic [1:0] FlagWriteE;
         .RegWriteD(RegWriteD),
         .PlusOne(plusOneD),
         .BranchE(BranchD),
-        .PCSrc(PCSrcD),
+        .PCSrcD(PCSrcD),
         .FlagWriteE(FlagWriteE)
   );
 
@@ -159,7 +159,7 @@ logic [1:0] FlagWriteE;
         .ALUOutW(ALUOutM),
         .ReadDataW(ReadDataW),
         .WA3Wout(WA3E_W),
-		    .MemWriteMOut(write_enable)
+	  .MemWriteMOut(write_enable)
 
   );
 // Write back stage
