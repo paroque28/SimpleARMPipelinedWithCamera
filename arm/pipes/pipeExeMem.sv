@@ -2,6 +2,7 @@ module pipeExeMem (input clk, reset, PCSrcMin, RegWriteMin, MemToRegMin, MemWrit
 					    input  [31:0] ALUResultE,
 					    input  [31:0] WriteDataE,
 					    input  [3:0]  WA3E,
+						 //________ OUTPUTS ______
 					    output logic [31:0] ADataMemory,
 					    output logic [31:0] WDDataMemory,
 					    output logic [3:0]  WA3M,
@@ -53,8 +54,8 @@ module pipeExeMem (input clk, reset, PCSrcMin, RegWriteMin, MemToRegMin, MemWrit
 			MemToRegMout <= 0;
 			MemWriteMout <= 0;
 		end else begin
-			ADataMemory  <= writeData;
-			WDDataMemory <= resultALU;
+			ADataMemory  <= resultALU;
+			WDDataMemory <= writeData;
 			WA3M         <= WAData;
 			PCSrcMout    <= tmpPCSrcMinOut;
 			RegWriteMout <= tmpRegWriteMinOut;
