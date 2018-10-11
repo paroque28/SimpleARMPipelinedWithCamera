@@ -30,6 +30,7 @@ arm  processor(
 // 	.wren_a ( write_enable ),
 // 	.q_a ( ReadData )
 // 	);
+assign ReadData = 32'b0; //comment when RAM enabled
 
 initial 
 begin
