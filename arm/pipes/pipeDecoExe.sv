@@ -18,7 +18,9 @@ module pipeDecoExe(
 	output  logic [3:0] CondEOut,
 
 	input logic RegWriteDIn, PlusOneIn, BranchEIn, PCSrcDIn, ALUSrcEIn, MemToRegDIn,
-	output logic RegWriteDOut, PlusOneOut, BranchEOut, PCSrcDOut, ALUSrcEOut, MemToRegDOut
+	output logic RegWriteDOut, PlusOneOut, BranchEOut, PCSrcDOut, ALUSrcEOut, MemToRegDOut,
+	input logic [1:0] FlagWDIn,
+	output logic [1:0] FlagWEOut
 );
 
 logic [31:0] dataRegA, dataRegB, dataRegC;
@@ -27,6 +29,7 @@ logic [31:0] ext;
 logic [3:0] ALUControlE;
 logic [3:0] flagsE;
 logic [3:0] CondE;
+logic [1:0] FlagW;
 
 
 logic RegWriteD, PlusOne, BranchE, PCSrcD, ALUSrcE, MemToRegD;
@@ -50,7 +53,7 @@ begin
 		MemToRegD <= 0;
 		flagsE <= 0;
 		CondE <= 0;
-
+		FlagW <= 0;
 		end
 	else
 		begin
@@ -68,7 +71,7 @@ begin
 		MemToRegD <= MemToRegDIn;
 		flagsE <= flagsEIn;
 		CondE <= CondEIn;
-
+		FlagW <= FlagWDIn;
 		end
 end
 
@@ -90,6 +93,7 @@ begin
 		MemToRegDOut 	<= 0;
 		flagsEOut 		<= 0;
 		CondEOut 		<= 0;
+		FlagWEOut 		<= 0;
 	end
 
 	else begin
@@ -107,6 +111,7 @@ begin
 		MemToRegDOut <= MemToRegD;
 		flagsEOut <= flagsE;
 		CondEOut <= CondE;
+		FlagWEOut <= FlagW;
 	end
 end
 
