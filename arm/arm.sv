@@ -1,9 +1,24 @@
+<<<<<<< HEAD
 module arm( input logic clk,
                         reset,
 
             input logic [31:0] Instruction,
                               ReadData,
             output logic write_enable,
+=======
+module arm(
+    input logic clk,
+					 reset,
+
+	 input logic [31:0] Instruction, ReadData,
+    output logic write_enable,
+
+	 output logic [31:0] WriteData,
+								ALUResult,
+								PC
+   //Write enable
+);
+>>>>>>> 76ea649a24cfc0e5be8c4efa1cea6e807c2a516f
 
             output logic [31:0] WriteData,
                               ALUResult,
@@ -89,7 +104,10 @@ logic [1:0] FlagWriteE;
         .PlusOne(plusOneD),
         .BranchE(BranchD),
         .PCSrcD(PCSrcD),
+<<<<<<< HEAD
         .MemWriteD(MemWriteD),
+=======
+>>>>>>> 76ea649a24cfc0e5be8c4efa1cea6e807c2a516f
         .FlagWriteE(FlagWriteE)
   );
 
@@ -155,7 +173,7 @@ logic [1:0] FlagWriteE;
         .ALUOutW(ALUOutM),
         .ReadDataW(ReadDataW),
         .WA3Wout(WA3E_W),
-		    .MemWriteMOut(write_enable)
+	  .MemWriteMOut(write_enable)
 
   );
 // Write back stage

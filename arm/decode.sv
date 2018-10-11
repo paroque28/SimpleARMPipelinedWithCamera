@@ -3,9 +3,14 @@ module decode(input  logic			  clk, reset, RegWriteW,
 				  input  logic [3:0]  flagsEin, WA3W,
 				  output logic [3:0]  WA3E, CondEPipeOutput, flagsEout, ALUControlE,
 				  output logic [31:0] RD1, RD2, RD3, Extended,
+<<<<<<< HEAD
 				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcD, MemWriteD,
 				  output logic [1:0] FlagWriteE
  );
+=======
+				  output logic 	   	  ALUSrcE, MemToRegD, RegWriteD, PlusOne, BranchE, PCSrcD,
+				  output logic [1:0] FlagWriteE);
+>>>>>>> 76ea649a24cfc0e5be8c4efa1cea6e807c2a516f
 
 
 	//Instruction Mapping

@@ -1,9 +1,8 @@
 module memory (
   input logic clock,
               reset,
-              writeEnableIn,
               PlusOne,
-				  MemWriteMin,
+				      MemWriteMin,
 
   input logic MemToRegIn,
               PCSrcIn,
