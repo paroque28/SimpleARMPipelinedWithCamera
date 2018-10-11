@@ -94,7 +94,7 @@ output logic        PCSrcMout,
 	                .ALU_flags(executeALUFlags_Output),
 						 .condE(CondE),
 						 .FlagWriteE(FlagWriteEin),
-						 .condExE(executeCondUnit_condExe_Output),
+						 .condEx(executeCondUnit_condExe_Output),
 						 .flagsE_out(executeCondUnit_flags_Output));
 
 	//ANDS
