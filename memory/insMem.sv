@@ -3,7 +3,7 @@ module insMem (input  logic [31:0] a,
 		
 	logic [31:0] ROM[63:0];
 	
-	initial $readmemh("memfile.dat",ROM);
+	initial $readmemb("../../memory/instructions.mem",ROM);
 		
 	assign d = ROM[a[31:2]]; //word alligned
 	
