@@ -550,6 +550,8 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[6]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_R[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to screenMTL_VSD
+set_global_assignment -name SYSTEMVERILOG_FILE memory/memSelect.sv
+set_global_assignment -name SYSTEMVERILOG_FILE memory/mem_controller.sv
 set_global_assignment -name SYSTEMVERILOG_FILE memory/insMem.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/arm_tb_rom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/execute_tb.sv
@@ -591,4 +593,5 @@ set_global_assignment -name SYSTEMVERILOG_FILE arm/Control_unit.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/arm.sv
 set_global_assignment -name SYSTEMVERILOG_FILE arm/ALU.sv
 set_global_assignment -name QIP_FILE memory/ram.qip
+set_global_assignment -name MIF_FILE image.mif
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
