@@ -99,7 +99,13 @@ begin
      //NOP
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
-
+    
+    // STR R4 , R3, #1
+    N=1; Z=1; C=1; V=0;
+    op = OPDATA;cmd = FADD;
+    ImmEnable = 1; SetFlags = 1;
+    rd = 4; rn = 3; src2 = {11'b0 , 1'b1};
+    #2 // Un ciclo reloj
 
     #8 $stop;
 
