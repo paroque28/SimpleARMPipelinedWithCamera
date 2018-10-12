@@ -47,7 +47,7 @@ begin
     reset = 0; #2 reset = 1; #2 reset = 0;
     #4
  
-    // ADD R0 , R0, #1
+    // ADD R0 , R0, #7
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FADD;
     ImmEnable = 1; SetFlags = 1;
@@ -62,7 +62,7 @@ begin
     N=1; Z=1; C=1; V=0;
     op = OPMEMORY;cmd = 0; // Zero to work with memeory DOWN and not plusOne
     ImmEnable = 1; SetFlags = 0;
-    rd = 0; rn = 31; src2 = {12'b0 };
+    rd = 0; rn = 3; src2 = {12'b0 };
     #2 // Un ciclo reloj
 
     //NOP
@@ -120,6 +120,16 @@ begin
     rd = 4; rn = 3; src2 = {11'b0 , 1'b1};
     #2 // Un ciclo reloj
 
+     //NOP
+    N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
+    #8  // Cuatro ciclos reloj
+
+    // SUB R4 , R3, #1
+    N=1; Z=1; C=1; V=0;
+    op = OPDATA;cmd = FADD;
+    ImmEnable = 1; SetFlags = 1;
+    rd = 4; rn = 3; src2 = {11'b0 , 1'b1};
+    #2 // Un ciclo reloj
      //NOP
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
