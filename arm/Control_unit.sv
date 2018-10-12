@@ -35,7 +35,7 @@ assign LdStMem          = funct[0]; // Load / Store Flag  0: Store 1: Load
 assign PlusOne = (PlusOneMem && opcode == OPMEMORY);
 assign ALUSrcE = funct[5];
 assign MemToRegD = ( opcode == OPMEMORY && LdStMem);
-assign RegWriteD = ~((opcode == OPMEMORY && LdStMem) || cmd == FPIC || ( opcode == OPDATA && cmd == FNOP));
+assign RegWriteD = ~((opcode == OPMEMORY && ~LdStMem) || cmd == FPIC || ( opcode == OPDATA && cmd == FNOP) || opcode == OPBRANCH);
 assign ImmSrcD[0] = (opcode == OPMEMORY);
 assign ImmSrcD[1] = (opcode == OPBRANCH);
 
