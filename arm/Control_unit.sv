@@ -52,28 +52,38 @@ assign MemWriteD = ~SFlag & opcode == OPMEMORY;
 
 always_comb
 begin
-
-	case(cmd)
-	FNOP: begin //Case AND
-			ALUControlE =	NOP;
-	end
-	FADD: begin //Case ADD
-			ALUControlE =	ADD;
-	end
-	FSUB: begin //Case SUBS
-			ALUControlE =	SUB;
-	end
-	FMULT: begin //Case MULT
-			ALUControlE =	MULT;
-	end
-	FAVERAGE: begin//Case Ponderate RGB
-			ALUControlE =	AV;
-	end
-	default:
-	begin
-			ALUControlE =	4'bz;
-			end
+	case (opcode)
+		OPDATA:begin
+			case(cmd)
+				FNOP: begin //Case AND
+						ALUControlE =	NOP;
+				end
+				FADD: begin //Case ADD
+						ALUControlE =	ADD;
+				end
+				FSUB: begin //Case SUBS
+						ALUControlE =	SUB;
+				end
+				FMULT: begin //Case MULT
+						ALUControlE =	MULT;
+				end
+				FAVERAGE: begin//Case Ponderate RGB
+						ALUControlE =	AV;
+				end
+				default:
+				begin
+						ALUControlE =	4'bz;
+						end
+			endcase
+		end
+		OPMEMORY: ALUControlE = BUFFER;
+		OPBRANCH: ALUControlE = BUFFER;
+		default:
+		begin
+				ALUControlE =	4'bz;
+		end
 	endcase
+	
 end
 
 
