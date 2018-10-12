@@ -100,7 +100,7 @@ begin
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FAVERAGE;
     ImmEnable = 0; SetFlags = 1;
-    rd = 9; rn = 8; src2 = {12'b101 };
+    rd = 8; rn = 8; src2 = {12'b101 };
     #2 // Un ciclo reloj
     //NOP
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
