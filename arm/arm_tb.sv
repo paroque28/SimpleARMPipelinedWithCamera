@@ -62,7 +62,7 @@ begin
     N=1; Z=1; C=1; V=0;
     op = OPMEMORY;cmd = 0; // Zero to work with memeory DOWN and not plusOne
     ImmEnable = 1; SetFlags = 0;
-    rd = 0; rn = 3; src2 = {12'b0 };
+    rd = 0; rn = 31; src2 = {12'b0 };
     #2 // Un ciclo reloj
 
     //NOP
