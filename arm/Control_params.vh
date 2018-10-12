@@ -8,7 +8,6 @@ localparam FPIC	      = 4'b1001;
 localparam FAVERAGE	  = 4'b1010;
 localparam FLDA	      = 4'b1011;
 localparam FORR	      = 4'b1100;
-localparam FSTR_ONE   = 4'b1101;
 localparam FTHI       = 4'b1111;
 
 

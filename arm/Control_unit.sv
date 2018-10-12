@@ -32,7 +32,7 @@ assign ByteWordMem      = funct[2]; // Byte WOrd Flag 0: word 1: byte  // NOT IM
 assign WBMem            = funct[1]; // Write back Flag 0: no  1: write address //NOT IMPLEMENTED
 assign LdStMem          = funct[0]; // Load / Store Flag  0: Store 1: Load
 
-assign PlusOne = (cmd == FSTR_ONE && opcode == OPMEMORY);
+assign PlusOne = (PlusOneMem && opcode == OPMEMORY);
 assign ALUSrcE = funct[5];
 assign MemToRegD = ( opcode == OPDATA && LdStMem);
 assign RegWriteD = ~((opcode == OPDATA && LdStMem) || cmd == FPIC || ( opcode == OPDATA && cmd == FNOP));
@@ -42,7 +42,7 @@ assign ImmSrcD[1] = (opcode == OPBRANCH);
 assign BranchD = (opcode == OPBRANCH);
 //assign ALUOp = (opcode == OPDATA);
 assign RegSrcD[0] = (opcode == OPBRANCH);
-assign RegSrcD[1] = (opcode == OPMEMORY && ~LdStMemg);
+assign RegSrcD[1] = (opcode == OPMEMORY && ~LdStMem);
 assign PCSrcD = (opcode == OPBRANCH);
 
 assign FlagW[1] = SFlag;
@@ -66,18 +66,8 @@ begin
 	FMULT: begin //Case MULT
 			ALUControlE =	MULT;
 	end
-	FLOAD: begin//Case LOAD
-			ALUControlE =	BUFFER;
-	end
-	FSTR: begin//Case Store
-	 //Revisar si no hace Falta un MUX para pasar Reg2 o Inmediato a ser escrito
-			ALUControlE =	BUFFER;
-	end
 	FAVERAGE: begin//Case Ponderate RGB
 			ALUControlE =	AV;
-	end
-	FSTR_ONE: begin//Case Store Plus One //Revisar si no hace Falta un MUX para pasar Reg2 o Inmediato a ser escrito
-			ALUControlE =	BUFFER;
 	end
 	default:
 	begin
