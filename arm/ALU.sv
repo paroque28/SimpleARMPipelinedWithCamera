@@ -32,7 +32,7 @@ assign div = inputA/inputB;
 assign sl = inputA<<inputB;
 assign sr = inputA>>inputB;
 assign and_r = inputA & inputB;
-assign and_r = inputA | inputB;
+assign or_r = inputA | inputB;
 assign average = (inputA[7:0] + inputA[15:8] + inputA[23:16])/3;
 
 thinning thi (
