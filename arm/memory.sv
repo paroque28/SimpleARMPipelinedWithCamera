@@ -1,31 +1,55 @@
 module memory (
-  input logic clock, writeEnableIn, PlusOne,
-  input logic [31:0] ALUResultEIn, WA3Min, WriteDataM, ReadDataM,
+  input logic clock,
+              reset,
+              PlusOne,
+				      MemWriteMin,
+
+  input logic MemToRegIn,
+              PCSrcIn,
+              RegWriteM,
+				  
+  input logic [31:0] ALUOutM,
+                     WriteDataM,
+                     ReadDataM,
+  input logic [3:0] WA3Min,
+
+  output logic MemToRegOut,
+               PCSrcOut,
+               RegWriteW,
+					MemWriteMOut,
+
   output logic [31:0] writeData,
-  output logic [31:0] ALUResultMOut,ReadDataW, WA3Wout
+                      ALUOutW,
+                      ReadDataW,
+  output logic [3:0]  WA3Wout
   );
-  
+
   logic [31:0] WDataPlusOne;
 
-  adder #(32) AddOne(.a(WriteDataM),
-                      .b(1),
-                      .c(WDataPlusOne));
+  assign WDataPlusOne = WriteDataM + 1;
+  assign MemWriteMOut = MemWriteMin;
 
   mux2x1 #(32) mux7 (.a(WriteDataM),
                      .b(WDataPlusOne),
                      .ctrl(PlusOne),
                      .y(writeData));
 
-//MEMORY Retorna 
+//MEMORY Retorna
 
- pipeMemWB pipeMEM (.clk(clock),
+ pipeMemWB pipeMEM (.clk(clock), .reset(reset),
                      .RD(ReadDataM),
-                     .ALUOutM(ALUResultEIn),
+                     .ALUOutM(ALUOutM),
+                     .MemToRegIn(MemToRegIn),
                      .WA3M(WA3Min),
+                     .PCSrcIn(PCSrcIn),
+                     .MemToRegOut(MemToRegOut),
                      .ReadDataW(ReadDataW),
-                     .ALUOutW(ALUResultMOut),
-                     .WA3W(WA3Wout));
+                     .ALUOutW(ALUOutW),
+                     .WA3W(WA3Wout),
+                     .RegWriteIn(RegWriteM),
+                     .RegWriteOut(RegWriteW),
+                     .PCSrcOut(PCSrcOut)
+);
 
-//FALTA LA MEMORIA
 
 endmodule

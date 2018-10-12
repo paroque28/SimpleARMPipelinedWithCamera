@@ -1,16 +1,16 @@
 module memSelect(input [31:0] address,
-				output logic [3:0] mem_select
+				output logic [1:0] mem_select
 );
 
-parameter limitA = 'h40000;
-parameter limitB = 'h60000;
-parameter limitC = 'h60004;
+parameter limitA = 'h60000;
+parameter limitB = 'h60004;
+parameter limitC = 'h60008;
 parameter limitD = 'h80000;
 
 always_comb
-	if (address >= limitD) mem_select = 4'bzzzz;
-	else if (address >= limitC) mem_select = 4'b1000;
-	else if (address >= limitB) mem_select = 4'b0100;
-	else if (address >= limitA) mem_select = 4'b0010;
-	else  mem_select = 4'b0001;
+	if (address >= limitD) mem_select = 2'bzz;
+	else if (address >= limitC) mem_select = 2'b11;
+	else if (address >= limitB) mem_select = 2'b10;
+	else if (address >= limitA) mem_select = 2'b01;
+	else  mem_select = 2'b00;
 endmodule

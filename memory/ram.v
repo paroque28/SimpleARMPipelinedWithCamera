@@ -4,7 +4,7 @@
 // MODULE: altsyncram 
 
 // ============================================================
-// File Name: ram_2port.v
+// File Name: ram.v
 // Megafunction Name(s):
 // 			altsyncram
 //
@@ -36,7 +36,7 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module ram_2port(
+module ram (
 	address_a,
 	address_b,
 	clock_a,
@@ -48,11 +48,8 @@ module ram_2port(
 	q_a,
 	q_b);
 
-	parameter words = 65536;
-	parameter address_length = 16;
-	
-	input	[15:0]  address_a;
-	input	[15:0]  address_b;
+	input	[16:0]  address_a;
+	input	[16:0]  address_b;
 	input	  clock_a;
 	input	  clock_b;
 	input	[31:0]  data_a;
@@ -107,10 +104,11 @@ module ram_2port(
 		altsyncram_component.clock_enable_output_a = "BYPASS",
 		altsyncram_component.clock_enable_output_b = "BYPASS",
 		altsyncram_component.indata_reg_b = "CLOCK1",
+		altsyncram_component.init_file = "image.mif",
 		altsyncram_component.intended_device_family = "Cyclone V",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = words,
-		altsyncram_component.numwords_b = words,
+		altsyncram_component.numwords_a = 98304,
+		altsyncram_component.numwords_b = 98304,
 		altsyncram_component.operation_mode = "BIDIR_DUAL_PORT",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_aclr_b = "NONE",
@@ -119,8 +117,8 @@ module ram_2port(
 		altsyncram_component.power_up_uninitialized = "FALSE",
 		altsyncram_component.read_during_write_mode_port_a = "NEW_DATA_NO_NBE_READ",
 		altsyncram_component.read_during_write_mode_port_b = "NEW_DATA_NO_NBE_READ",
-		altsyncram_component.widthad_a = address_length,
-		altsyncram_component.widthad_b = address_length,
+		altsyncram_component.widthad_a = 17,
+		altsyncram_component.widthad_b = 17,
 		altsyncram_component.width_a = 32,
 		altsyncram_component.width_b = 32,
 		altsyncram_component.width_byteena_a = 1,
@@ -140,7 +138,7 @@ endmodule
 // Retrieval info: PRIVATE: BYTE_ENABLE_A NUMERIC "0"
 // Retrieval info: PRIVATE: BYTE_ENABLE_B NUMERIC "0"
 // Retrieval info: PRIVATE: BYTE_SIZE NUMERIC "8"
-// Retrieval info: PRIVATE: BlankMemory NUMERIC "1"
+// Retrieval info: PRIVATE: BlankMemory NUMERIC "0"
 // Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_A NUMERIC "0"
 // Retrieval info: PRIVATE: CLOCK_ENABLE_INPUT_B NUMERIC "0"
 // Retrieval info: PRIVATE: CLOCK_ENABLE_OUTPUT_A NUMERIC "0"
@@ -163,9 +161,9 @@ endmodule
 // Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 // Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
-// Retrieval info: PRIVATE: MEMSIZE NUMERIC "2097152"
+// Retrieval info: PRIVATE: MEMSIZE NUMERIC "3145728"
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
-// Retrieval info: PRIVATE: MIFfilename STRING ""
+// Retrieval info: PRIVATE: MIFfilename STRING "instructions.mif"
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "3"
 // Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "0"
 // Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "1"
@@ -199,10 +197,11 @@ endmodule
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
 // Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
 // Retrieval info: CONSTANT: INDATA_REG_B STRING "CLOCK1"
+// Retrieval info: CONSTANT: INIT_FILE STRING "instructions.mif"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
-// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "65536"
-// Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "65536"
+// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "98304"
+// Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "98304"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "BIDIR_DUAL_PORT"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "NONE"
@@ -211,15 +210,15 @@ endmodule
 // Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
 // Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_A STRING "NEW_DATA_NO_NBE_READ"
 // Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_B STRING "NEW_DATA_NO_NBE_READ"
-// Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "16"
-// Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "16"
+// Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "17"
+// Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "17"
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "32"
 // Retrieval info: CONSTANT: WIDTH_B NUMERIC "32"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_B NUMERIC "1"
 // Retrieval info: CONSTANT: WRCONTROL_WRADDRESS_REG_B STRING "CLOCK1"
-// Retrieval info: USED_PORT: address_a 0 0 16 0 INPUT NODEFVAL "address_a[15..0]"
-// Retrieval info: USED_PORT: address_b 0 0 16 0 INPUT NODEFVAL "address_b[15..0]"
+// Retrieval info: USED_PORT: address_a 0 0 17 0 INPUT NODEFVAL "address_a[16..0]"
+// Retrieval info: USED_PORT: address_b 0 0 17 0 INPUT NODEFVAL "address_b[16..0]"
 // Retrieval info: USED_PORT: clock_a 0 0 0 0 INPUT VCC "clock_a"
 // Retrieval info: USED_PORT: clock_b 0 0 0 0 INPUT NODEFVAL "clock_b"
 // Retrieval info: USED_PORT: data_a 0 0 32 0 INPUT NODEFVAL "data_a[31..0]"
@@ -228,8 +227,8 @@ endmodule
 // Retrieval info: USED_PORT: q_b 0 0 32 0 OUTPUT NODEFVAL "q_b[31..0]"
 // Retrieval info: USED_PORT: wren_a 0 0 0 0 INPUT GND "wren_a"
 // Retrieval info: USED_PORT: wren_b 0 0 0 0 INPUT GND "wren_b"
-// Retrieval info: CONNECT: @address_a 0 0 16 0 address_a 0 0 16 0
-// Retrieval info: CONNECT: @address_b 0 0 16 0 address_b 0 0 16 0
+// Retrieval info: CONNECT: @address_a 0 0 17 0 address_a 0 0 17 0
+// Retrieval info: CONNECT: @address_b 0 0 17 0 address_b 0 0 17 0
 // Retrieval info: CONNECT: @clock0 0 0 0 0 clock_a 0 0 0 0
 // Retrieval info: CONNECT: @clock1 0 0 0 0 clock_b 0 0 0 0
 // Retrieval info: CONNECT: @data_a 0 0 32 0 data_a 0 0 32 0
@@ -238,10 +237,10 @@ endmodule
 // Retrieval info: CONNECT: @wren_b 0 0 0 0 wren_b 0 0 0 0
 // Retrieval info: CONNECT: q_a 0 0 32 0 @q_a 0 0 32 0
 // Retrieval info: CONNECT: q_b 0 0 32 0 @q_b 0 0 32 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL ram_2port.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ram_2port.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ram_2port.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ram_2port.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ram_2port_inst.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL ram_2port_bb.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL ram_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf
