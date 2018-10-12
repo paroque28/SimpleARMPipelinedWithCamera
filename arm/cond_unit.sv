@@ -2,22 +2,21 @@ module cond_unit(   input logic clk, reset,
                     input [3:0] flagsE_in,
                     input [3:0] ALU_flags,
                     input [3:0] condE,
-                    input       FlagWriteE,
-                    output      condExE,
+                    input [1:0] FlagWriteE,
+                    output logic    condEx,
                     output [3:0] flagsE_out
                     );
                         
     logic [1:0] FlagWrite;
     logic [3:0] Flags;
-    logic CondEx;
-    assign FlagWrite = FlagWriteE & {2{CondEx}};
-    
+    assign FlagWrite = FlagWriteE & {2{condEx}};
+    assign flagsE_out = Flags;
     flopenr #(2)flagreg1(clk, reset, FlagWrite[1],
                         ALU_flags[3:2], Flags[3:2]);
     flopenr #(2)flagreg0(clk, reset, FlagWrite[0],
                         ALU_flags[1:0], Flags[1:0]);
 
-    condcheck cc(condE, Flags, CondEx);
+    condcheck cc(condE, Flags, condEx);
 
 endmodule
 
@@ -47,6 +46,7 @@ module condcheck(input logic [3:0] Cond,
         4'b1100: CondEx = ~zero & ge; // GT
         4'b1101: CondEx = ~(~zero & ge); // LE
         4'b1110: CondEx = 1'b1; // Always
+        4'b1111: CondEx = 1'b0; // Never
         default: CondEx = 1'bx; // undefined
     endcase
 endmodule

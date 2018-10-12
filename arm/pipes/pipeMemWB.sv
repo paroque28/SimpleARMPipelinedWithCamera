@@ -1,13 +1,13 @@
 module pipeMemWB (    input             clk,
-							        input				reset,
+					  input				reset,
                       input  [31:0]     RD,
                       input  [31:0]     ALUOutM,
                       input  [3:0]      WA3M,
                       input             MemToRegIn,RegWriteIn, PCSrcIn,
                       output logic [31:0] ReadDataW,
                       output logic [31:0] ALUOutW,
-                      output logic [3:0]  WA3W, MemToRegOut,
-					            output logic        RegWriteOut, PCSrcOut
+                      output logic [3:0]  WA3W, 
+					  output logic     MemToRegOut,  RegWriteOut, PCSrcOut
 
  );
 
@@ -40,7 +40,7 @@ module pipeMemWB (    input             clk,
 
 	always_ff @(negedge clk)
 	begin
-        if(~reset) begin
+        if(reset) begin
             ReadDataW   <= 0;
             ALUOutW     <= 0;
             WA3W        <= 0;
@@ -54,7 +54,7 @@ module pipeMemWB (    input             clk,
             WA3W      <= WAData;
             MemToRegOut <= MemToReg;
             RegWriteOut <= RegWrite;
-            PCSrcOut    <= PCSrcIn;
+            PCSrcOut    <= PCSrc;
         end
 
 	end

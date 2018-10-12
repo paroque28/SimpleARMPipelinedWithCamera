@@ -17,14 +17,14 @@ logic [32:0] sl;
 logic [32:0] sr;
 logic [31:0] and_r;
 logic [32:0] average;
-logic [32:0] thin;
+logic [31:0] thin;
 logic [32:0] result;
 
 logic fneg, fzero, fcarry, foverflow;
 
 
 assign outputC = result [31:0];
-assign  ALU_flags = {fneg, fzero, fcarry, foverflow};
+assign ALU_flags = {fneg, fzero, fcarry, foverflow};
 assign sum = inputA + inputB;
 assign sub = inputA-inputB;
 assign mult = inputA*inputB;
@@ -50,7 +50,7 @@ begin
 			result = inputA;
 		ADD://Case sum
 			result = sum;
-		ADD://Case sum
+		AND://Case AND
 			result = {1'b0 , and_r};
 		SUB://Case substraction
 			result = sub;
@@ -65,7 +65,7 @@ begin
 		AV://Case average
 			result = average;
 		THI://Case thinning
-			result = thin;
+			result = {1'b0, thin};
 		NOP://Case NOP
 			result = 0;
 			
