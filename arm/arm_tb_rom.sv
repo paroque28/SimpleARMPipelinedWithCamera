@@ -24,15 +24,10 @@ arm  processor(
     .ReadData(ReadData)
 );
 
-
-ram	RAM1 (
-	.address_a ( WriteAddress ),
-	.clock_a ( clk ),
-	.data_a ( WriteData ),
-	.wren_a ( write_enable ),
-	.q_a ( ReadData )
-	);
-//assign ReadData = 32'b0; //comment when RAM enabled
+mem_controller mem (    .clk(clk),
+                        .address(WriteAddress), .data_in(WriteData),
+                        .we(write_enable),
+                        .data_out(ReadData));
 
 insMem ROM (
     .a(PC),
