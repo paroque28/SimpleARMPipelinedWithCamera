@@ -1,4 +1,4 @@
-add r1, r1, #255
+add r1,r1,#255
 add r2, r2, #255
 mul r8, r8, #8
 mul r8, r2, #64
