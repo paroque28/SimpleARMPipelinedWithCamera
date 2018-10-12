@@ -46,7 +46,7 @@ assign RegSrcD[1] = (opcode == OPMEMORY && ~LdStMem);
 assign PCSrcD = (opcode == OPBRANCH);
 
 assign FlagW[1] = SFlag;
-assign FlagW[0] = SFlag & (ALUControlE == ADD | ALUControlE == SUB);
+assign FlagW[0] = SFlag & (ALUControlE == ADD | ALUControlE == SUB | ALUControlE == AND | ALUControlE == ORR);
 
 assign MemWriteD = ~SFlag & opcode == OPMEMORY;
 
@@ -55,21 +55,14 @@ begin
 	case (opcode)
 		OPDATA:begin
 			case(cmd)
-				FNOP: begin //Case AND
-						ALUControlE =	NOP;
-				end
-				FADD: begin //Case ADD
-						ALUControlE =	ADD;
-				end
-				FSUB: begin //Case SUBS
-						ALUControlE =	SUB;
-				end
-				FMULT: begin //Case MULT
-						ALUControlE =	MULT;
-				end
-				FAVERAGE: begin//Case Ponderate RGB
-						ALUControlE =	AV;
-				end
+				FNOP: ALUControlE =	NOP;
+				FADD: ALUControlE =	ADD;
+				FSUB: ALUControlE =	SUB;
+				FMULT: ALUControlE = MULT;
+				FORR: ALUControlE = ORR;
+				FAND: ALUControlE = AND;
+				FMOV: ALUControlE = BUFFER;
+				FAVERAGE:ALUControlE =	AV;
 				default:
 				begin
 						ALUControlE =	4'bz;
