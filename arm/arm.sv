@@ -17,7 +17,6 @@ module arm( input logic clk,
                InstMem, //Dato q sale da la memoria
                WriteDataE,
                pcPlus8D,
-               R15,
                dataRegAD,
                dataRegBD,
                dataRegCD,
