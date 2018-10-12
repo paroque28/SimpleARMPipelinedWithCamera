@@ -1,5 +1,10 @@
+add r2, r2, r3
+add r3, r4, #123
 mul r2, r2, r3
-add r3, r4
-ld r3, #123
-mul [r3]
-ld [#123]
+mul r3, r4, #123
+lsl r2, r2, r3
+lsl r3, r4, #123
+lsr r2, r2, r3
+lsr r3, r4, #123
+thi r2, r2, r3
+avg r1
