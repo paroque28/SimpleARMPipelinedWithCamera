@@ -126,7 +126,7 @@ begin
 
     // B #4
     N=1; Z=1; C=1; V=0;
-    op = OPBRANCH;cmd = 0;
+    op = OPBRANCH; cmd = 0;
     ImmEnable = 1; SetFlags = 0;
     rd = 0; rn = 0; src2 = 16;
     #2 // Un ciclo reloj
