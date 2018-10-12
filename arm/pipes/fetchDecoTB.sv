@@ -7,16 +7,16 @@ logic enable;
 logic [0:31] instMem;
 logic [0:31] instruction;
 
-pipeFetchDeco dut(.clk(clock), .clr(clear), .E(enable), .instIn(instMem), .instOut(instruction));
+pipeFetchDeco dut(.clk(clock), .reset(clear), .E(enable), .instIn(instMem), .instOut(instruction));
 
 //######TEST BENCH pipe Fetch Deco
 initial
 begin
 	//Fetch Deco
 	clock=0;
-	clear=0;
-	#5
 	clear=1;
+	#5
+	clear=0;
 	enable = 1;
 	instMem = 32'b10001000100010001000100010001000;
 	instruction = 0;

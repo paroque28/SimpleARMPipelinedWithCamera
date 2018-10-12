@@ -2,48 +2,53 @@
 
 module fetch(
   input logic clock,
-  input logic clearPipe,
+  input logic rst,
   input logic pipeEnable,
   input logic pcEnable,
-  input logic ctrlMux1,
-  input logic ctrlMux2,
-  input logic [31:0] mux1pin0,
-  input logic [31:0] mux1pin1,
-  input logic [31:0] mux2pin1,
+  input logic pcSrcW, //Control
+  input logic Branch, //Control
+  input logic [31:0] mux1ResultW,
+  input logic [31:0] mux2_aluresult,
   input logic [31:0] instPipeIn,
-  output logic [31:0] addressMem,
+  output logic [31:0] PC,
   output logic [31:0] instPipeOut,
-  output logic [31:0] pcPlus4
+  output logic [31:0] pcPlus8D
   );
 
-  logic [31:0] dirPC;
+  logic [31:0] dirPC, pcPlus4F;
   logic [31:0] mux1Out;
   logic [31:0] dirMem;
 
-  assign addressMem = dirMem;
 
-  pc PC (.clk(clock), .enable(pcEnable), .dirIn(dirPC), .dirOut(dirMem) );
+  assign pcPlus4F = PC + 4;
+  assign pcPlus8D = pcPlus4F;
+  assign PC = dirMem;
+
+  pc PCreg (
+          .clk(clock), .reset(rst),
+          .enable(pcEnable),
+          .dirIn(dirPC),
+          .dirOut(dirMem) );
 
   pipeFetchDeco pipe (.clk(clock),
-                      .clr(clearPipe),
+                      .reset(rst),
                       .E(pipeEnable),
                       .instIn(instPipeIn),
                       .instOut(instPipeOut)
                       );
 
 
-  mux2x1 mux1 (.a(mux1pin0),
-               .b(mux1pin1),
-               .ctrl(ctrlMux1),
+  mux2x1 mux1 (.a(pcPlus4F),
+               .b(mux1ResultW),
+               .ctrl(pcSrcW),
                .y(mux1Out)
                );
 
   mux2x1 mux2 (.a(mux1Out),
-                .b(mux2pin1),
-                .ctrl(ctrlMux2),
+                .b(mux2_aluresult),
+                .ctrl(Branch),
                 .y(dirPC)
                 );
 
-  adder #(32)add4(.a(dirMem), .b(4), .c(pcPlus4));
 
 endmodule

@@ -3,38 +3,50 @@ module mem_controller( input clk,
 			input we,
 			output logic [31:0] data_out);
 
-logic [31:0] a,b,c,d,y;
-logic	[1:0]			ctrl;
+logic [31:0] a,b;
+logic	[1:0]			memSel;
+logic	[3:0]			write_enable;
+logic [31:0] flags[3:0];
+
 memSelect(	.address(address),
-			.mem_select(ctrl)
+			.mem_select(memSel)
 );
-ram_2port	ram_1 (
+
+ram	ram_1 (
 	.address_a ( address ),
 	.clock_a ( clk ),
 	.data_a ( data_in ),
-	.wren_a ( we_block[0] ),
+	.wren_a ( write_enable[0] && we ),
 	.q_a ( a )
 	);
-ram_2port	 #(32768,15) ram_2(
-	.address_a ( address ),
-	.clock_a ( clk ),
-	.data_a ( data_in ),
-	.wren_a ( we_block[1] ),
-	.q_a ( b )
-	);
 
-mux4x1  #(32) data_output(.a(a),
-				.b(b),
-				.c(c),
-				.d(d),
-				.ctrl(ctrl),
-				.y(data_out));
-				
-logic [3:0] we_block; 
-
-deco we_deco (.sel(ctrl),
-		 .in(we),
-		 .out(we_block));
+always_comb begin
+	case(memSel)
+		2'b00: begin
+			write_enable = 4'b0001;
+			data_out = a;
+		end
+		2'b01: begin
+			write_enable = 4'b0010;
+			if(we) begin 
+				data_out = data_in;
+				flags[address[1:0]] = data_in;
+			end else data_out = flags[address[1:0]];
+		end
+		2'b10: begin
+			write_enable = 4'b0100;
+			data_out = 32'bz;
+		end
+		2'b11: begin
+			write_enable = 4'b1000;
+			data_out = 32'bz;
+		end
+		default: begin
+			write_enable = 4'bz;
+			data_out = 32'bz;
+		end
+	endcase
+end	
 
 
 endmodule

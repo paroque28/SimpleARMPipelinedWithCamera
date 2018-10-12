@@ -1,6 +1,6 @@
 
-module Control_unit (input logic [3:0] funct,
-							input logic opcode,
+module Control_unit (input logic [5:0] funct,
+							input logic [1:0]opcode,
 							output logic ALUSrcE,
 							output logic [3:0] ALUControlE,
 							output logic MemToRegD,
@@ -8,94 +8,79 @@ module Control_unit (input logic [3:0] funct,
 							output logic [1:0]ImmSrcD, // No va al pipe
 							output logic RegWriteD,
 							output logic PlusOne,
-							output logic BranchTakenE,
-							output logic PCSrcW
+							output logic BranchD,
+							output logic PCSrcD,
+							output logic [1:0] FlagW,
+							output logic MemWriteD
 							);
 
 
-`include "ALU_params.h"
-`include "Control_params.h"
+`include "ALU_params.vh"
+`include "Control_params.vh"
 
-assign PlusOne = (funct == fSTR_ONE);
-assign ALUSrcE = opcode;
-assign MemToRegD = (funct == fLOAD);
-assign RegWriteD = ~(funct == fSTR || funct == fPIC);
+logic [3:0] cmd;
+logic IFlag, SFlag, PlusOneMem, UpDownMem, ByteWordMem, WBMem, LdStMem;
+//logic ALUOp;
+//Data Flags
+assign cmd = funct [4:1];
+assign IFlag = funct[5]; //Immediate Flag
+assign SFlag = funct[0]; //Set Fflags flag
+//Memory flags
+assign PlusOneMem       = funct[4]; // Plus One  Flag 0: No 1: Add 1
+assign UpDownMem        = funct[3]; // Up Down Flag  0: down 1: up
+assign ByteWordMem      = funct[2]; // Byte WOrd Flag 0: word 1: byte  // NOT IMPLEMENTED
+assign WBMem            = funct[1]; // Write back Flag 0: no  1: write address //NOT IMPLEMENTED
+assign LdStMem          = funct[0]; // Load / Store Flag  0: Store 1: Load
 
-assign ImmSrcD[0] = (funct == fSTR || funct == fLOAD); //LUT
-assign ImmSrcD[1] = (funct == fB); //LUT
+assign PlusOne = (PlusOneMem && opcode == OPMEMORY);
+assign ALUSrcE = funct[5];
+assign MemToRegD =   (opcode == OPMEMORY &&  LdStMem);
+assign RegWriteD = ~((opcode == OPMEMORY && ~LdStMem) || cmd == FPIC || ( opcode == OPDATA && cmd == FNOP) || opcode == OPBRANCH);
+assign ImmSrcD[0] = (opcode == OPMEMORY);
+assign ImmSrcD[1] = (opcode == OPBRANCH);
 
+assign BranchD = (opcode == OPBRANCH);
+//assign ALUOp = (opcode == OPDATA);
+assign RegSrcD[0] = (opcode == OPBRANCH);
+assign RegSrcD[1] = (opcode == OPMEMORY && ~LdStMem);
+assign PCSrcD = (opcode == OPBRANCH);
+
+assign FlagW[1] = SFlag;
+assign FlagW[0] = SFlag & (ALUControlE == ADD | ALUControlE == SUB | ALUControlE == AND | ALUControlE == ORR);
+
+assign MemWriteD = ~SFlag & opcode == OPMEMORY;
 
 always_comb
 begin
-
-	case(funct)
-	fADD: begin //Case ADD
-			ALUControlE =	ADD;
-			RegSrcD 		=	2'b00;
-	end
-	fSUB: begin //Case SUBS
-			ALUControlE =	SUB;
-			RegSrcD 		=	2'b00;
-	end
-	fMULT: begin //Case MULT
-			ALUControlE =	MULT;
-			RegSrcD 		=	2'b00;
-	end
-
-	fLOAD: begin//Case LOAD
-			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
-	end
-	fSTR: begin//Case Store
-	 //Revisar si no hace falta un MUX para pasar Reg2 o Inmediato a ser escrito
-			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
-	end
-	/*
-	fSL: begin //Case Shift Left
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end
-	fSR: begin//Case Shift Right
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end
-	fB: begin//Case Branch
-			ALUControlE =	;
-			RegSrcD 		=	;
-	end
-	fPIC: begin//Case Take Picture
-			ALUControlE =	;
-			RegSrcD 		=	;
-			end*/
-
-	fAVERAGE: begin//Case Ponderate RGB
-			ALUControlE =	AV;
-			RegSrcD 		=	2'b00;
-	end
-	fSTR_ONE: begin//Case Store Plus One //Revisar si no hace falta un MUX para pasar Reg2 o Inmediato a ser escrito
-			ALUControlE =	BUFFER;
-			RegSrcD 		=	0;
-	end
-	// fTHI: begin//Case Thinning
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// end
-	// 4'b1110: begin
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// 		//ImmSrcD 		=
-	// end
-	// 4'b1111: begin
-	// 		ALUControlE =	;
-	// 		RegSrcD 		=	;
-	// 		end
-	default:
-	begin
-			ALUControlE =	1'bz;
-			RegSrcD 		=	1'bz;
-			end
+	case (opcode)
+		OPDATA:begin
+			case(cmd)
+				FNOP: ALUControlE =	NOP;
+				FADD: ALUControlE =	ADD;
+				FSUB: ALUControlE =	SUB;
+				FMULT: ALUControlE = MULT;
+				FORR: ALUControlE = ORR;
+				FAND: ALUControlE = AND;
+				FMOV: ALUControlE = BUFFER;
+				FAVERAGE:ALUControlE =	AV;
+				default:
+				begin
+						ALUControlE =	4'bz;
+						end
+			endcase
+		end
+		OPMEMORY: case (UpDownMem)
+						1'b0: ALUControlE = ADD;
+						1'b1: ALUControlE = SUB;
+						default: ALUControlE = ADD;
+		endcase
+		OPBRANCH: ALUControlE = ADD;
+		default:
+		begin
+				ALUControlE =	4'bz;
+		end
 	endcase
+	
 end
 
 
