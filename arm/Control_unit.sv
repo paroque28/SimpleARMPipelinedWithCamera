@@ -76,8 +76,12 @@ begin
 						end
 			endcase
 		end
-		OPMEMORY: ALUControlE = BUFFER;
-		OPBRANCH: ALUControlE = BUFFER;
+		OPMEMORY: case (UpDownMem)
+						1'b0: ALUControlE = ADD;
+						1'b1: ALUControlE = SUB;
+						default: ALUControlE = ADD;
+		endcase
+		OPBRANCH: ALUControlE = ADD;
 		default:
 		begin
 				ALUControlE =	4'bz;
