@@ -25,7 +25,7 @@ module fetch(
   assign PC = dirMem;
 
   pc PCreg (
-          .clk(clock),
+          .clk(clock), .reset(rst),
           .enable(pcEnable),
           .dirIn(dirPC),
           .dirOut(dirMem) );

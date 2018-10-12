@@ -1,18 +1,17 @@
 module memory (
   input logic clock,
               reset,
-              writeEnableIn,
               PlusOne,
-				  MemWriteMin,
+				      MemWriteMin,
 
   input logic MemToRegIn,
               PCSrcIn,
               RegWriteM,
 				  
   input logic [31:0] ALUOutM,
-                     WA3Min,
                      WriteDataM,
                      ReadDataM,
+  input logic [3:0] WA3Min,
 
   output logic MemToRegOut,
                PCSrcOut,
@@ -22,12 +21,13 @@ module memory (
   output logic [31:0] writeData,
                       ALUOutW,
                       ReadDataW,
-                      WA3Wout
+  output logic [3:0]  WA3Wout
   );
 
   logic [31:0] WDataPlusOne;
 
   assign WDataPlusOne = WriteDataM + 1;
+  assign MemWriteMOut = MemWriteMin;
 
   mux2x1 #(32) mux7 (.a(WriteDataM),
                      .b(WDataPlusOne),
