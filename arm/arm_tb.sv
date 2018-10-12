@@ -57,7 +57,7 @@ begin
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
-    // ADD R2 , R2, #0
+    // ADD R2 , R2, #255
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FADD;
     ImmEnable = 1; SetFlags = 1;
@@ -66,9 +66,18 @@ begin
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
-    // MULT R8 , R8, #12'b1000
+    // ADD R3 , R3, #255
     N=1; Z=1; C=1; V=0;
-    op = OPDATA;cmd = FSR;
+    op = OPDATA;cmd = FADD;
+    ImmEnable = 1; SetFlags = 1;
+    rd = 3; rn = 3; src2 = {12'hFFF};
+    #2 // Un ciclo reloj
+    N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
+    #8  // Cuatro ciclos reloj
+
+    // FSL R7 , R1, #12'b11
+    N=1; Z=1; C=1; V=0;
+    op = OPDATA;cmd = FSL;
     ImmEnable = 1; SetFlags = 1;
     rd = 7; rn = 1; src2 = {12'b1000};
     #2 // Un ciclo reloj
@@ -76,31 +85,53 @@ begin
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
-    // MULT R8 , R2, #0
+    // FSL R8 , R2, #12'b11
     N=1; Z=1; C=1; V=0;
-    op = OPDATA;cmd = FSR;
+    op = OPDATA;cmd = FSL;
     ImmEnable = 1; SetFlags = 1;
-    rd = 8  ; rn = 2; src2 = {12'b1000000};
+    rd = 8; rn = 2; src2 = {12'b10000};
     #2 // Un ciclo reloj
 
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
-    // ADD R9 , R8, R7
+    // FSL R9, R3, #12'b11
+    N=1; Z=1; C=1; V=0;
+    op = OPDATA;cmd = FSL;
+    ImmEnable = 1; SetFlags = 1;
+    rd = 9; rn = 3; src2 = {12'b11000};
+    #2 // Un ciclo reloj
+
+    N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
+    #8  // Cuatro ciclos reloj
+
+    // add r7 + r8 + r9
+    // add r10, r7, r8
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FADD;
     ImmEnable = 0; SetFlags = 1;
-    rd = 9; rn = 8; rm = 7;
+    rd = 10; rn = 7; rm =8;
     #2 // Un ciclo reloj
-   
+
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
+
+    // add r11, r10, r9
+    N=1; Z=1; C=1; V=0;
+    op = OPDATA;cmd = FADD;
+    ImmEnable = 0; SetFlags = 1;
+    rd = 11; rn = 10; rm =9;
+    #2 // Un ciclo reloj
+
+    N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
+    #8  // Cuatro ciclos reloj
+   
 
     // AVERAGE 
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FAVERAGE;
     ImmEnable = 0; SetFlags = 1;
-    rd = 8; rn = 8; src2 = {12'b101 };
+    rd = 12; rn = 11; src2 = {12'b101 };
     #2 // Un ciclo reloj
     //NOP
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
