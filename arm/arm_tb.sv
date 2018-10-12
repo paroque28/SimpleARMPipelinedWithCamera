@@ -51,7 +51,7 @@ begin
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FADD;
     ImmEnable = 1; SetFlags = 1;
-    rd = 0; rn = 0; src2 = {11'b0 , 1'b1};
+    rd = 0; rn = 0; src2 = {12'b111};
     #2 // Un ciclo reloj
 
     //NOP
