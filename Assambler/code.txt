@@ -3,13 +3,9 @@
 add r1, r1, #0 //mov 0 a R1
 add r2, r2, #0  //mov 0 a R2
 
-add r8, r8, #0  //mov 0 a R2
-save4096:
-add r9, r9, #4096  //mov 0 a R2
-add r8, r8, #1  //mov 0 a R2
-sub r7, r8, #18
-beq save4096
+
 add r10, r9, #3072  //mov 0 a R2
+//R10 tiene el valor de 78 600
 
 //Loop
 loop:
@@ -24,16 +20,3 @@ b loop
 
 histograma:
 
-ADD R6 , R0, #3
-
-nop
-nop
-nop
-ADD R4 , R0, #7
-nop
-nop
-nop
-
-ADD R1, R8, R6
-nop
-nop

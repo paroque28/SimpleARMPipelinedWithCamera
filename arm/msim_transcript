@@ -1,0 +1,8 @@
+# Reading D:/Programas_Sistema_D/Quartus/modelsim_ase/tcl/vsim/pref.tcl
+# vsim -gui -l msim_transcript work.arm_tb_rom -L altera_mf_ver 
+# Start time: 04:21:20 on Oct 12,2018
+# ** Error (suppressible): (vsim-19) Failed to access library 'work' at "work".
+# No such file or directory. (errno = ENOENT)
+# Error loading design
+# End time: 04:21:20 on Oct 12,2018, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0

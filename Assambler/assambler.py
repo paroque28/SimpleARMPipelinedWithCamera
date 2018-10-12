@@ -106,4 +106,4 @@ def assambler(file):
         ##code.append(code_line)
     print(code)
 
-assambler("D:\Archivos_D\TEC\Arqui 1\Proyecto1\img_proc_thin\Assambler\code.txt")
+assambler("D:\Archivos_D\TEC\Arqui 1\Proyecto1\img_proc_thin\Assambler\code.txt")   
