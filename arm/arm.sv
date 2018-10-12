@@ -135,6 +135,7 @@ logic [1:0] FlagWriteE;
         .clock(clk),
         .reset(reset),
         .PlusOne(1'b0),
+        .MemWriteMin(MemWriteE),
         .ALUOutM(ALUOutE),
         .WA3Min(WA3E_E),
         .WriteDataM(WriteDataE),
@@ -142,6 +143,7 @@ logic [1:0] FlagWriteE;
         .MemToRegIn(MemToRegE),
         .PCSrcIn(PCSrcE),
         .RegWriteM(RegWriteE),
+        
 
         // Outputs
         .MemToRegOut(MemToRegW),
