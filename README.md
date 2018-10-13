@@ -15,16 +15,13 @@ Es necesario tener los siguientes paquetes:
 
 ## Getting Started
 En este documento se describe como compilar y ejecutar el programa correspondiente al Proyecto 1.  
-Desde la terminal:
 1. Ubicarse dentro de la carpeta Proyecto1/
 Revisar la carpeta assambler que contiene instrucciones para compilar un código de prueba ubicado en el documento Instructions 
-2. Crear una carpeta llamada build
 
 ## Ejecición de los testbench
 1. Abrir Quartus prime, seleccionar como top level module el archivo arm_tb.sv
 2. Seleccionar la pestaña de RTL Compiler
 3. Ejecutar.
-
 
 ## Autores
 
