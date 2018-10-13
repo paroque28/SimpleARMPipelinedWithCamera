@@ -9,6 +9,7 @@ logic [3:0] cmd, cond, rn, rd, rm;
 logic [11:0] src2;
 logic N,Z,C,V;
 assign cond = {N,Z,C,V};
+//assign src2[11:7] = rm;
 // Functions data operations
 assign Instr = {cond, op, ImmEnable, cmd, SetFlags, rn, rd, src2};
 // Functions of memory operations
@@ -101,7 +102,6 @@ begin
     ImmEnable = 1; SetFlags = 1;
     rd = 9; rn = 3; src2 = {12'b11000};
     #2 // Un ciclo reloj
-
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
@@ -111,8 +111,8 @@ begin
     op = OPDATA;cmd = FADD;
     ImmEnable = 0; SetFlags = 1;
     rd = 10; rn = 7; rm =8;
+    src2[11:7] = rm;
     #2 // Un ciclo reloj
-
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
@@ -121,6 +121,7 @@ begin
     op = OPDATA;cmd = FADD;
     ImmEnable = 0; SetFlags = 1;
     rd = 11; rn = 10; rm =9;
+    src2[11:7] = rm;
     #2 // Un ciclo reloj
 
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
