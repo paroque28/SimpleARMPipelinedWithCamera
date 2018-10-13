@@ -52,7 +52,7 @@ begin
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FADD;
     ImmEnable = 1; SetFlags = 1;
-    rd = 1; rn = 1; src2 = {12'hFFF};
+    rd = 1; rn = 1; src2 = {12'hFF};
     #2 // Un ciclo reloj
 
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
@@ -62,7 +62,7 @@ begin
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FADD;
     ImmEnable = 1; SetFlags = 1;
-    rd = 2; rn = 2; src2 = {12'hFFF};
+    rd = 2; rn = 2; src2 = {12'hFF};
     #2 // Un ciclo reloj
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
@@ -71,39 +71,32 @@ begin
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FADD;
     ImmEnable = 1; SetFlags = 1;
-    rd = 3; rn = 3; src2 = {12'hFFF};
+    rd = 3; rn = 3; src2 = {12'hFF};
     #2 // Un ciclo reloj
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
-    // FSL R7 , R1, #12'b11
+    // FSL R7 , R2, #8
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FSL;
     ImmEnable = 1; SetFlags = 1;
-    rd = 7; rn = 1; src2 = {12'b1000};
+    rd = 7; rn = 2; src2 = {12'b1000};
     #2 // Un ciclo reloj
 
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
-    // FSL R8 , R2, #12'b11
+    // FSL R8 , R3, #16
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FSL;
     ImmEnable = 1; SetFlags = 1;
-    rd = 8; rn = 2; src2 = {12'b10000};
+    rd = 8; rn = 3; src2 = {12'b10000};
     #2 // Un ciclo reloj
 
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
-    // FSL R9, R3, #12'b11
-    N=1; Z=1; C=1; V=0;
-    op = OPDATA;cmd = FSL;
-    ImmEnable = 1; SetFlags = 1;
-    rd = 9; rn = 3; src2 = {12'b11000};
-    #2 // Un ciclo reloj
-    N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
-    #8  // Cuatro ciclos reloj
+   
 
     // add r7 + r8 + r9
     // add r10, r7, r8
@@ -111,17 +104,17 @@ begin
     op = OPDATA;cmd = FADD;
     ImmEnable = 0; SetFlags = 1;
     rd = 10; rn = 7; rm =8;
-    src2[11:7] = rm;
+    src2[3:0] = rm;
     #2 // Un ciclo reloj
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
     #8  // Cuatro ciclos reloj
 
-    // add r11, r10, r9
+    // add r11, r10, r1
     N=1; Z=1; C=1; V=0;
     op = OPDATA;cmd = FADD;
     ImmEnable = 0; SetFlags = 1;
-    rd = 11; rn = 10; rm =9;
-    src2[11:7] = rm;
+    rd = 11; rn = 10; rm =1;
+    src2[3:0] = rm;
     #2 // Un ciclo reloj
 
     N=0; Z=0; C=0; V=0; op = 0;ImmEnable = 0;cmd = 4'b0000;SetFlags = 0;rn = 0; rd = 0;src2 = 12'b0;
