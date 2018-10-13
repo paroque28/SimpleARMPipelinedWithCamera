@@ -4,7 +4,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY IMG_PROC
+set_global_assignment -name TOP_LEVEL_ENTITY arm_tb_rom
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.1.0
 set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:51:50 OCTOBER 04,2018"
@@ -172,133 +172,132 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name ENABLE_SIGNALTAP ON
 set_global_assignment -name USE_SIGNALTAP_FILE singletap.stp
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity arm_tb_rom -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity arm_tb_rom -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -entity arm_tb_rom -section_id Top
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK2_50 -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK3_50 -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK4_50 -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50 -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[7] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[8] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[9] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[7] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[8] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[9] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[10] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[11] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_FVAL -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_LVAL -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_PIXCLK -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_RESET_N -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_SCLK -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_SDATA -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_STROBE -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_TRIGGER -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_XCLKIN -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[7] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_DCLK -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[7] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_HSD -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[0] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[1] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[2] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[3] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[4] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[5] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[6] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[7] -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_TOUCH_I2C_SCL -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_TOUCH_I2C_SDA -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_TOUCH_INT_n -entity arm_tb_rom
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_VSD -entity arm_tb_rom
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK2_50
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK3_50
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK4_50
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX0[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX1[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX2[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX3[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX4[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to HEX5[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LEDR[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[9]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[10]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_D[11]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_FVAL
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_LVAL
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_PIXCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_RESET_N
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_SCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_SDATA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_STROBE
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_TRIGGER
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to D5M_XCLKIN
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_B[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_DCLK
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_G[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_HSD
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_R[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_TOUCH_I2C_SCL
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_TOUCH_I2C_SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_TOUCH_INT_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to MTL_VSD
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity arm_tb_rom -section_id Top
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -entity IMG_PROC -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -entity IMG_PROC -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -entity IMG_PROC -section_id Top
@@ -477,5 +476,6 @@ set_global_assignment -name VERILOG_FILE i2c/I2C_CCD_Config.v
 set_global_assignment -name SYSTEMVERILOG_FILE IMG_PROC.sv
 set_global_assignment -name SDC_FILE IMG_PROC.SDC
 set_global_assignment -name SIGNALTAP_FILE singletap.stp
-set_global_assignment -name SLD_FILE db/singletap_auto_stripped.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -entity IMG_PROC -section_id Top
+set_global_assignment -name SLD_FILE db/singletap_auto_stripped.stp
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

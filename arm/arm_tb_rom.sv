@@ -28,7 +28,7 @@ mem_controller mem (    .clk(clk),
                         .address(WriteAddress),  .address_b(WriteAddress),
 						.data_in(WriteData),	 .data_in_b(0),
                         .we(write_enable),		 .we_b(0),
-                        .data_out(ReadData), 	 .data_out_b());
+                        .data_out(ReadData), 	 .data_out_b(), .button(1'b0));
 insMem ROM (
     .a(PC),
     .d(Instr)

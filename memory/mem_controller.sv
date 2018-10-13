@@ -1,12 +1,11 @@
-module mem_controller( input clk,
+module mem_controller( input clk, reset,
 			input [31:0] address, data_in, address_b , data_in_b,
-			input we, we_b,
+			input we, we_b, button,
 			output logic [31:0] data_out, data_out_b);
 
-logic [31:0] a,b;
+logic   [31:0] 			a,b;
 logic	[1:0]			memSel;
 logic	[3:0]			write_enable;
-logic [31:0] flags[3:0];
 
 memSelect memsel(	.address(address),
 			.mem_select(memSel)
@@ -26,6 +25,11 @@ ram	ram_1 (
 	);
 
 always_comb begin
+	if (reset) begin
+        write_enable = 4'b0000;
+		data_out = 0;
+	end
+	else begin
 	case(memSel)
 		2'b00: begin
 			write_enable = 4'b0001;
@@ -33,10 +37,7 @@ always_comb begin
 		end
 		2'b01: begin
 			write_enable = 4'b0010;
-			if(we) begin 
-				data_out = data_in;
-				flags[address[1:0]] = data_in;
-			end else data_out = flags[address[1:0]];
+			data_out = data_in;
 		end
 		2'b10: begin
 			write_enable = 4'b0100;
@@ -51,8 +52,9 @@ always_comb begin
 			data_out = 32'bz;
 		end
 	endcase
+    end
+    
 end	
-
 
 endmodule
 

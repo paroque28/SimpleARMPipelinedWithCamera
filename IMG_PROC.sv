@@ -146,7 +146,7 @@ CCD_Capture			ccdc	(
 							.iFVAL      (rCCD_FVAL),
 							.iLVAL      (rCCD_LVAL),
 							.iSTART     (taking_picture),
-							.iEND       (!KEY[2]),
+							.iEND       (),
 							.iCLK       (D5M_PIXCLK),
 							.iRST       (DLY_RST_2)
 						);
@@ -192,16 +192,16 @@ logic [15:0] address_a, address_b;
 logic [31:0] q_a, q_b, data_a, data_b;
 logic clock_a, clock_b, wren_a, wren_b;
 assign clock_a = rClk[0];
-assign data_b = {4'b00000000, sCCD_R[7:0], sCCD_G[7:0], sCCD_B[7:0]} ;
+assign data_b = {4'b00000000, sCCD_R[11:4], sCCD_G[11:4], sCCD_B[11:4]} ;
 assign address_b = (pixel_valid_camera && taking_picture)? pixel_count_camera: ((pixel_valid_vga) ? pixel_count_vga : 0);
 assign clock_b = rClk[0];
 assign wren_b = pixel_valid_camera && taking_picture;
 
-mem_controller mem (    .clk( ~rClk[0]),
+mem_controller mem (    .clk( ~rClk[0]), .reset(DLY_RST_2),
                         .address(WriteAddress),  .address_b(address_b),
 						.data_in(WriteData),	 .data_in_b(data_b),
                         .we(write_enable),		 .we_b(wren_b),
-                        .data_out(ReadData), 	 .data_out_b(q_b));
+                        .data_out(ReadData), 	 .data_out_b(q_b), .button(b1));
 
 always_ff @(posedge b1 or posedge CLOCK_50) begin
 	if(b1) begin

@@ -1,7 +1,7 @@
 module insMem (input  logic [31:0] a,
 					output logic [31:0] d);
 		
-	logic [31:0] ROM[63:0];
+	logic [31:0] ROM[200:0];
 	
 	initial $readmemb("instructions.mem",ROM);
 		
