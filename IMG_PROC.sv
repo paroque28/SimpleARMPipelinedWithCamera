@@ -53,6 +53,9 @@ module IMG_PROC(
 //=======================================================
 //  REG/WIRE declarations
 //=======================================================
+
+logic write_enable;
+logic [31:0] PC, Instr, WriteAddress, WriteData, ReadData;
 logic	[1:0]		rClk;
 //VGA
 logic  reset;
@@ -129,37 +132,37 @@ VGA_Controller vga(	//	Host Side
 	
 	
 //Camera
-assign	D5M_RESET_N	=	DLY_RST_1;
-assign	D5M_TRIGGER	=	1'b1;  // tRIGGER
- CCD_Capture			ccdc	(	
- 							.oDATA      (mCCD_DATA),
- 							.oDVAL      (mCCD_DVAL),
- 							.oX_Cont    (X_Cont),
- 							.oY_Cont    (Y_Cont),
-							.oPixel_Cont(pixel_count_camera),
-							.oPixel_Valid(pixel_valid_camera),
- 							.oFrame_Cont(Frame_Cont),
- 							.iDATA      (rCCD_DATA),
- 							.iFVAL      (rCCD_FVAL),
- 							.iLVAL      (rCCD_LVAL),
- 							.iSTART     (!KEY[3]),
- 							.iEND       (!KEY[2]),
- 							.iCLK       (D5M_PIXCLK),
- 							.iRST       (DLY_RST_2)
- 						);
+// assign	D5M_RESET_N	=	DLY_RST_1;
+// assign	D5M_TRIGGER	=	1'b1;  // tRIGGER
+//  CCD_Capture			ccdc	(	
+//  							.oDATA      (mCCD_DATA),
+//  							.oDVAL      (mCCD_DVAL),
+//  							.oX_Cont    (X_Cont),
+//  							.oY_Cont    (Y_Cont),
+// 							.oPixel_Cont(pixel_count_camera),
+// 							.oPixel_Valid(pixel_valid_camera),
+//  							.oFrame_Cont(Frame_Cont),
+//  							.iDATA      (rCCD_DATA),
+//  							.iFVAL      (rCCD_FVAL),
+//  							.iLVAL      (rCCD_LVAL),
+//  							.iSTART     (!KEY[3]),
+//  							.iEND       (!KEY[2]),
+//  							.iCLK       (D5M_PIXCLK),
+//  							.iRST       (DLY_RST_2)
+//  						);
 
- RAW2RGB				raw2rgb	(	
- 						   .iCLK   (D5M_PIXCLK),
- 							.iRST   (DLY_RST_1),
- 							.iDATA  (mCCD_DATA),
- 							.iDVAL  (mCCD_DVAL),
- 							.oRed   (sCCD_R),
- 							.oGreen (sCCD_G),
- 							.oBlue  (sCCD_B),
- 							.oDVAL  (sCCD_DVAL),
- 							.iX_Cont(X_Cont),
- 							.iY_Cont(Y_Cont)
- 						);
+//  RAW2RGB				raw2rgb	(	
+//  						   .iCLK   (D5M_PIXCLK),
+//  							.iRST   (DLY_RST_1),
+//  							.iDATA  (mCCD_DATA),
+//  							.iDVAL  (mCCD_DVAL),
+//  							.oRed   (sCCD_R),
+//  							.oGreen (sCCD_G),
+//  							.oBlue  (sCCD_B),
+//  							.oDVAL  (sCCD_DVAL),
+//  							.iX_Cont(X_Cont),
+//  							.iY_Cont(Y_Cont)
+//  						);
 						
  Reset_Delay			reset_delay	(	
  							.iCLK  (CLOCK_50),
@@ -171,47 +174,39 @@ assign	D5M_TRIGGER	=	1'b1;  // tRIGGER
 						
 // I2c Camera
 
-I2C_CCD_Config 		u8	(	//	Host Side
-								 .iCLK			  (CLOCK_50),
-								 .iRST_N         (DLY_RST_2),
-								 .iZOOM_MODE_SW  (SW[8]),
-								 .iEXPOSURE_ADJ  (KEY[1]),
-								 .iEXPOSURE_DEC_p(SW[0]),
-								  //	I2C Side
-								 .I2C_SCLK		  (D5M_SCLK),
-								 .I2C_SDAT		  (D5M_SDATA)
-							   );
+// I2C_CCD_Config 		u8	(	//	Host Side
+// 								 .iCLK			  (CLOCK_50),
+// 								 .iRST_N         (DLY_RST_2),
+// 								 .iZOOM_MODE_SW  (SW[8]),
+// 								 .iEXPOSURE_ADJ  (KEY[1]),
+// 								 .iEXPOSURE_DEC_p(SW[0]),
+// 								  //	I2C Side
+// 								 .I2C_SCLK		  (D5M_SCLK),
+// 								 .I2C_SDAT		  (D5M_SDATA)
+// 							   );
 								
 //RAM
 
 logic [15:0] address_a, address_b;
 logic [31:0] q_a, q_b, data_a, data_b;
 logic clock_a, clock_b, wren_a, wren_b;
-assign address_a = pixel_count_camera;
+// assign address_a = pixel_count_camera;
 assign clock_a = rClk[0];
-assign data_a = {4'b00000000, sCCD_R[11:4], sCCD_G[7:0], sCCD_B[11:4]} ;
+// assign data_a = {4'b00000000, sCCD_R[11:4], sCCD_G[7:0], sCCD_B[11:4]} ;
 assign address_b = (pixel_valid_vga) ? pixel_count_vga : 0;
 assign clock_b = rClk[0];
-assign wren_a = pixel_valid_camera;
+// assign wren_a = pixel_valid_camera;
 assign wren_b = 1'b0;
-ram_2port	RAM_VIDEO (
-	.address_a ( address_a ),
-	.address_b ( address_b ),
-	.clock_a ( clock_a ),
-	.clock_b ( clock_b ),
-	.data_a ( data_a ),
-	.data_b ( data_b ),
-	.wren_a ( wren_a ),
-	.wren_b ( wren_b ),
-	.q_a ( q_a ),
-	.q_b ( q_b )
-	);
+
+mem_controller mem (    .clk(CLOCK_50),
+                        .address(WriteAddress),  .address_b(address_b),
+						.data_in(WriteData),	 .data_in_b(data_b),
+                        .we(write_enable),		 .we_b(wren_b),
+                        .data_out(ReadData), 	 .data_out_b(q_b));
 
 
-
-
-assign LEDR[8:0] = rCCD_DATA;
-assign LEDR[9] = D5M_PIXCLK;
+// assign LEDR[8:0] = rCCD_DATA;
+// assign LEDR[9] = D5M_PIXCLK;
 
 
 endmodule

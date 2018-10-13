@@ -1,23 +1,28 @@
 module mem_controller( input clk,
-			input [31:0] address, data_in,
-			input we,
-			output logic [31:0] data_out);
+			input [31:0] address, data_in, address_b , data_in_b,
+			input we, we_b,
+			output logic [31:0] data_out, data_out_b);
 
 logic [31:0] a,b;
 logic	[1:0]			memSel;
 logic	[3:0]			write_enable;
 logic [31:0] flags[3:0];
 
-memSelect(	.address(address),
+memSelect memsel(	.address(address),
 			.mem_select(memSel)
 );
 
 ram	ram_1 (
 	.address_a ( address ),
+	.address_b ( address_b ),
 	.clock_a ( clk ),
+	.clock_b ( clk ),
 	.data_a ( data_in ),
+	.data_b ( data_in_b ),
 	.wren_a ( write_enable[0] && we ),
-	.q_a ( a )
+	.wren_b ( we_b ),
+	.q_a ( a ),
+	.q_b ( data_out_b )
 	);
 
 always_comb begin

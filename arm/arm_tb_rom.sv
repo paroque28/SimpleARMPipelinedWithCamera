@@ -25,10 +25,10 @@ arm  processor(
 );
 
 mem_controller mem (    .clk(clk),
-                        .address(WriteAddress), .data_in(WriteData),
-                        .we(write_enable),
-                        .data_out(ReadData));
-
+                        .address(WriteAddress),  .address_b(WriteAddress),
+						.data_in(WriteData),	 .data_in_b(0),
+                        .we(write_enable),		 .we_b(0),
+                        .data_out(ReadData), 	 .data_out_b());
 insMem ROM (
     .a(PC),
     .d(Instr)
