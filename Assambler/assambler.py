@@ -1,10 +1,9 @@
 op = {"nop":'{0:04b}'.format(0b0000),#
     "mul":'{0:04b}'.format(0b0001),#
     "sub":'{0:04b}'.format(0b0010),#
-    "ld":'{0:04b}'.format(0b0011),
+    "ld":'{0:04b}'.format(0b0011),#
     "add":'{0:04b}'.format(0b0100),#
-    ##"addi":'{0:012b}'.format(0b111000101001),
-    "str":'{0:04b}'.format(5),
+    "str":'{0:04b}'.format(5),#
     "lsl":'{0:04b}'.format(6),#
     "lsr":'{0:04b}'.format(7),#
     "b":'{0:04b}'.format(8),#
@@ -13,8 +12,8 @@ op = {"nop":'{0:04b}'.format(0b0000),#
     "avg":'{0:04b}'.format(10),#
     "lda":'{0:04b}'.format(11),
     "orr":'{0:04b}'.format(12),#
-    "str_one":'{0:04b}'.format(13),
-    "thi":'{0:04b}'.format(15),
+    "str_one":'{0:04b}'.format(13),#
+    "thi":'{0:04b}'.format(15),#
     "r1":'{0:04b}'.format(1),
     "r2":'{0:04b}'.format(2),
     "r3":'{0:04b}'.format(3),
@@ -53,7 +52,6 @@ def code_line_manager_MEM(token_list):
         prelast_argument = token_list[-2] 
         p_index = 1
     token_list[-1] = token_list[-1].replace("[","")
-    ##token_list[-2] = prelast_argument.replace("[","")
     last_argument = token_list[-1]
     code_line[9] = op.get(token_list[1])
     if "#" in token_list[-1]:
@@ -92,14 +90,8 @@ def branch_manager(token_list,pc_current):
     code_line = ["cond", "1010", "offset"]
     code_line[0] = op.get(token_list[0])
     tag = token_list[1]
-    ##print("tag")
-    ##print(tag)
     tag_pos = int(tagdic.get(tag))
-    ##print("tag_pos")
-    ##print(tag_pos)
     branch_pos = pc_current + 1
-    ##print("branch_pos")
-    ##print(branch_pos)
     movement = tag_pos - branch_pos
     mov_str = str(bin(movement))
     end_str = '{0:024b}'.format(movement)
@@ -107,10 +99,7 @@ def branch_manager(token_list,pc_current):
         mov_str = mov_str.replace("-0b","1")
         str_size = len(mov_str)
         end_str = '{0:024b}'.format(comp_two(int(mov_str,2),int(str_size)))
-        ##print("end_str")
-        ##print(end_str)
     code_line[2] = str(end_str)
-    ##print(code_line)
     return code_line
 
 
@@ -171,24 +160,19 @@ def assambler(file):
         for i in range(len(tokens)-1):
             tokens[i] = tokens[i].lower()
         first_argument = tokens[0]
-        if (":" in first_argument) | (first_argument == ""): ##Check detection
+        if (":" in first_argument) | (first_argument == ""):
             write_flag = 0
         elif first_argument =="nop":
-            code_line += '{0:032b}'.format(0) ## + "\n"
+            code_line += '{0:032b}'.format(0)
         elif first_argument == "pic":
-            code_line += '{0:032b}'.format(9) ## + "\n" ##Faltan Cambios
-        ##elif first_argument == "thi":
-        ##    code_line += '{0:032b}'.format(15)
+            code_line += '{0:032b}'.format(9) 
         elif (first_argument == "beq") | (first_argument == "b"):
-           ## print("Main tagdic")
-            ##print(tagdic)
-            code_line = code_line.join(branch_manager(tokens,count_pcg)) ##+ "\n"
+            code_line = code_line.join(branch_manager(tokens,count_pcg))
         elif (first_argument == "ld") | (first_argument == "str") | (first_argument == "str_1") | (first_argument == "lda"):
-            code_line = code_line.join(code_line_manager_MEM(tokens)) ##+ "\n"
+            code_line = code_line.join(code_line_manager_MEM(tokens))
         else:
-            ##code_line = code_line_manager(tokens)
-            code_line = code_line.join(code_line_manager_DATA(tokens)) ##+ "\n"
-        ##print(count_pc)
+            code_line = code_line.join(code_line_manager_DATA(tokens))
+        
         if write_flag == 1:
             count_pc += 1
             count_pcg = count_pc
@@ -204,11 +188,6 @@ def assambler(file):
             ##result.write('{0:032b}'.format(0) + "\n")
         else:
             print("")
-        ##code.append(code_line)
     result.close()
-    ##print(code)
-    ##print(tagdic)
-    ##print(count_pc)
-    ##print(count_pcg)
 
 assambler('instructions.txt')
