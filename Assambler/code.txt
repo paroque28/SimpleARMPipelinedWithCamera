@@ -1,0 +1,22 @@
+//Average
+//Pos memory where image begins
+add r1, r1, #0 //mov 0 a R1
+add r2, r2, #0  //mov 0 a R2
+
+
+add r10, r9, #3072  //mov 0 a R2
+//R10 tiene el valor de 78 600
+
+//Loop
+loop:
+// Load 4byte image
+ldr r3, r1, r2
+avg r4, r3
+str r4, r1, r2
+sub r11 , r2, r10
+beq histograma 
+add r2, r2, #1
+b loop
+
+histograma:
+

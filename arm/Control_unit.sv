@@ -61,6 +61,8 @@ begin
 				FMULT: ALUControlE = MULT;
 				FORR: ALUControlE = ORR;
 				FAND: ALUControlE = AND;
+				FSL: ALUControlE = SL;
+				FSR: ALUControlE = SR;
 				FMOV: ALUControlE = BUFFER;
 				FAVERAGE:ALUControlE =	AV;
 				default:

@@ -1,0 +1,19 @@
+add r1,r1,#255
+
+ADD r2, r2, #255
+mul r8, r8,#8
+
+
+MUL r8, r2, #64
+BEQ Die
+add r9, r8, r7
+ld r1, [r2, r3]
+ld r1, [r2, #3]
+ld r1, [#3]
+ld r1, [r2]
+
+Die:
+str r1, [r2, r3]
+str r1, [r2, #3]
+str r1, [#3]
+str r1, [r2]
