@@ -92,12 +92,14 @@ def branch_manager(token_list,pc_current):
     code_line = ["cond", "1010", "offset"]
     code_line[0] = op.get(token_list[0])
     tag = token_list[1]
+    ##print("tag")
+    ##print(tag)
     tag_pos = int(tagdic.get(tag))
-    print("tag_pos")
-    print(tag_pos)
+    ##print("tag_pos")
+    ##print(tag_pos)
     branch_pos = pc_current + 1
-    print("branch_pos")
-    print(branch_pos)
+    ##print("branch_pos")
+    ##print(branch_pos)
     movement = tag_pos - branch_pos
     mov_str = str(bin(movement))
     end_str = '{0:024b}'.format(movement)
@@ -105,10 +107,10 @@ def branch_manager(token_list,pc_current):
         mov_str = mov_str.replace("-0b","1")
         str_size = len(mov_str)
         end_str = '{0:024b}'.format(comp_two(int(mov_str,2),int(str_size)))
-        print("end_str")
-        print(end_str)
+        ##print("end_str")
+        ##print(end_str)
     code_line[2] = str(end_str)
-    print(code_line)
+    ##print(code_line)
     return code_line
 
 
@@ -140,38 +142,18 @@ def assambler(file):
         lines = fp.read().split("\n")
     print("lines")
     print(lines)
-    ##Eliminates comas
-    lines_n = []
-    ##for i in lines:
-    ##    lines_n.append(i.replace(',',""))
-    ##    print(i)
-    print(count_pc)
-    ##for j in lines_n:
     for j in lines:
-        print("Enters") 
         tokens_t = j.split(",")
-        print("tokens_t")
-        print(tokens_t) 
         tokens_p = tokens_t[0]
         tokens_p = tokens_p.split(" ")
-        print("tokens_p")
-        print(tokens_p) 
         tokens_t.pop(0)
-        print("tokens_t poped")
-        print(tokens_t) 
         tokens = tokens_p + tokens_t
-        print("tokens")
-        print(tokens) 
         for i in tokens:
             tokens[tokens.index(i)] = tokens[tokens.index(i)].replace(" ","")
-        print("tokens_replaced_spaces")
-        print(tokens)
         argument = tokens[0]
         if ":" in argument:
             argument = argument.replace(":","")
-            ##global count_pcg
-            temp_PC = lines_n.index(j) + 1 
-            ##global tagdic
+            temp_PC = lines.index(j) + 1 
             tagdic[argument] = temp_PC
         else:
             print("")
@@ -185,10 +167,11 @@ def assambler(file):
         for i in tokens:
             tokens[tokens.index(i)] = tokens[tokens.index(i)].replace(" ","")
         code_line = ""
+        
+        for i in range(len(tokens)-1):
+            tokens[i] = tokens[i].lower()
         first_argument = tokens[0]
         if (":" in first_argument) | (first_argument == ""): ##Check detection
-            #first_argument = first_argument.replace(":","")
-            #tagdic[first_argument] = count_pcg
             write_flag = 0
         elif first_argument =="nop":
             code_line += '{0:032b}'.format(0) ## + "\n"
@@ -205,20 +188,22 @@ def assambler(file):
         else:
             ##code_line = code_line_manager(tokens)
             code_line = code_line.join(code_line_manager_DATA(tokens)) ##+ "\n"
-        print(count_pc)
+        ##print(count_pc)
         if write_flag == 1:
             count_pc += 1
             count_pcg = count_pc
             result = open('Resulting_Program.txt', 'a+')
+            for i in range(len(tokens)-1):
+                tokens[i] = tokens[i]+" "
             instruction = ""
             instruction = instruction.join(tokens)
             result.write(code_line + " " + "//" + instruction + "\n")
             result.write('{0:032b}'.format(0) + "\n")
             result.write('{0:032b}'.format(0) + "\n")
             result.write('{0:032b}'.format(0) + "\n")
-            result.write('{0:032b}'.format(0) + "\n")
+            ##result.write('{0:032b}'.format(0) + "\n")
         else:
-            print("TAG")
+            print("")
         ##code.append(code_line)
     result.close()
     ##print(code)
