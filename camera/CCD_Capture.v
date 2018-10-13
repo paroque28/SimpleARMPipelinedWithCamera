@@ -44,6 +44,8 @@ module CCD_Capture(	oDATA,
 					oDVAL,
 					oX_Cont,
 					oY_Cont,
+					oPixel_Cont,
+					oPixel_Valid,
 					oFrame_Cont,
 					iDATA,
 					iFVAL,
@@ -53,7 +55,8 @@ module CCD_Capture(	oDATA,
 					iCLK,
 					iRST
 					);
-					
+`include "img_size.vh"
+
 input	[11:0]	iDATA;
 input			iFVAL;
 input			iLVAL;
@@ -64,6 +67,8 @@ input			iRST;
 output	[11:0]	oDATA;
 output	[15:0]	oX_Cont;
 output	[15:0]	oY_Cont;
+output	[PIXELS-1:0]	oPixel_Cont;
+output	oPixel_Valid;
 output	[31:0]	oFrame_Cont;
 output			oDVAL;
 reg				Pre_FVAL;
@@ -82,6 +87,8 @@ assign	oY_Cont		=	Y_Cont;
 assign	oFrame_Cont	=	Frame_Cont;
 assign	oDATA		=	mCCD_DATA;
 assign	oDVAL		=	mCCD_FVAL&mCCD_LVAL;
+assign	oPixel_Cont		=	X_Cont + (Y_Cont * IMG_WIDTH);
+assign	oPixel_Valid	=	X_Cont <IMG_WIDTH && Y_Cont < IMG_HEIGHT;
 
 always@(posedge iCLK or negedge iRST)
 begin
@@ -114,13 +121,16 @@ begin
 		mCCD_FVAL	<=	1;
 		else if({Pre_FVAL,iFVAL}==2'b10)
 		mCCD_FVAL	<=	0;
+		else
+		mCCD_FVAL	<=	mCCD_FVAL;
 		mCCD_LVAL	<=	iLVAL;
 		if(mCCD_FVAL)
 		begin
 			if(mCCD_LVAL)
 			begin
-				if(X_Cont<(COLUMN_WIDTH-1))
-				X_Cont	<=	X_Cont+1;
+				if(X_Cont<(COLUMN_WIDTH-1)) begin
+					X_Cont	<=	X_Cont+1;
+				end
 				else
 				begin
 					X_Cont	<=	0;

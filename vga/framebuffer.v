@@ -10,7 +10,7 @@ module framebuffer
 	 output reg [7:0] green,
 	 output reg [7:0] blue
 	);
-`include "VGA_Param.h"
+`include "VGA_Param.vh"
 localparam XBITS = $clog2(H_SYNC_TOTAL);
 localparam YBITS = $clog2(V_SYNC_TOTAL);
 	always @(posedge vga_clk or negedge reset_n) begin
