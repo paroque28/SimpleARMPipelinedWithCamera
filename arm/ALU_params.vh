@@ -9,3 +9,4 @@ parameter AV     = 4'b0111;
 parameter THI    = 4'b1000;
 parameter AND	 = 4'b1001;
 parameter NOP	 = 4'b1010;
+parameter ORR	 = 4'b1011;

@@ -15,7 +15,7 @@ logic [32:0] mult;
 logic [32:0] div;
 logic [32:0] sl;
 logic [32:0] sr;
-logic [31:0] and_r;
+logic [31:0] and_r, or_r;
 logic [32:0] average;
 logic [31:0] thin;
 logic [32:0] result;
@@ -32,7 +32,7 @@ assign div = inputA/inputB;
 assign sl = inputA<<inputB;
 assign sr = inputA>>inputB;
 assign and_r = inputA & inputB;
-
+assign or_r = inputA | inputB;
 assign average = (inputA[7:0] + inputA[15:8] + inputA[23:16])/3;
 
 thinning thi (
@@ -52,6 +52,8 @@ begin
 			result = sum;
 		AND://Case AND
 			result = {1'b0 , and_r};
+		ORR://Case ORR
+			result = {1'b0 , or_r};
 		SUB://Case substraction
 			result = sub;
 		MULT://Case multiply
