@@ -5,6 +5,8 @@ module	VGA_Controller(	//	Host Side
 						oRequest,
 						oX,
 						oY,
+						oPixel_Cont,
+						oPixel_Valid,
 						//	VGA Side
 						oVGA_R,
 						oVGA_G,
@@ -16,9 +18,11 @@ module	VGA_Controller(	//	Host Side
 						iCLK,
 						iRST_N	);
 
-`include "VGA_Param.h"
+`include "VGA_Param.vh"
+`include "camera/img_size.vh"
 localparam XBITS = $clog2(H_SYNC_TOTAL);
 localparam YBITS = $clog2(V_SYNC_TOTAL);
+
 //	Host Side
 input		[7:0]	iRed;
 input		[7:0]	iGreen;
@@ -26,6 +30,8 @@ input		[7:0]	iBlue;
 output	logic			oRequest;
 output	logic		[XBITS-1:0]	oX;
 output	logic		[YBITS-1:0]	oY;
+output	logic		[PIXELS-1:0]	oPixel_Cont;
+output	logic		oPixel_Valid;
 //	VGA Side
 output		[7:0]	oVGA_R;
 output		[7:0]	oVGA_G;
@@ -55,6 +61,10 @@ assign	oVGA_B	=	(	H_Cont>=X_START 	&& H_Cont<X_START+H_SYNC_ACT &&
 
 assign	 oX 	= 	(	H_Cont>=X_START 	&& H_Cont<X_START+H_SYNC_ACT )	?	H_Cont-X_START	:	0;
 assign	 oY 	= 	(	V_Cont>=Y_START 	&& V_Cont<Y_START+V_SYNC_ACT )	?	V_Cont-Y_START	:	0;
+assign 	 oPixel_Cont = oX + (oY*IMG_WIDTH);
+assign   oPixel_Valid = (H_Cont>=X_START 	&& 	H_Cont<X_START+H_SYNC_ACT &&
+						V_Cont>=Y_START 	&& 	V_Cont<Y_START+V_SYNC_ACT  &&
+						oX <IMG_WIDTH 		&& 	oY< IMG_HEIGHT) ;
 //	Pixel LUT Address Generator
 always@(posedge iCLK or negedge iRST_N)
 begin
@@ -107,15 +117,19 @@ begin
 		if(H_Cont==0)
 		begin
 			//	V_Sync Counter
-			if( V_Cont < V_SYNC_TOTAL )
-			V_Cont	<=	V_Cont+1;
-			else
-			V_Cont	<=	0;
+			if( V_Cont < V_SYNC_TOTAL )begin
+				V_Cont	<=	V_Cont+1;
+			end
+			else begin
+				V_Cont	<=	0;
+			end
 			//	V_Sync Generator
-			if(	V_Cont < V_SYNC_CYC )
-			oVGA_V_SYNC	<=	0;
-			else
-			oVGA_V_SYNC	<=	1;
+			if(	V_Cont < V_SYNC_CYC )begin
+				oVGA_V_SYNC	<=	0;
+			end
+			else begin
+				oVGA_V_SYNC	<=	1;
+			end
 		end
 	end
 end
