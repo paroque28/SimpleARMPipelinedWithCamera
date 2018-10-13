@@ -112,9 +112,9 @@ always@(posedge CLOCK_50)	rClk	<=	rClk+1;
 //VGA
 
 VGA_Controller vga(	//	Host Side
-						.iRed(  (pixel_valid_vga) ?{q_b[23:16], 4'b0000}:0),
+						.iRed(  (pixel_valid_vga) ?{q_b[7:0], 4'b0000}:0),
 						.iGreen((pixel_valid_vga) ?{q_b[15:8] , 4'b0000}:0),
-						.iBlue( (pixel_valid_vga) ?{q_b[7:0]  , 4'b0000}:0),
+						.iBlue( (pixel_valid_vga) ?{q_b[23:16]  , 4'b0000}:0),
 						.oX(fx),
 						.oY(fy),
 						.oPixel_Cont(pixel_count_vga),
@@ -198,7 +198,7 @@ assign clock_b = rClk[0];
 // assign wren_a = pixel_valid_camera;
 assign wren_b = 1'b0;
 
-mem_controller mem (    .clk(CLOCK_50),
+mem_controller mem (    .clk( ~rClk[0]),
                         .address(WriteAddress),  .address_b(address_b),
 						.data_in(WriteData),	 .data_in_b(data_b),
                         .we(write_enable),		 .we_b(wren_b),

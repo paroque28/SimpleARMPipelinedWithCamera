@@ -16,7 +16,7 @@ logic [32:0] div;
 logic [32:0] sl;
 logic [32:0] sr;
 logic [31:0] and_r, or_r;
-logic [32:0] average;
+logic [7:0] average;
 logic [31:0] thin;
 logic [32:0] result;
 
@@ -65,7 +65,7 @@ begin
 		SR://Case shift Right
 			result = sr;
 		AV://Case average
-			result = average;
+			result = {average, inputA[23:16], inputA[15:8] , inputA[7:0]};
 		THI://Case thinning
 			result = {1'b0, thin};
 		NOP://Case NOP
