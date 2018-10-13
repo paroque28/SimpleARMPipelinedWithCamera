@@ -81,7 +81,7 @@ logic pixel_valid_vga;
  logic	[11:0]	sCCD_G;
  logic	[11:0]	sCCD_B;
  logic			sCCD_DVAL;
-
+logic taking_picture;
 
 // Delay
 
@@ -112,9 +112,9 @@ always@(posedge CLOCK_50)	rClk	<=	rClk+1;
 //VGA
 
 VGA_Controller vga(	//	Host Side
-						.iRed(  (pixel_valid_vga) ?{q_b[7:0], 4'b0000}:0),
-						.iGreen((pixel_valid_vga) ?{q_b[15:8] , 4'b0000}:0),
-						.iBlue( (pixel_valid_vga) ?{q_b[23:16]  , 4'b0000}:0),
+						.iRed(  (pixel_valid_vga) ?q_b[7:0]:0),
+						.iGreen((pixel_valid_vga) ?q_b[15:8]:0),
+						.iBlue( (pixel_valid_vga) ?q_b[23:16]:0),
 						.oX(fx),
 						.oY(fy),
 						.oPixel_Cont(pixel_count_vga),
@@ -132,71 +132,70 @@ VGA_Controller vga(	//	Host Side
 	
 	
 //Camera
-// assign	D5M_RESET_N	=	DLY_RST_1;
-// assign	D5M_TRIGGER	=	1'b1;  // tRIGGER
-//  CCD_Capture			ccdc	(	
-//  							.oDATA      (mCCD_DATA),
-//  							.oDVAL      (mCCD_DVAL),
-//  							.oX_Cont    (X_Cont),
-//  							.oY_Cont    (Y_Cont),
-// 							.oPixel_Cont(pixel_count_camera),
-// 							.oPixel_Valid(pixel_valid_camera),
-//  							.oFrame_Cont(Frame_Cont),
-//  							.iDATA      (rCCD_DATA),
-//  							.iFVAL      (rCCD_FVAL),
-//  							.iLVAL      (rCCD_LVAL),
-//  							.iSTART     (!KEY[3]),
-//  							.iEND       (!KEY[2]),
-//  							.iCLK       (D5M_PIXCLK),
-//  							.iRST       (DLY_RST_2)
-//  						);
+assign	D5M_RESET_N	=	DLY_RST_1;
+assign	D5M_TRIGGER	=	1'b1;  // tRIGGER
+CCD_Capture			ccdc	(	
+							.oDATA      (mCCD_DATA),
+							.oDVAL      (mCCD_DVAL),
+							.oX_Cont    (X_Cont),
+							.oY_Cont    (Y_Cont),
+							.oPixel_Cont(pixel_count_camera),
+							.oPixel_Valid(pixel_valid_camera),
+							.oFrame_Cont(Frame_Cont),
+							.iDATA      (rCCD_DATA),
+							.iFVAL      (rCCD_FVAL),
+							.iLVAL      (rCCD_LVAL),
+							.iSTART     (taking_picture),
+							.iEND       (!KEY[2]),
+							.iCLK       (D5M_PIXCLK),
+							.iRST       (DLY_RST_2)
+						);
 
-//  RAW2RGB				raw2rgb	(	
-//  						   .iCLK   (D5M_PIXCLK),
-//  							.iRST   (DLY_RST_1),
-//  							.iDATA  (mCCD_DATA),
-//  							.iDVAL  (mCCD_DVAL),
-//  							.oRed   (sCCD_R),
-//  							.oGreen (sCCD_G),
-//  							.oBlue  (sCCD_B),
-//  							.oDVAL  (sCCD_DVAL),
-//  							.iX_Cont(X_Cont),
-//  							.iY_Cont(Y_Cont)
-//  						);
+RAW2RGB				raw2rgb	(	
+						   .iCLK   (D5M_PIXCLK),
+							.iRST   (DLY_RST_1),
+							.iDATA  (mCCD_DATA),
+							.iDVAL  (mCCD_DVAL),
+							.oRed   (sCCD_R),
+							.oGreen (sCCD_G),
+							.oBlue  (sCCD_B),
+							.oDVAL  (sCCD_DVAL),
+							.iX_Cont(X_Cont),
+							.iY_Cont(Y_Cont)
+						);
 						
- Reset_Delay			reset_delay	(	
- 							.iCLK  (CLOCK_50),
- 							.iRST  (KEY[0]),
- 							.oRST_0(DLY_RST_0),
- 							.oRST_1(DLY_RST_1),
- 							.oRST_2(DLY_RST_2)
- 						);
+Reset_Delay			reset_delay	(	
+							.iCLK  (CLOCK_50),
+							.iRST  (KEY[0]),
+							.oRST_0(DLY_RST_0),
+							.oRST_1(DLY_RST_1),
+							.oRST_2(DLY_RST_2)
+						);
 						
 // I2c Camera
 
-// I2C_CCD_Config 		u8	(	//	Host Side
-// 								 .iCLK			  (CLOCK_50),
-// 								 .iRST_N         (DLY_RST_2),
-// 								 .iZOOM_MODE_SW  (SW[8]),
-// 								 .iEXPOSURE_ADJ  (KEY[1]),
-// 								 .iEXPOSURE_DEC_p(SW[0]),
-// 								  //	I2C Side
-// 								 .I2C_SCLK		  (D5M_SCLK),
-// 								 .I2C_SDAT		  (D5M_SDATA)
-// 							   );
-								
+I2C_CCD_Config 		u8	(	//	Host Side
+								 .iCLK			  (CLOCK_50),
+								 .iRST_N         (DLY_RST_2),
+								 .iZOOM_MODE_SW  (SW[8]),
+								 .iEXPOSURE_ADJ  (KEY[1]),
+								 .iEXPOSURE_DEC_p(SW[0]),
+								  //	I2C Side
+								 .I2C_SCLK		  (D5M_SCLK),
+								 .I2C_SDAT		  (D5M_SDATA)
+							   );
+logic b1;
+debounce but1(.clk(CLOCK_50), .PB(~KEY[3]), .PB_state(b1) );							
 //RAM
 
 logic [15:0] address_a, address_b;
 logic [31:0] q_a, q_b, data_a, data_b;
 logic clock_a, clock_b, wren_a, wren_b;
-// assign address_a = pixel_count_camera;
 assign clock_a = rClk[0];
-// assign data_a = {4'b00000000, sCCD_R[11:4], sCCD_G[7:0], sCCD_B[11:4]} ;
-assign address_b = (pixel_valid_vga) ? pixel_count_vga : 0;
+assign data_b = {4'b00000000, sCCD_R[7:0], sCCD_G[7:0], sCCD_B[7:0]} ;
+assign address_b = (pixel_valid_camera && taking_picture)? pixel_count_camera: ((pixel_valid_vga) ? pixel_count_vga : 0);
 assign clock_b = rClk[0];
-// assign wren_a = pixel_valid_camera;
-assign wren_b = 1'b0;
+assign wren_b = pixel_valid_camera && taking_picture;
 
 mem_controller mem (    .clk( ~rClk[0]),
                         .address(WriteAddress),  .address_b(address_b),
@@ -204,9 +203,20 @@ mem_controller mem (    .clk( ~rClk[0]),
                         .we(write_enable),		 .we_b(wren_b),
                         .data_out(ReadData), 	 .data_out_b(q_b));
 
+always_ff @(posedge b1 or posedge CLOCK_50) begin
+	if(b1) begin
+		taking_picture = 1'b1;
+	end
+	else begin
+		if (pixel_count_camera == 0)
+			taking_picture = 1'b0;
+	end
 
-// assign LEDR[8:0] = rCCD_DATA;
-// assign LEDR[9] = D5M_PIXCLK;
+end
+
+
+assign LEDR[8:0] = rCCD_DATA;
+assign LEDR[9] = b1;
 
 
 endmodule
