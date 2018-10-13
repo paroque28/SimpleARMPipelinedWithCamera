@@ -1,19 +1,8 @@
-add r1,r1,#255
-
-ADD r2, r2, #255
-mul r8, r8,#8
-
-
-MUL r8, r2, #64
-BEQ Die
-add r9, r8, r7
-ld r1, [r2, r3]
-ld r1, [r2, #3]
-ld r1, [#3]
-ld r1, [r2]
-
-Die:
-str r1, [r2, r3]
-str r1, [r2, #3]
-str r1, [#3]
-str r1, [r2]
+ld r1, [r0]
+avg r1
+die:
+str r1, [r0]
+add r0, r0, #4
+sub r0, r0, r1
+b die
+sub r1, r1, r1

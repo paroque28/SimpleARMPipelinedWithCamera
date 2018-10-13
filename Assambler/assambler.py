@@ -14,6 +14,7 @@ op = {"nop":'{0:04b}'.format(0b0000),#
     "orr":'{0:04b}'.format(12),#
     "str_one":'{0:04b}'.format(13),#
     "thi":'{0:04b}'.format(15),#
+    "r0":'{0:04b}'.format(0),
     "r1":'{0:04b}'.format(1),
     "r2":'{0:04b}'.format(2),
     "r3":'{0:04b}'.format(3),
@@ -45,13 +46,23 @@ def code_line_manager_MEM(token_list):
     code_line = ["1110", "01", "0", " ","1","0","0", " ", " ", " ", " "]
     last_argument = token_list[-1]
     first_argument = token_list[0]
+    print("first_argument")
+    print(first_argument)
+    print("last_argument")
+    print(last_argument)
     p_index = 0
     token_list[-1] = last_argument.replace("]","")
+    
+    print("token_list[-1]")
+    print(token_list[-1])
     if "[" not in last_argument:
+        print("enters")
         token_list[-2] = token_list[-2].replace("[","")
         prelast_argument = token_list[-2] 
         p_index = 1
     token_list[-1] = token_list[-1].replace("[","")
+    print("token_list[-1]")
+    print(token_list[-1])
     last_argument = token_list[-1]
     code_line[9] = op.get(token_list[1])
     if "#" in token_list[-1]:
@@ -91,14 +102,24 @@ def branch_manager(token_list,pc_current):
     code_line[0] = op.get(token_list[0])
     tag = token_list[1]
     tag_pos = int(tagdic.get(tag))
-    branch_pos = pc_current + 1
+    print("tag_pos")
+    print(tag_pos)
+    branch_pos = pc_current*3 + 2 
+    print("branch_pos")
+    print(branch_pos)
     movement = tag_pos - branch_pos
+    print("movement")
+    print(movement)
     mov_str = str(bin(movement))
     end_str = '{0:024b}'.format(movement)
+    print("end_str")
+    print(end_str)
     if "-0b" in mov_str:
         mov_str = mov_str.replace("-0b","1")
         str_size = len(mov_str)
         end_str = '{0:024b}'.format(comp_two(int(mov_str,2),int(str_size)))
+    print("end_str")
+    print(end_str)
     code_line[2] = str(end_str)
     return code_line
 
